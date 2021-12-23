@@ -3,6 +3,7 @@ import { SliderData } from "./SliderData";
 import FaArrowAltCircleLeft from "@mui/icons-material/ArrowCircleLeftRounded";
 import FaArrowAltCircleRight from "@mui/icons-material/ArrowCircleRightRounded";
 import Grid from "@mui/material/Grid";
+import { DonutLarge } from "@material-ui/icons";
 
 const ImageSlider = ({ slides }) => {
   const [current, setCurrent] = useState(0);
@@ -21,6 +22,9 @@ const ImageSlider = ({ slides }) => {
   }
 
   return (
+    <div 
+    style= {{msOverflowY :"scroll" , whiteSpace: "nowrap"}}
+   >
     <Grid
       xs="auto"
       container
@@ -29,14 +33,16 @@ const ImageSlider = ({ slides }) => {
       alignItems="center"
       spacing={1}
     >
-      <Grid item xs="auto">
-        <FaArrowAltCircleLeft
-          className="left-arrow"
-          onClick={prevSlide}
-          sx={{ fontSize: 60, color: "white" }}
-        />
+      {/* <Grid item xs="auto">
+      <p style={{color:"white",fontSize:"280%",fontStyle:"bolder",fontFammily:"cursive"}}>NO</p>
+      <p style={{color:"white"}}>PAIN</p>
+      <p style={{color:"white"}}>NO</p>
+      <p style={{color:"white"}}>GAIN</p>
+      </Grid> */}
+      <Grid item xs="auto"  >
+        <FaArrowAltCircleLeft className="left-arrow" onClick={prevSlide}  sx={{ fontSize: 40  ,color: "white" }}  />
       </Grid>
-      <Grid item xs={6.5}>
+      <Grid item xs={6.5} style={{paddingLeft: "59px" }}>
         {SliderData.map((slide, index) => {
           return (
             <div
@@ -57,13 +63,10 @@ const ImageSlider = ({ slides }) => {
         })}
       </Grid>
       <Grid item xs="auto">
-        <FaArrowAltCircleRight
-          className="right-arrow"
-          onClick={nextSlide}
-          sx={{ fontSize: 60, color: "white" }}
-        />
+        <FaArrowAltCircleRight className="right-arrow" onClick={nextSlide}   sx={{ fontSize: 40 ,color: "white" }} />
       </Grid>
     </Grid>
+  </div>
   );
 };
 

@@ -4,6 +4,7 @@ import Grid from "@mui/material/Grid";
 
 const HomePage = () => {
   return (
+    
     <Grid
       container
       direction="column"
@@ -18,6 +19,7 @@ const HomePage = () => {
       <About />
       </Grid>
     </Grid>
+   
   );
 };
 
