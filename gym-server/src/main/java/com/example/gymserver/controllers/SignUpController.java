@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/sign-up")
 public class SignUpController {
 
-    private UserRepository userRepository;
+    private final SignUpController signUpController;
 
     @Autowired
-    public SignUpController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public SignUpController(SignUpController signUpController) {
+        this.signUpController = signUpController;
     }
 }
