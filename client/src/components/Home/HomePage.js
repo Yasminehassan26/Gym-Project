@@ -2,7 +2,7 @@ import HomeBar from "./HomeBar";
 import About from "./About";
 import Grid from "@mui/material/Grid";
 
-const HomePage = () => {
+const HomePage = ({colorPallet}) => {
   return (
     <Grid
       container
@@ -12,10 +12,10 @@ const HomePage = () => {
       backgroundColor = "black"
     >
       <Grid>
-      <HomeBar />
+      <HomeBar colorPallet = {colorPallet} />
       </Grid>
       <Grid>
-      <About />
+      <About colorPallet = {colorPallet} />
       </Grid>
     </Grid>
   );
