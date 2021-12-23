@@ -15,9 +15,9 @@ import Select from "@mui/material/Select";
 import FormControl from "@mui/material/FormControl";
 import FormHelperText from "@mui/material/FormHelperText";
 
-const theme = createTheme();
 
-export default function SignUp() {
+
+export default function SignUp({colorPallet}) {
   const [state, setState] = React.useState({
     firstName: "",
     lastName: "",
@@ -41,7 +41,7 @@ export default function SignUp() {
   };
 
   return (
-    <ThemeProvider theme={theme}>
+  
       <Grid container component="main" sx={{ height: "100vh" }}>
         <CssBaseline />
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
@@ -54,7 +54,7 @@ export default function SignUp() {
               alignItems: "center",
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+            <Avatar sx={{ m: 1, bgcolor: colorPallet[0] }}>
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
@@ -153,7 +153,7 @@ export default function SignUp() {
                 type="submit"
                 fullWidth
                 variant="contained"
-                sx={{ mt: 3, mb: 2 }}
+                sx={{ mt: 3, mb: 2, backgroundColor:colorPallet[0] }}
               >
                 Sign Up
               </Button>
@@ -166,17 +166,14 @@ export default function SignUp() {
           sm={4}
           md={7}
           sx={{
-            backgroundImage: "url(https://source.unsplash.com/featured/?gym)",
+            backgroundImage: "url(https://source.unsplash.com/featured/?healthy)",
             backgroundRepeat: "no-repeat",
-            backgroundColor: (t) =>
-              t.palette.mode === "light"
-                ? t.palette.grey[50]
-                : t.palette.grey[900],
+          
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
         />
       </Grid>
-    </ThemeProvider>
+   
   );
 }

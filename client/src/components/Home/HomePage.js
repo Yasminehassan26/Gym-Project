@@ -9,10 +9,14 @@ const HomePage = () => {
       direction="column"
       justifyContent="space-evenly"
       alignItems="center"
+      backgroundColor = "black"
     >
-      {/* <HomeBar /> */}
-
+      <Grid>
+      <HomeBar />
+      </Grid>
+      <Grid>
       <About />
+      </Grid>
     </Grid>
   );
 };

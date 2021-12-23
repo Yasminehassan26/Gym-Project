@@ -45,7 +45,7 @@ export default function Profile() {
         onClose={handleClose}
         TransitionComponent={Transition}
       >
-        <AppBar sx={{ position: 'relative' }}>
+        <AppBar sx={{ position: 'relative',backgroundColor:"#cc1b85" }}>
           <Toolbar>
             <IconButton
               edge="start"
