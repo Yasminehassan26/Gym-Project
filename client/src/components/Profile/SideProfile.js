@@ -1,5 +1,5 @@
-import { useState,useEffect } from "react";
 import * as React from "react";
+import { useState, useEffect } from "react";
 import Stack from "@mui/material/Stack";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -7,22 +7,19 @@ import IconButton from "@mui/material/IconButton";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import Badge from "@mui/material/Badge";
 import { styled } from "@mui/material/styles";
-import TextField from '@mui/material/TextField';
-
+import TextField from "@mui/material/TextField";
 
 const Input = styled("input")({
   display: "none",
 });
 export default function SideProfile() {
+  const [name, setName] = useState("dida");
+  const { mobilePhone, setMobilePhone } = useState("2685245624862");
 
-  const {name , setName} = useState("farida");
-  const {mobilePhone ,setMobilePhone} = useState("2685245624862");
-
-  useEffect(()=>{
+  useEffect(() => {
     //fetch the data to show userName and phone number
-    setName("yassmin");
-    },[])
-  
+  }, []);
+
   return (
     <Stack
       direction="column"
@@ -53,23 +50,11 @@ export default function SideProfile() {
           sx={{ width: 100, height: 100 }}
         />{" "}
       </Badge>
-      <h1 >Name</h1>
-      <TextField              
-                margin="dense"
-                fullWidth
-                
-               label= {name}
- 
-              />
- <h1 >MobilePhone</h1>
-      <TextField              
-                margin="dense"
-                fullWidth
-                
-               defaultValue= {mobilePhone}
- 
-              />
-      
+      <h1>Name</h1>
+      <TextField value={name} />
+      <h1>MobilePhone</h1>
+
+      <TextField  value={name} />
     </Stack>
   );
 }

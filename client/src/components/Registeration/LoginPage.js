@@ -162,7 +162,7 @@ export default function SignInSide() {
               <Button
                 fullWidth
                 variant="contained"
-                sx={{ mt: 3, mb: 2 , backgroundColor : colorPallet[0] }}
+                sx={{ mt: 3, mb: 2 , backgroundColor : "#cc1b85" }}
                onClick={handleForgetPassword}
               >Forget Password ?</Button>
               {forgetPassword &&  <InputLabel required htmlFor="outlined-adornment-password">

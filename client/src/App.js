@@ -11,18 +11,15 @@ import RegistrationNavBar from "./components/Registeration/RegistrationNavBar";
 import SideProfile from "./components/Profile/SideProfile";
 
 function App() {
-   const colorPallet = [
-    "#cc1b85",""
-    
-];
+
   return (
 
     <div >
         <div>
 
-      <Navbar colorPallet = {colorPallet} />
-      {/* <HomePage colorPallet = {colorPallet}/> */}
-     <RegistrationNavBar colorPallet = {colorPallet} />
+      <Navbar  />
+      <HomePage />
+     {/* <RegistrationNavBar  /> */}
     {/* <SideProfile/> */}
         </div>
       </div>
