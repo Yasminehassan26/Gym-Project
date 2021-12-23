@@ -17,9 +17,9 @@ function App() {
     <div >
         <div>
 
-      <Navbar />
-      <HomePage/>
-     {/* <RegistrationNavBar/> */}
+      <Navbar  />
+      <HomePage />
+     {/* <RegistrationNavBar  /> */}
     {/* <SideProfile/> */}
         </div>
       </div>
