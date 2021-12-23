@@ -4,7 +4,7 @@ import com.example.gymserver.dto.UserDTO;
 import com.example.gymserver.models.User;
 
 public class UserMapper {
-    public UserDTO toUserDto(User myUser){
+    public static UserDTO toUserDto(User myUser){
         UserDTO u = new UserDTO();
         u.setUserName(myUser.getUserName());
         u.setPassword(myUser.getPassword());
@@ -18,7 +18,7 @@ public class UserMapper {
         return u;
     }
 
-    public User toUser(UserDTO myUser){
+    public static User toUser(UserDTO myUser){
         User u = new User();
         u.setUserName(myUser.getUserName());
         u.setPassword(myUser.getPassword());

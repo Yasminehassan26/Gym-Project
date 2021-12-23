@@ -1,5 +1,6 @@
 package com.example.gymserver.services;
 
+import Mappers.UserMapper;
 import com.example.gymserver.controllers.UserController;
 import com.example.gymserver.dto.UserDTO;
 import com.example.gymserver.models.User;
@@ -21,15 +22,16 @@ public class SignUpService {
     * @param userDTO
     * @return id of new user and -1 in case this user name already exists
     */
-    public Long signUp(UserDTO user){
+    public long signUp(UserDTO user){
         User res = this.userRepository.findUserByUserName(user.getUserName()).orElse(null);
         System.out.println("jojio");
-        if(res==null){
-            this.userRepository.save(res);
+        if(res == null){
+            User newUser = UserMapper.toUser(user);
+            this.userRepository.save(newUser);
+            return newUser.getId();
         }else{
-            return -1L;
+            return -1;
         }
-        return res.getId();
     }
 
 }
