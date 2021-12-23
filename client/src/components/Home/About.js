@@ -1,30 +1,30 @@
+import { flexbox } from "@mui/system";
 import Slider from "react-animated-slider";
 import "react-animated-slider/build/horizontal.css";
+import ImageSlider from "../Slider/ImageSlider";
+import { SliderData } from "../Slider/SliderData";
+
 
 export default () => {
-  // Create array with 1000 slides
-  const slides = [
-    {
-      title: "First item",
-      description: "Lorem ipsum",
-      img: "https://source.unsplash.com/featured/?gym",
-    },
-    {
-      title: "Second item",
-      description: "Lorem ipsum",
-      img: "https://source.unsplash.com/featured/?healty",
-    },
-  ];
-
+ 
   return (
-    <Slider>
-      {slides.map((slide, index) => (
-        <div key={index}>
-          <h2>{slide.title}</h2>
-          <div>{slide.description}</div>
-          <img src={slide.img} alt={"not found"} width="200" height="200" />
-        </div>
-      ))}
-    </Slider>
+    <div style={{ height: '100%',
+      position: "absolute",
+      left: 0,
+      width: '100%',
+      overflow: "hidden",
+      backgroundColor : "black",
+       }}>
+         <div style={{marginLeft : "30%"}}>
+     <p style={{ color: 'white' }}>Location : ________</p>
+     <p style={{ color: 'white' }}>Call us on  :_______ </p>
+     <p style={{ color: 'white' }}>Facebook Page :___________ </p>
+     <p style={{ color: 'white' }}>Workin from :______ to:_____ </p>
+     </div>
+    <ImageSlider slides = {SliderData} />
+    <h1 style={{ color: 'white' }}>No pain NO gain</h1>
+  </div>
   );
+
+
 };

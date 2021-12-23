@@ -8,8 +8,8 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import SignUp from "./SignUpPage";
-import SignIn from "./LoginPage";
+import SignupPage from "./SignUpPage";
+import LoginPage from "./LoginPage";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -44,7 +44,7 @@ function a11yProps(index) {
   };
 }
 
-export default function RegistrationNavBar() {
+export default function RegistrationNavBar({colorPallet}) {
   const theme = useTheme();
   const [value, setValue] = useState(0);
 
@@ -58,7 +58,7 @@ export default function RegistrationNavBar() {
 
   return (
     <Box sx={{ bgcolor: "background.paper" }}>
-      <AppBar position="static">
+      <AppBar position="static" sx={{backgroundColor: colorPallet[0]}} >
         <Tabs
           value={value}
           onChange={handleChange}
@@ -77,10 +77,10 @@ export default function RegistrationNavBar() {
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
-          {/* <SignIn /> */}
+          <LoginPage />
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
-          {/* <SignUp /> */}
+          <SignupPage />
         </TabPanel>
       </SwipeableViews>
     </Box>
