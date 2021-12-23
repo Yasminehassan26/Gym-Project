@@ -21,8 +21,6 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 export default function Profile() {
   const [open, setOpen] = React.useState(false);
 
- 
-
   const handleClose = () => {
     setOpen(false);
   };
