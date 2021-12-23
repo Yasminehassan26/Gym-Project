@@ -13,8 +13,21 @@ import Drawer from "@mui/material/Drawer";
 import * as icons from '@material-ui/icons';
 import Button from '@mui/material/Button';
 
-const SideMenu = ({input,icons}) => {
+const SideMenu = ({history,input,icons}) => {
     const [rightAnchor, setRightAnchor] = useState(false);
+
+    const handleRoute=(text)=>{
+      if(text==='SignIn'){
+        history.push('/SignIn');
+      }
+      else if(text==='SignUp'){
+        history.push('/SignUp');
+      }
+      else{
+        history.push('/');
+      }
+    }
+
 
     const toggleDrawer = (open) => (event) => {
         if (
@@ -35,7 +48,7 @@ const SideMenu = ({input,icons}) => {
         >
           <List >
             {input.map((text, index) => (
-              <ListItem  button key={text} sx={{  bgcolor: '#f542d4' }} >
+              <ListItem  button key={text} sx={{  bgcolor: '#f542d4' }} onClick={()=>handleRoute(text)} >
                 <ListItemIcon>
                   {text === 'SignIn' && icons[0]}
                   {text === 'SignUp' && icons[1]}

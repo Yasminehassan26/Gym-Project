@@ -33,7 +33,8 @@ const ImageSlider = ({ slides }) => {
       alignItems="center"
       spacing={1}
     >
-      {/* <Grid item xs="auto">
+      {/* <G
+      rid item xs="auto">
       <p style={{color:"white",fontSize:"280%",fontStyle:"bolder",fontFammily:"cursive"}}>NO</p>
       <p style={{color:"white"}}>PAIN</p>
       <p style={{color:"white"}}>NO</p>
