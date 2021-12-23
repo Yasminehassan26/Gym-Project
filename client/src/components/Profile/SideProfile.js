@@ -14,7 +14,7 @@ const Input = styled("input")({
 });
 export default function SideProfile() {
   const [name, setName] = useState("dida");
-  const [ mobilePhone, setMobilePhone ] = useState("2685245624862");
+  const [mobilePhone, setMobilePhone] = useState("2685245624862");
 
   useEffect(() => {
     //fetch the data to show userName and phone number
@@ -51,10 +51,10 @@ export default function SideProfile() {
         />{" "}
       </Badge>
       <h1>Name</h1>
-      <TextField value={name} />
+      <TextField label="Name" defaultValue={name} />
       <h1>MobilePhone</h1>
 
-      <TextField  value={mobilePhone} />
+      <TextField label="MobilePhone" defaultValue={mobilePhone} />
     </Stack>
   );
 }
