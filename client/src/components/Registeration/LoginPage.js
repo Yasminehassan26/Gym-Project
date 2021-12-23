@@ -100,7 +100,7 @@ export default function SignInSide({colorPallet}) {
               alignItems: "center",
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: colorPallet[0] }}>
+            <Avatar sx={{ m: 1, bgcolor:"#cc1b85" }}>
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">

@@ -15,13 +15,13 @@ import LoginSharpIcon from '@mui/icons-material/LoginSharp';
 import LogoutSharpIcon from '@mui/icons-material/LogoutSharp';
 import AssignmentIndSharpIcon from '@mui/icons-material/AssignmentIndSharp';
 
-export default function Navbar({colorPallet}) {
+export default function Navbar() {
   
   const [currentUser, setCurrentUser] = useState(0);
  
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" sx={{backgroundColor: colorPallet[0] }}>
+      <AppBar position="static" sx={{backgroundColor: "#cc1b85" }}>
         <Toolbar>
           
           <Typography

@@ -44,7 +44,7 @@ function a11yProps(index) {
   };
 }
 
-export default function RegistrationNavBar({colorPallet}) {
+export default function RegistrationNavBar() {
   const theme = useTheme();
   const [value, setValue] = useState(0);
 
@@ -58,7 +58,7 @@ export default function RegistrationNavBar({colorPallet}) {
 
   return (
     <Box sx={{ bgcolor: "background.paper" }}>
-      <AppBar position="static" sx={{backgroundColor: colorPallet[0]}} >
+      <AppBar position="static" sx={{backgroundColor: "#cc1b85"}} >
         <Tabs
           value={value}
           onChange={handleChange}

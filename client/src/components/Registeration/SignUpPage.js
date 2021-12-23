@@ -17,7 +17,7 @@ import FormHelperText from "@mui/material/FormHelperText";
 
 
 
-export default function SignUp({colorPallet}) {
+export default function SignUp() {
   const [state, setState] = React.useState({
     firstName: "",
     lastName: "",
@@ -54,7 +54,7 @@ export default function SignUp({colorPallet}) {
               alignItems: "center",
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: colorPallet[0] }}>
+            <Avatar sx={{ m: 1, bgcolor: "#cc1b85" }}>
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
@@ -153,7 +153,7 @@ export default function SignUp({colorPallet}) {
                 type="submit"
                 fullWidth
                 variant="contained"
-                sx={{ mt: 3, mb: 2, backgroundColor:colorPallet[0] }}
+                sx={{ mt: 3, mb: 2, backgroundColor:"#cc1b85" }}
               >
                 Sign Up
               </Button>
