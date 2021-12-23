@@ -6,7 +6,7 @@ import ImageSlider from "../Slider/ImageSlider";
 import { SliderData } from "../Slider/SliderData";
 
 
-export default ({colorPallet}) => {
+export default () => {
  
   return (
     <div

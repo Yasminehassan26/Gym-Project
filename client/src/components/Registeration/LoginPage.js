@@ -24,7 +24,7 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 const theme = createTheme();
 
-export default function SignInSide({colorPallet}) {
+export default function SignInSide() {
   
   const handleSubmit = (event) => {
     event.preventDefault();
