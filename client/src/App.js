@@ -1,7 +1,7 @@
-
-import {Route } from "react-router-dom";
-
-import Navbar from './components/Navbar';
+import * as React from "react";
+import { Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import Navbar from "./components/Navbar";
 import HomePage from "./components/Home/HomePage";
 import ImageSlider from "./components/Slider/ImageSlider";
 import { SliderData } from "./components/Slider/SliderData";
@@ -11,21 +11,30 @@ import RegistrationNavBar from "./components/Registeration/RegistrationNavBar";
 import SideProfile from "./components/Profile/SideProfile";
 
 function App() {
-
   return (
+    
+    <div style={{ backgroundColor: "black" }}>
+       <Navbar /> 
+ 
+      
+          <Switch>
+            <Route exact path="/">
+              <HomePage />
+            </Route>
 
-    <div >
-        <div>
+            <Route path="/RegistrationNavBar">
+              <RegistrationNavBar />
+            </Route>
 
-      <Navbar  />
-      <HomePage />
-     {/* <RegistrationNavBar  /> */}
-    {/* <SideProfile/> */}
-        </div>
+          </Switch>
+
+          
+         
+    
+  
+ 
       </div>
-      
-      
-     );
+  );
 }
 
 export default App;
