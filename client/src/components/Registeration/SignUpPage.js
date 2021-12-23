@@ -1,31 +1,45 @@
-import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import * as React from "react";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import FormControl from "@mui/material/FormControl";
+import FormHelperText from "@mui/material/FormHelperText";
 
 const theme = createTheme();
 
 export default function SignUp() {
+  const [state, setState] = React.useState({
+    firstName: "",
+    lastName: "",
+    userName: "",
+    password: "",
+    question: "",
+    answer: "",
+  });
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
-      email: data.get('email'),
-      password: data.get('password'),
+      email: data.get("email"),
+      password: data.get("password"),
     });
   };
- 
 
-  const handleSumbit = () => {
-
+  const handleChange = (prop) => (event) => {
+    setState({ ...state, [prop]: event.target.value });
   };
+
   return (
     <ThemeProvider theme={theme}>
       <Grid container component="main" sx={{ height: "100vh" }}>
@@ -78,10 +92,10 @@ export default function SignUp() {
                   <TextField
                     required
                     fullWidth
-                    id="email"
-                    label="Email Address"
-                    name="email"
-                    autoComplete="email"
+                    id="userName"
+                    label="Username"
+                    name="username"
+                    autoComplete="username"
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -95,13 +109,51 @@ export default function SignUp() {
                     autoComplete="new-password"
                   />
                 </Grid>
+                <Grid item xs={12}>
+                  <FormControl>
+                    <InputLabel id="demo-simple-select-helper-label">
+                      Question
+                    </InputLabel>
+                    <Select
+                      required
+                      labelId="demo-simple-select-helper-label"
+                      id="demo-simple-select-helper"
+                      value={state.question}
+                      name="question"
+                      label="Question"
+                      onChange={handleChange("question")}
+                    >
+                      <MenuItem value="">
+                        <em>None</em>
+                      </MenuItem>
+                      <MenuItem value={"what is your favorite pet?"}>
+                        what is your favorite pet?
+                      </MenuItem>
+                      <MenuItem value={"what is your favorite color?"}>
+                        what is your favorite color?
+                      </MenuItem>
+                    </Select>
+                    <FormHelperText>
+                      (choose security question to restore password)
+                    </FormHelperText>
+                  </FormControl>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    required
+                    fullWidth
+                    id="answer"
+                    label="answer"
+                    name="answer"
+                    autoComplete="answer"
+                  />
+                </Grid>
               </Grid>
               <Button
                 type="submit"
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
-                onClick={handleSumbit}
               >
                 Sign Up
               </Button>
@@ -114,8 +166,7 @@ export default function SignUp() {
           sm={4}
           md={7}
           sx={{
-            backgroundImage:
-              "url(https://source.unsplash.com/featured/?cinema)",
+            backgroundImage: "url(https://source.unsplash.com/featured/?gym)",
             backgroundRepeat: "no-repeat",
             backgroundColor: (t) =>
               t.palette.mode === "light"
