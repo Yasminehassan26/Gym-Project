@@ -9,10 +9,6 @@ import java.util.Optional;
 
 @Service
 public class SignInService {
-    public final static String USER_NOT_FOUND_MESSAGE = "User not found!";
-    public final static int USER_NOT_FOUND_STATUS_CODE = -1;
-    public final static int WRONG_PASSWORD_STATUS_CODE = -2;
-    public final static int WRONG_ANSWER_STATUS_CODE = -3;
 
     private UserRepository userRepository;
 
@@ -29,9 +25,9 @@ public class SignInService {
     public long signIn(String userName, String password){
         User user = this.userRepository.findUserByUserName(userName).orElse(null);
         if(user == null)
-            return USER_NOT_FOUND_STATUS_CODE;
+            return UserService.USER_NOT_FOUND_STATUS_CODE;
         if(!password.equals(user.getPassword()))
-            return WRONG_PASSWORD_STATUS_CODE;
+            return UserService.WRONG_PASSWORD_STATUS_CODE;
         return user.getId().longValue();
     }
 
@@ -44,7 +40,7 @@ public class SignInService {
     public String getUserQuestion(String userName){
         User user = userRepository.findUserByUserName(userName).orElse(null);
         if( user == null ){
-            return USER_NOT_FOUND_MESSAGE;
+            return UserService.USER_NOT_FOUND_MESSAGE;
         }
         return user.getQuestion();
     }
@@ -59,11 +55,11 @@ public class SignInService {
     public long validateAnswer(String userName, String answer){
         User user = userRepository.findUserByUserName(userName).orElse(null);
         if( user == null )
-            return USER_NOT_FOUND_STATUS_CODE;
+            return UserService.USER_NOT_FOUND_STATUS_CODE;
         if( answer.equals(user.getAnswer()) )
             return user.getId();
         else
-            return WRONG_ANSWER_STATUS_CODE;
+            return UserService.WRONG_ANSWER_STATUS_CODE;
     }
 
     /*
