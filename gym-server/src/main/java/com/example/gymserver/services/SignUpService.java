@@ -23,6 +23,7 @@ public class SignUpService {
     */
     public Long signUp(UserDTO user){
         User res = this.userRepository.findUserByUserName(user.getUserName()).orElse(null);
+        System.out.println("jojio");
         if(res==null){
             this.userRepository.save(res);
         }else{

@@ -18,7 +18,7 @@ public class SignUpController {
     }
 
     @PostMapping("/trainee")
-    public Long signUp(@RequestBody UserDTO user){
+    public long signUp(@RequestBody UserDTO user){
         return signUpService.signUp(user);
     }
     //"api = /sign-up/trainee"
