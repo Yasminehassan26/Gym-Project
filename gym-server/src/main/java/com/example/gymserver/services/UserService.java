@@ -6,23 +6,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SignUpService {
+public class UserService {
 
     private UserRepository userRepository;
 
     @Autowired
-    public SignUpService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
-    /*
-    * @param userDTO
-    * @return id of new user and -1 in case this user name already exists
-    */
-    public int signUp(UserDTO user){
-        return 0;
+    public UserDTO getUserInfo(Long id){
+        return null;
     }
 
-    //"api = /sign-up/trainee"
+    public void updateUserInfo(UserDTO user){
 
+    }
 }

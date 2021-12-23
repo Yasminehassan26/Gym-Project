@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("api/sign-up")
+@RequestMapping("/api/sign-up")
 public class SignUpController {
 
     private UserRepository userRepository;
