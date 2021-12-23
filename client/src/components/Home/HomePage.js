@@ -12,7 +12,7 @@ const HomePage = () => {
       backgroundColor = "black"
     >
       <Grid>
-      <HomeBar />
+      <HomeBar  />
       </Grid>
       <Grid>
       <About />

@@ -5,7 +5,9 @@ import "react-animated-slider/build/horizontal.css";
 import ImageSlider from "../Slider/ImageSlider";
 import { SliderData } from "../Slider/SliderData";
 
+
 export default () => {
+ 
   return (
     <div
       style={{
