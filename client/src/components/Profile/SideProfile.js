@@ -20,8 +20,7 @@ export default function SideProfile() {
 
   useEffect(()=>{
     //fetch the data to show userName and phone number
-    setName("yassmin");
-    },[])
+    },[]);
   
   return (
     <Stack

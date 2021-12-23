@@ -21,21 +21,22 @@ const ImageSlider = ({ slides }) => {
   }
 
   return (
-      
     <Grid
       xs="auto"
       container
       direction="row"
       justifyContent="center"
       alignItems="center"
-      container
       spacing={1}
-     
     >
-      <Grid item xs="auto"  >
-        <FaArrowAltCircleLeft className="left-arrow" onClick={prevSlide}  sx={{ fontSize: 60  ,color: "white" }}  />
+      <Grid item xs="auto">
+        <FaArrowAltCircleLeft
+          className="left-arrow"
+          onClick={prevSlide}
+          sx={{ fontSize: 60, color: "white" }}
+        />
       </Grid>
-      <Grid item xs={6}>
+      <Grid item xs={6.5}>
         {SliderData.map((slide, index) => {
           return (
             <div
@@ -44,17 +45,25 @@ const ImageSlider = ({ slides }) => {
             >
               {index === current && (
                 // eslint-disable-next-line jsx-a11y/img-redundant-alt
-                <img src={slide.src} alt="travel image" className="image" sx={{height : 10 }} />
+                <img
+                  src={slide.src}
+                  alt="travel image"
+                  className="image"
+                  sx={{ height: 10 }}
+                />
               )}
             </div>
           );
         })}
       </Grid>
       <Grid item xs="auto">
-        <FaArrowAltCircleRight className="right-arrow" onClick={nextSlide}   sx={{ fontSize: 60 ,color: "white" }} />
+        <FaArrowAltCircleRight
+          className="right-arrow"
+          onClick={nextSlide}
+          sx={{ fontSize: 60, color: "white" }}
+        />
       </Grid>
     </Grid>
-  
   );
 };
 
