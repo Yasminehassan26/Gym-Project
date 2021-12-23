@@ -5,6 +5,7 @@ import com.example.gymserver.repositories.UserRepository;
 import com.example.gymserver.services.SignInService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,11 +21,23 @@ public class SignInController {
     }
 
     @GetMapping("/sign-in")
-    public Long signIn(@RequestBody SignInDTO signInDTO){
+    public long signIn(@RequestBody SignInDTO signInDTO){
         return this.signInService.signIn(signInDTO.getUserName(),signInDTO.getPassword());
     }
 
     // "api = /sign-in for sign in"
     // "api = /get-user-question/{userName} for get user question"
     // "api = /"
+
+    @GetMapping("/get-user-question/{userName}")
+    public String getUserQuestion(
+        @PathVariable("userName") String userName){
+        return signInService.getUserQuestion(userName);
+    }
+
+    @GetMapping("/validate-answer/{userName}")
+    public long validateAnswer(
+        @PathVariable("userName") String userName, @RequestBody String answer){
+        return signInService.validateAnswer(userName, answer);
+    }
 }
