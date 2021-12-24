@@ -39,6 +39,7 @@ public class SignUpTest {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void correctSignup(){
         UserDTO user = new UserDTO();
         user.setUserName("mariam1");
@@ -50,8 +51,8 @@ public class SignUpTest {
         user.setPhoneNumber("0128777878");
         user.setQuestion("What is your favorite color?");
         user.setAnswer("green");
-        long expected = userRepository.findUserByUserName(user.getUserName()).orElse(new User()).getId();
         long actual = signUpController.signUp(user);
+        long expected = userRepository.findUserByUserName(user.getUserName()).orElse(new User()).getId();
         assertEquals(expected, actual);
     }
 
