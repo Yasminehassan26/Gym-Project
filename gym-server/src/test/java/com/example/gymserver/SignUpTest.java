@@ -1,13 +1,9 @@
 package com.example.gymserver;
 
-import com.example.gymserver.controllers.SignInController;
 import com.example.gymserver.controllers.SignUpController;
-import com.example.gymserver.dto.SignInDTO;
 import com.example.gymserver.dto.UserDTO;
 import com.example.gymserver.models.User;
 import com.example.gymserver.repositories.UserRepository;
-import com.example.gymserver.services.UserService;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -52,7 +48,10 @@ public class SignUpTest {
         user.setQuestion("What is your favorite color?");
         user.setAnswer("green");
         long actual = signUpController.signUp(user);
-        long expected = userRepository.findUserByUserName(user.getUserName()).orElse(new User()).getId();
+        long expected = userRepository
+                                .findUserByUserName(user.getUserName())
+                                .orElse(new User())
+                                .getId();
         assertEquals(expected, actual);
     }
 
