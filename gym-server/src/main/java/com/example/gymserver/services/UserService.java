@@ -51,8 +51,8 @@ public class UserService {
         if(!user.getPassword().equals(updatedUser.getPassword()))
             updatedUser.setPassword(user.getPassword());
 
-        if(!user.getBirth_date().equals(updatedUser.getBirth_date()))
-            updatedUser.setBirth_date(user.getBirth_date());
+//        if(!user.getBirth_date().equals(updatedUser.getBirth_date()))
+//            updatedUser.setBirth_date(user.getBirth_date());
 
         if(!user.getPhoneNumber().equals(updatedUser.getPhoneNumber()))
             updatedUser.setPhoneNumber(user.getPhoneNumber());

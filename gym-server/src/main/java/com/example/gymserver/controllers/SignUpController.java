@@ -6,6 +6,7 @@ import com.example.gymserver.services.SignUpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/sign-up")
 public class SignUpController {
@@ -19,6 +20,7 @@ public class SignUpController {
 
     @PostMapping("/trainee")
     public long signUp(@RequestBody UserDTO user){
+        System.out.println("GOT SIGN UP REQUEST!!");
         return signUpService.signUp(user);
     }
 

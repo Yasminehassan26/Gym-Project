@@ -28,6 +28,7 @@ public class SignInController {
     @GetMapping("/get-user-question/{userName}")
     public String getUserQuestion(
         @PathVariable("userName") String userName){
+        System.out.println(signInService.getUserQuestion(userName));
         return signInService.getUserQuestion(userName);
     }
 
