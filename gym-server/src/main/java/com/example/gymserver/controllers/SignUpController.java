@@ -21,5 +21,5 @@ public class SignUpController {
     public long signUp(@RequestBody UserDTO user){
         return signUpService.signUp(user);
     }
-    //"api = /sign-up/trainee"
+
 }

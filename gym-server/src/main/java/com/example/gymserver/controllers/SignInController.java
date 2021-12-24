@@ -25,10 +25,6 @@ public class SignInController {
         return this.signInService.signIn(signInDTO.getUserName(),signInDTO.getPassword());
     }
 
-    // "api = /sign-in for sign in"
-    // "api = /get-user-question/{userName} for get user question"
-    // "api = /"
-
     @GetMapping("/get-user-question/{userName}")
     public String getUserQuestion(
         @PathVariable("userName") String userName){
