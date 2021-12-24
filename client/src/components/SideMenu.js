@@ -1,5 +1,5 @@
 import * as React from "react";
-
+import { Link } from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
 import Box from "@mui/material/Box";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -35,7 +35,7 @@ const SideMenu = ({input,icons}) => {
         >
           <List >
             {input.map((text, index) => (
-              <ListItem  button key={text} sx={{  bgcolor: '#f542d4' }} >
+              <ListItem  button key={text} sx={{  bgcolor: '#f542d4' }}  >
                 <ListItemIcon>
                   {text === 'SignIn' && icons[0]}
                   {text === 'SignUp' && icons[1]}
