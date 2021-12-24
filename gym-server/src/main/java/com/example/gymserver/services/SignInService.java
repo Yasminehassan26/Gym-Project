@@ -25,7 +25,7 @@ public class SignInService {
     public long signIn(String userName, String password){
         User user = this.userRepository.findUserByUserName(userName).orElse(null);
         if(user == null)
-            return UserService.USER_NOT_FOUND_STATUS_CODE;
+            return UserService.WRONG_USERNAME_STATUS_CODE;
         if(!password.equals(user.getPassword()))
             return UserService.WRONG_PASSWORD_STATUS_CODE;
         return user.getId().longValue();
@@ -55,7 +55,7 @@ public class SignInService {
     public long validateAnswer(String userName, String answer){
         User user = userRepository.findUserByUserName(userName).orElse(null);
         if( user == null )
-            return UserService.USER_NOT_FOUND_STATUS_CODE;
+            return UserService.WRONG_USERNAME_STATUS_CODE;
         if( answer.equalsIgnoreCase(user.getAnswer()) )
             return user.getId();
         else
