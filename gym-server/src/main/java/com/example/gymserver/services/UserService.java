@@ -12,7 +12,7 @@ import javax.transaction.Transactional;
 @Service
 public class UserService {
     public final static String USER_NOT_FOUND_MESSAGE = "User not found!";
-    public final static int USER_NOT_FOUND_STATUS_CODE = -1;
+    public final static int WRONG_USERNAME_STATUS_CODE = -1;
     public final static int WRONG_PASSWORD_STATUS_CODE = -2;
     public final static int WRONG_ANSWER_STATUS_CODE = -3;
 

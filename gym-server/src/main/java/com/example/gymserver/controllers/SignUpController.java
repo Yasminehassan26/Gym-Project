@@ -17,7 +17,14 @@ public class SignUpController {
     public SignUpController(SignUpService signUpService) {
         this.signUpService = signUpService;
     }
+    
 
+    /**
+     * 
+     * @param user
+     * @return userId if username is valid
+     *         -1 if username exists
+     */
     @PostMapping("/trainee")
     public long signUp(@RequestBody UserDTO user){
         System.out.println("GOT SIGN UP REQUEST!!");

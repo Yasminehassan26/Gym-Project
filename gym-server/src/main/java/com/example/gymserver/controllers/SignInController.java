@@ -20,11 +20,22 @@ public class SignInController {
         this.signInService = signInService;
     }
 
+    /**
+     * 
+     * @param signInDTO
+     * @return userId if correct username and password,
+     *                -1 if username wrong , -2 if password wrong
+     */
     @GetMapping("/sign-in")
     public long signIn(@RequestBody SignInDTO signInDTO){
         return this.signInService.signIn(signInDTO.getUserName(),signInDTO.getPassword());
     }
 
+    /**
+     * 
+     * @param userName
+     * @return user question if userexists or "User Not Found Message"
+     */
     @GetMapping("/get-user-question/{userName}")
     public String getUserQuestion(
         @PathVariable("userName") String userName){
@@ -32,6 +43,12 @@ public class SignInController {
         return signInService.getUserQuestion(userName);
     }
 
+    /**
+     * 
+     * @param userName
+     * @param answer
+     * @return userId if correct answer or -3 otherwise
+     */
     @GetMapping("/validate-answer/{userName}")
     public long validateAnswer(
         @PathVariable("userName") String userName, @RequestBody String answer){
