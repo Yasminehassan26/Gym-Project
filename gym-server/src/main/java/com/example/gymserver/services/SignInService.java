@@ -56,21 +56,9 @@ public class SignInService {
         User user = userRepository.findUserByUserName(userName).orElse(null);
         if( user == null )
             return UserService.USER_NOT_FOUND_STATUS_CODE;
-        if( answer.equals(user.getAnswer()) )
+        if( answer.equalsIgnoreCase(user.getAnswer()) )
             return user.getId();
         else
             return UserService.WRONG_ANSWER_STATUS_CODE;
     }
-
-    /*
-    * this method updates the password for user with the userName
-    *
-    * @param userName
-    * @param newPassword
-    * @returns user id
-    */
-    public Long changePassword(String userName, String newPassword){
-        return 0L;
-    }
-
 }

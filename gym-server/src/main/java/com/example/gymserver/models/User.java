@@ -28,6 +28,7 @@ public class User {
     private String phoneNumber;
     private String question;
     private String answer;
+    private String role;
     @Transient
     private Integer age;
 
@@ -42,7 +43,8 @@ public class User {
                 LocalDate birth_date,
                 String phoneNumber,
                 String question,
-                String answer) {
+                String answer,
+                String role) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -52,6 +54,7 @@ public class User {
         this.phoneNumber = phoneNumber;
         this.question = question;
         this.answer = answer;
+        this.role = role;
     }
 
     public Long getId() {
@@ -134,6 +137,14 @@ public class User {
         this.answer = answer;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -147,6 +158,7 @@ public class User {
                 ", question='" + question + '\'' +
                 ", answer='" + answer + '\'' +
                 ", age=" + age +
+                ", role=" + role +
                 '}';
     }
 }

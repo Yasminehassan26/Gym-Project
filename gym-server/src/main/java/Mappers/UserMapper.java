@@ -15,6 +15,7 @@ public class UserMapper {
         u.setQuestion(myUser.getQuestion());
         u.setAnswer(myUser.getAnswer());
         u.setAge(myUser.getAge());
+        u.setRole(myUser.getRole());
         return u;
     }
 
@@ -29,6 +30,7 @@ public class UserMapper {
         u.setQuestion(myUser.getQuestion());
         u.setAnswer(myUser.getAnswer());
         u.setAge(myUser.getAge());
+        u.setRole(myUser.getRole());
         return u;
     }
 }

@@ -1,5 +1,6 @@
 package com.example.gymserver.services;
 
+import Mappers.UserMapper;
 import com.example.gymserver.dto.UserDTO;
 import com.example.gymserver.models.User;
 import com.example.gymserver.repositories.UserRepository;
@@ -22,8 +23,20 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public UserDTO getUserInfo(Long id){
-        return null;
+    public UserDTO getUserProfile(Long id, String userName){
+        User user = this.userRepository.findById(id).orElse(null);
+        if(user == null)
+            return null;
+        if(!authenticateUser(id, userName))
+            return null;
+        return UserMapper.toUserDto(user);
+    }
+
+    public boolean authenticateUser(Long id, String userName){
+        User user = this.userRepository.findById(id).orElse(null);
+        if(user == null)
+            return false;
+        return user.getId() == id;
     }
 
     @Transactional
@@ -47,7 +60,7 @@ public class UserService {
         if(!user.getQuestion().equals(updatedUser.getQuestion()))
             updatedUser.setQuestion(user.getQuestion());
 
-        if(!user.getAnswer().equals(updatedUser.getAnswer()))
+        if(!user.getAnswer().equalsIgnoreCase(updatedUser.getAnswer()))
             updatedUser.setAnswer(user.getAnswer());
 
     }

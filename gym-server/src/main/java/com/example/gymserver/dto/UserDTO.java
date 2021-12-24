@@ -18,6 +18,7 @@ public class UserDTO {
     private String question;
     private String answer;
     private Integer age;
+    private String role;
 
     public String getFirstName() {
         return firstName;
@@ -91,4 +92,11 @@ public class UserDTO {
         this.age = age;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
 }
