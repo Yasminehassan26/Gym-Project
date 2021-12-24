@@ -14,6 +14,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import FormControl from "@mui/material/FormControl";
 import FormHelperText from "@mui/material/FormHelperText";
+import UseFetchPost from "../../api/UseFetchPost";
 
 export default function SignUp() {
   const [state, setState] = React.useState({
@@ -46,7 +47,9 @@ export default function SignUp() {
       answer:data.get("answer"),
       age:data.get(null)
       }
-    
+      
+   var result= UseFetchPost(`http://localhost:8081/api/sign-up/trainee`,data);
+   console.log(result)
 
   };
 

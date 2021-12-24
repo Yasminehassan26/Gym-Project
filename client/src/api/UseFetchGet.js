@@ -7,7 +7,7 @@ const[isPending,setIsPending]=useState(true);
 const[error,setError]=useState(null);
 
   useEffect(()=>{
-      requestOtions={
+     var requestOtions={
           method:"GEt",
           rederict:"follow",
           body:JSON.stringfy(id)
@@ -36,4 +36,4 @@ return () => abortCont.abort();
 },[url])
 return {blogs,isPending,error};
 }
-export default useFetch;
+export default useFetchGet;
