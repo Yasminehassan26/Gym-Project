@@ -14,6 +14,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import FormControl from "@mui/material/FormControl";
 import FormHelperText from "@mui/material/FormHelperText";
+import UseFetchPost from "../../api/UseFetchPost";
 
 export default function SignUp() {
   const [state, setState] = React.useState({
@@ -30,25 +31,27 @@ export default function SignUp() {
 
 //go to backend
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log(data)
-    var values=
-      {
-      firstName: data.get("firstName"),
-      lastName: data.get("lastName"),
-      password: data.get("password"),
-      userName:data.get("username"),
-      birth_date:data.get("birthdate"),
-      phoneNumber:data.get("mobile"),
-      question:data.get("question"),
-      answer:data.get("answer"),
-      age:data.get(null)
-      }
+const handleSubmit = (event) => {
+  event.preventDefault();
+  const data = new FormData(event.currentTarget);
+  console.log(data)
+  var values=
+    {
+    firstName: data.get("firstName"),
+    lastName: data.get("lastName"),
+    password: data.get("password"),
+    userName:data.get("username"),
+    birth_date:data.get("birthdate"),
+    phoneNumber:data.get("mobile"),
+    question:data.get("question"),
+    answer:data.get("answer"),
+    age:data.get(null)
+    }
     
+ var result= UseFetchPost(`http://localhost:8081/api/sign-up/trainee`,data);
+ console.log(result)
 
-  };
+};
 
   const handleChange = (prop) => (event) => {
     setState({ ...state, [prop]: event.target.value });
