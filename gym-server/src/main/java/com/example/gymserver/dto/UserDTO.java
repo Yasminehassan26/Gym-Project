@@ -13,7 +13,7 @@ public class UserDTO {
     private String lastName;
     private String userName;
     private String password;
-    private LocalDate birth_date;
+    private String birth_date;
     private String phoneNumber;
     private String question;
     private String answer;
@@ -52,11 +52,11 @@ public class UserDTO {
         this.password = password;
     }
 
-    public LocalDate getBirth_date() {
+    public String getBirth_date() {
         return birth_date;
     }
 
-    public void setBirth_date(LocalDate birth_date) {
+    public void setBirth_date(String birth_date) {
         this.birth_date = birth_date;
     }
 

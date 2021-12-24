@@ -2,8 +2,12 @@ import { useEffect } from "react";
 
 const UseFetchPost = (url, data) => {
 
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
   var requestOptions = {
     method: "POST",
+    headers: myHeaders,
     body: data,
     redirect: "follow",
   };

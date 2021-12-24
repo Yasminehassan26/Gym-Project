@@ -21,19 +21,50 @@ import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import { SignIn } from "../../api/UseFetchGet";
 
 const theme = createTheme();
 
-export default function SignInSide() {
+
+export default function SignInSide({history}) {
   
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
-  };
+    var values=
+    {
+    userName:data.get("email"),
+    password: data.get("password")
+    }
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    console.log(values);
+    var requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: JSON.stringify(values),
+      redirect: "follow",
+    };
+  
+    fetch(
+      `http://localhost:8081/api/auth/sign-in`, requestOptions
+    )
+      .then((response) => response.text())
+      .then((data) =>{
+        console.log(data);
+        if(data === -1){
+           //wrong username
+           alert("User Not Registered!!");
+        } else if(data === -2) {
+          //wrong password
+          alert("Wrong Password");
+        }else{
+         // history.push('/');
+          alert("SUCCESS !!");
+        }
+      })
+      .catch((error) => console.log("error", error)); 
+   };
   const [values, setValues] = useState({
     email: "",
     password: "",
@@ -44,6 +75,10 @@ export default function SignInSide() {
   const[answer, setAnswer] = useState("");
 
   const handleChange = (prop) => (event) => {
+    setValues({ ...values, [prop]: event.target.value });
+  };
+
+  const handleChange1 = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
   };
 
@@ -58,10 +93,23 @@ export default function SignInSide() {
     event.preventDefault();
   };
  const handleForgetPassword =()=>{
+   console.log(values.email);
   setForgetPassword(true);
   //call to the back end to get the question  and set them
-  setQuestion("What is your favourite pet");
-  
+  var requestOptions = {
+    method: "GET",
+    redirect: "follow",
+  };
+
+  fetch(
+    `http://localhost:8081/api/auth/get-user-question/${values.email}`,requestOptions
+  )
+    .then((response) => response.text())
+    .then((data) =>{
+      console.log(data);
+      setQuestion(data);
+    })
+    .catch((error) => console.log("error", error)); 
  }
  const handleAnswer= (event)=>{
    //send the answer to the back end and show the result
@@ -117,9 +165,10 @@ export default function SignInSide() {
                 margin="dense"
                 fullWidth
                 id="outlined-required"
-                label="Email"
+                label="userName"
                 name="email"
                 autoComplete="email"
+                onChange={handleChange1("email")}
               />
 
               <FormControl

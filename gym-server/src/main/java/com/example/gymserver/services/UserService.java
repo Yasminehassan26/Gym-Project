@@ -1,6 +1,6 @@
 package com.example.gymserver.services;
 
-import Mappers.UserMapper;
+import com.example.gymserver.Mappers.UserMapper;
 import com.example.gymserver.dto.UserDTO;
 import com.example.gymserver.models.User;
 import com.example.gymserver.repositories.UserRepository;
@@ -12,7 +12,7 @@ import javax.transaction.Transactional;
 @Service
 public class UserService {
     public final static String USER_NOT_FOUND_MESSAGE = "User not found!";
-    public final static int USER_NOT_FOUND_STATUS_CODE = -1;
+    public final static int WRONG_USERNAME_STATUS_CODE = -1;
     public final static int WRONG_PASSWORD_STATUS_CODE = -2;
     public final static int WRONG_ANSWER_STATUS_CODE = -3;
 
@@ -51,8 +51,8 @@ public class UserService {
         if(!user.getPassword().equals(updatedUser.getPassword()))
             updatedUser.setPassword(user.getPassword());
 
-        if(!user.getBirth_date().equals(updatedUser.getBirth_date()))
-            updatedUser.setBirth_date(user.getBirth_date());
+//        if(!user.getBirth_date().equals(updatedUser.getBirth_date()))
+//            updatedUser.setBirth_date(user.getBirth_date());
 
         if(!user.getPhoneNumber().equals(updatedUser.getPhoneNumber()))
             updatedUser.setPhoneNumber(user.getPhoneNumber());
