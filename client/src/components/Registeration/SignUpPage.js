@@ -48,8 +48,31 @@ const handleSubmit = (event) => {
     age:data.get(null)
     }
     
- var result= UseFetchPost(`http://localhost:8081/api/sign-up/trainee`,data);
- console.log(result)
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+  var requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: JSON.stringify(values),
+    redirect: "follow",
+  };
+
+  fetch("http://localhost:8081/api/sign-up/trainee", requestOptions)
+  .then((response) => response.text())
+  .then((data) =>{
+    console.log(data);
+    if(data === -1){
+       //User already exists
+       alert("User Already Exists!!");
+    }else{
+     // history.push('/');
+      alert("SUCCESS !!");
+    }
+  })
+    .catch((error) => console.log("error", error));   
+//  var result= UseFetchPost("http://localhost:8081/api/sign-up/trainee",data);
+//  console.log(result)
 
 };
 

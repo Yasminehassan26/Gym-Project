@@ -25,7 +25,7 @@ function App() {
             </Route>
 
             <Route path="/Registration">
-              <RegistrationNavBar />
+              <RegistrationNavBar history={history}/>
             </Route>
             <Route path="/SignUp">
               <SignUp/>

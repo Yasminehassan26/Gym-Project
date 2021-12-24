@@ -4,12 +4,9 @@ import com.example.gymserver.dto.SignInDTO;
 import com.example.gymserver.repositories.UserRepository;
 import com.example.gymserver.services.SignInService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/auth")
 public class SignInController {
@@ -26,9 +23,13 @@ public class SignInController {
      * @return userId if correct username and password,
      *                -1 if username wrong , -2 if password wrong
      */
-    @GetMapping("/sign-in")
+    @PostMapping("/sign-in")
     public long signIn(@RequestBody SignInDTO signInDTO){
-        return this.signInService.signIn(signInDTO.getUserName(),signInDTO.getPassword());
+        System.out.println("TRING TO SIGN IN");
+        System.out.println("User name: " + signInDTO.getUserName() + " password: "+ signInDTO.getPassword());
+        long ans = this.signInService.signIn(signInDTO.getUserName(),signInDTO.getPassword());
+        System.out.println("User id : "+ans);
+        return ans;
     }
 
     /**
