@@ -23,6 +23,7 @@ public class SignUpService {
     * @return id of new user and -1 in case this user name already exists
     */
     public long signUp(UserDTO user){
+        
         User res = this.userRepository.findUserByUserName(user.getUserName()).orElse(null);
         System.out.println("jojio");
         if(res == null){

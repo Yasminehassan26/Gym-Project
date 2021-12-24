@@ -27,13 +27,27 @@ export default function SignUp() {
     answer: "",
   });
 
+
+//go to backend
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
+    console.log(data)
+    var values=
+      {
+      firstName: data.get("firstName"),
+      lastName: data.get("lastName"),
       password: data.get("password"),
-    });
+      userName:data.get("username"),
+      birth_date:data.get("birthdate"),
+      phoneNumber:data.get("mobile"),
+      question:data.get("question"),
+      answer:data.get("answer"),
+      age:data.get(null)
+      }
+    
+
   };
 
   const handleChange = (prop) => (event) => {

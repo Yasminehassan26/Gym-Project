@@ -17,7 +17,7 @@ import AssignmentIndSharpIcon from '@mui/icons-material/AssignmentIndSharp';
 
 export default function Navbar({history}) {
   
-  const [currentUser, setCurrentUser] = useState(0);
+  const [currentUser, setCurrentUser] = useState(-1);
  
   return (
     <Box sx={{ flexGrow: 1 }}>

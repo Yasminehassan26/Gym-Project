@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState } from "react";
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Navbar from "./components/Navbar";
 import HomePage from "./components/Home/HomePage";
@@ -12,10 +13,11 @@ import { useHistory } from 'react-router-dom';
 function App() {
   let history = useHistory();
 
+
   return (
     
     <div style={{ backgroundColor: "black" }}>
-       <Navbar  history={history} /> 
+       <Navbar  history={history}  /> 
  
           <Switch>
             <Route exact path="/">

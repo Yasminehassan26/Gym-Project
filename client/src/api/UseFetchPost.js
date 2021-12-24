@@ -5,11 +5,11 @@ const abortCont = new AbortController();
 
 
   useEffect(()=>{
-      var row = JSON.stringify(data);
-      requestOtions={
+    //  var row = JSON.stringify(data);
+      var requestOtions={
           method:"Post",
           rederict:"follow",
-          body: row
+          body: data,
       };
    fetch(url,requestOtions)
     .then(res => {
@@ -22,13 +22,11 @@ const abortCont = new AbortController();
     .catch(err => {
         if(err.name==='AbortError'){
             console.log('fetched aborted')
-        }else{
-        setIsPending(false);
-        setError(err.message);}
+        }
     })
 
 return () => abortCont.abort();
 },[url])
 
 }
-export default useFetch;
+export default useFetchPost;
