@@ -1,4 +1,4 @@
-package com.example.gymserver.Mappers;
+package com.example.gymserver.mappers;
 
 import com.example.gymserver.dto.UserDTO;
 import com.example.gymserver.models.User;

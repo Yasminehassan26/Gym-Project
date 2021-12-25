@@ -1,7 +1,6 @@
 package com.example.gymserver.services;
 
-import com.example.gymserver.Mappers.UserMapper;
-import com.example.gymserver.controllers.UserController;
+import com.example.gymserver.mappers.UserMapper;
 import com.example.gymserver.dto.UserDTO;
 import com.example.gymserver.models.User;
 import com.example.gymserver.repositories.UserRepository;
