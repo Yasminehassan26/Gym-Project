@@ -16,7 +16,7 @@ import FormControl from "@mui/material/FormControl";
 import FormHelperText from "@mui/material/FormHelperText";
 import UseFetchPost from "../../api/UseFetchPost";
 
-export default function SignUp() {
+export default function SignUp( {history}) {
   const [state, setState] = React.useState({
     firstName: "",
     lastName: "",
@@ -57,20 +57,21 @@ const handleSubmit = (event) => {
     body: JSON.stringify(values),
     redirect: "follow",
   };
+  history.push('/');
 
-  fetch("http://localhost:8081/api/sign-up/trainee", requestOptions)
-  .then((response) => response.text())
-  .then((data) =>{
-    console.log(data);
-    if(data === -1){
-       //User already exists
-       alert("User Already Exists!!");
-    }else{
-     // history.push('/');
-      alert("SUCCESS !!");
-    }
-  })
-    .catch((error) => console.log("error", error));   
+  // fetch("http://localhost:8081/api/sign-up/trainee", requestOptions)
+  // .then((response) => response.text())
+  // .then((data) =>{
+  //   console.log(data);
+  //   if(data === -1){
+  //      //User already exists
+  //      alert("User Already Exists!!");
+  //   }else{
+  //      history.push('/');
+  //     alert("SUCCESS !!");
+  //   }
+  // })
+  //  .catch((error) => console.log("error", error));   
 //  var result= UseFetchPost("http://localhost:8081/api/sign-up/trainee",data);
 //  console.log(result)
 

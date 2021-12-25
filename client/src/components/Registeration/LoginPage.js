@@ -59,7 +59,7 @@ export default function SignInSide({history}) {
           //wrong password
           alert("Wrong Password");
         }else{
-         // history.push('/');
+          history.push('/');
           alert("SUCCESS !!");
         }
       })

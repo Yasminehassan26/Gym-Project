@@ -77,10 +77,10 @@ export default function RegistrationNavBar({history}) {
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
-          <LoginPage history={history}/>
+          <LoginPage  history={history}/>
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
-          <SignupPage />
+          <SignupPage  history={history}/>
         </TabPanel>
       </SwipeableViews>
     </Box>
