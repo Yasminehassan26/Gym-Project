@@ -52,10 +52,10 @@ export default function SignInSide({history}) {
       .then((response) => response.text())
       .then((data) =>{
         console.log(data);
-        if(data === -1){
+        if(data === "-1"){
            //wrong username
            alert("User Not Registered!!");
-        } else if(data === -2) {
+        } else if(data === "-2") {
           //wrong password
           alert("Wrong Password");
         }else{
