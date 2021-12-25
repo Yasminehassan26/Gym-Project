@@ -113,9 +113,23 @@ export default function SignInSide({history}) {
  }
  const handleAnswer= (event)=>{
    //send the answer to the back end and show the result
-   
-   setAnswer(event.target.value)
-   console.log(answer);
+   var requestOptions = {
+    method: "POST",
+    body: answer,
+    redirect: "follow",
+  };
+
+  console.log(answer);
+  fetch(
+    `http://localhost:8081/api/auth/validate-answer/${values.email}`,requestOptions
+  )
+    .then((response) => response.text())
+    .then((data) =>{
+      console.log(data);
+      // setQuestion(data);
+      // setAnswer(event.target.value);
+    })
+    .catch((error) => console.log("error", error)); 
  }
 
   return (
@@ -225,10 +239,11 @@ export default function SignInSide({history}) {
                 label="Answer"
                 name="answer"
                 autoComplete="email"
-                onChange={handleAnswer}
-              />
-}
-             
+                defaultValue={answer}
+              />}
+             {forgetPassword && <Button onClick={handleAnswer}>OK</Button>
+
+             }
               <Button
                 type="submit"
                 fullWidth

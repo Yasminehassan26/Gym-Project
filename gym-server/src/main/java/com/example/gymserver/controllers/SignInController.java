@@ -50,7 +50,7 @@ public class SignInController {
      * @param answer
      * @return userId if correct answer or -3 otherwise
      */
-    @GetMapping("/validate-answer/{userName}")
+    @PostMapping("/validate-answer/{userName}")
     public long validateAnswer(
         @PathVariable("userName") String userName, @RequestBody String answer){
         return signInService.validateAnswer(userName, answer);
