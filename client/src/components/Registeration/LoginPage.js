@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
 import { Link } from 'react-router-dom'
+import Alert from "@mui/material/Alert";
 
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -27,13 +28,35 @@ const theme = createTheme();
 
 
 export default function SignInSide({history}) {
-  
+  const [error, setError] = useState(0);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [type, setType] = useState("warning");
+  const [values, setValues] = useState({
+    username: "",
+    password: "",
+    showPassword: false,
+  });
+  const[forgetPassword,setForgetPassword] = useState(false);
+  const[question,setQuestion] = useState("");
+  const[answer, setAnswer] = useState("");
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    let check = 0;
+    if (
+      data.get("password") === "" ||
+      data.get("username") === "" 
+    ) {
+      setError(1);
+      setErrorMessage("Please fill all fields!");
+      setType("warning");
+      check = 1;
+    }
+    if(check===0){
     var values=
     {
-    userName:data.get("email"),
+    userName:data.get("username"),
     password: data.get("password")
     }
     var myHeaders = new Headers();
@@ -54,25 +77,25 @@ export default function SignInSide({history}) {
         console.log(data);
         if(data === "-1"){
            //wrong username
-           alert("User Not Registered!!");
+           setError(1);
+           setErrorMessage("User Not Registered!!");
+           setType("warning");
+           check = 1;
         } else if(data === "-2") {
           //wrong password
-          alert("Wrong Password");
+          setError(1);
+          setErrorMessage("Wrong password!!");
+          setType("warning");
+          check = 1;
         }else{
           history.push('/');
           alert("SUCCESS !!");
         }
       })
       .catch((error) => console.log("error", error)); 
-   };
-  const [values, setValues] = useState({
-    email: "",
-    password: "",
-    showPassword: false,
-  });
-  const[forgetPassword,setForgetPassword] = useState(false);
-  const[question,setQuestion] = useState("");
-  const[answer, setAnswer] = useState("");
+   }
+  };
+ 
 
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
@@ -93,7 +116,7 @@ export default function SignInSide({history}) {
     event.preventDefault();
   };
  const handleForgetPassword =()=>{
-   console.log(values.email);
+   console.log(values.username);
   setForgetPassword(true);
   //call to the back end to get the question  and set them
   var requestOptions = {
@@ -102,7 +125,7 @@ export default function SignInSide({history}) {
   };
 
   fetch(
-    `http://localhost:8081/api/auth/get-user-question/${values.email}`,requestOptions
+    `http://localhost:8081/api/auth/get-user-question/${values.username}`,requestOptions
   )
     .then((response) => response.text())
     .then((data) =>{
@@ -121,7 +144,7 @@ export default function SignInSide({history}) {
 
   console.log(answer);
   fetch(
-    `http://localhost:8081/api/auth/validate-answer/${values.email}`,requestOptions
+    `http://localhost:8081/api/auth/validate-answer/${values.username}`,requestOptions
   )
     .then((response) => response.text())
     .then((data) =>{
@@ -180,9 +203,9 @@ export default function SignInSide({history}) {
                 fullWidth
                 id="outlined-required"
                 label="userName"
-                name="email"
-                autoComplete="email"
-                onChange={handleChange1("email")}
+                name="username"
+                autoComplete="username"
+                onChange={handleChange1("username")}
               />
 
               <FormControl
@@ -238,7 +261,7 @@ export default function SignInSide({history}) {
                 id="outlined-required"
                 label="Answer"
                 name="answer"
-                autoComplete="email"
+                autoComplete="username"
                 defaultValue={answer}
               />}
              {forgetPassword && <Button onClick={handleAnswer}>OK</Button>
@@ -253,6 +276,9 @@ export default function SignInSide({history}) {
               >
                 Sign In
               </Button>
+              {error === 1 && (
+              <Alert severity={this.type}>warning — {this.errorMessage}</Alert>
+            )}
               <Grid container>
                 <Grid item xs>
          
