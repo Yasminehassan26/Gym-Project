@@ -277,7 +277,7 @@ export default function SignInSide({history}) {
                 Sign In
               </Button>
               {error === 1 && (
-              <Alert severity={this.type}>warning — {this.errorMessage}</Alert>
+              <Alert severity={type}>warning — {errorMessage}</Alert>
             )}
               <Grid container>
                 <Grid item xs>
