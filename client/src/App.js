@@ -6,16 +6,17 @@ import HomePage from "./components/Home/HomePage";
 import About from "./components/Home/About";
 import LoginPage from "./components/Registeration/LoginPage";
 import RegistrationNavBar from "./components/Registeration/RegistrationNavBar";
-import SideProfile from "./components/Profile/SideProfile";
 import SignUp from "./components/Registeration/SignUpPage";
 import { useHistory } from 'react-router-dom';
+import Profile from "./components/Profile/Profile";
 
 function App() {
   let history = useHistory();
 
 
   return (
-    
+    // <Profile/>
+
     <div style={{ backgroundColor: "black" }}>
        <Navbar  history={history}  /> 
  
@@ -27,6 +28,7 @@ function App() {
             <Route path="/Registration">
               <RegistrationNavBar history={history}/>
             </Route>
+         
             <Route path="/SignUp">
               <SignUp/>
             </Route>
@@ -35,10 +37,6 @@ function App() {
             </Route>
           </Switch>
 
-
-         
-    
-  
  
       </div>
   );
