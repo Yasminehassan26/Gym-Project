@@ -1,6 +1,7 @@
 package com.example.gymserver.controllers;
 
 import com.example.gymserver.dto.SignInDTO;
+import com.example.gymserver.dto.UserIdDTO;
 import com.example.gymserver.repositories.UserRepository;
 import com.example.gymserver.services.SignInService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,12 +25,8 @@ public class SignInController {
      *                -1 if username wrong , -2 if password wrong
      */
     @PostMapping("/sign-in")
-    public long signIn(@RequestBody SignInDTO signInDTO){
-        System.out.println("TRING TO SIGN IN");
-        System.out.println("User name: " + signInDTO.getUserName() + " password: "+ signInDTO.getPassword());
-        long ans = this.signInService.signIn(signInDTO.getUserName(),signInDTO.getPassword());
-        System.out.println("User id : "+ans);
-        return ans;
+    public UserIdDTO signIn(@RequestBody SignInDTO signInDTO){
+        return this.signInService.signIn(signInDTO.getUserName(),signInDTO.getPassword());
     }
 
     /**
@@ -51,7 +48,7 @@ public class SignInController {
      * @return userId if correct answer or -3 otherwise
      */
     @PostMapping("/validate-answer/{userName}")
-    public long validateAnswer(
+    public UserIdDTO validateAnswer(
         @PathVariable("userName") String userName, @RequestBody String answer){
         return signInService.validateAnswer(userName, answer);
     }
