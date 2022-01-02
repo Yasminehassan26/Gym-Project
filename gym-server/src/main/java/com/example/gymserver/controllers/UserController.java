@@ -1,5 +1,6 @@
 package com.example.gymserver.controllers;
 
+import com.example.gymserver.dto.ProgramFollowUpDTO;
 import com.example.gymserver.dto.UserDTO;
 import com.example.gymserver.dto.UserIdDTO;
 import com.example.gymserver.services.UserService;
@@ -36,4 +37,10 @@ public class UserController {
     public void updateUserInfo(@RequestBody UserDTO user){
         userService.updateUserInfo(user);
     }
+
+    
+
+   
+
+
 }
