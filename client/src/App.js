@@ -9,6 +9,7 @@ import RegistrationNavBar from "./components/Registeration/RegistrationNavBar";
 import SignUp from "./components/Registeration/SignUpPage";
 import { useHistory } from 'react-router-dom';
 import Profile from "./components/Profile/Profile";
+import Tips from "./components/TipsPage/Tips";
 
 function App() {
   let history = useHistory();
@@ -16,10 +17,9 @@ function App() {
 
   return (
     // <Profile/>
-
+    // <Tips/>
     <div style={{ backgroundColor: "black" }}>
        <Navbar  history={history}  /> 
- 
           <Switch>
             <Route exact path="/">
               <HomePage />
@@ -38,7 +38,7 @@ function App() {
           </Switch>
 
  
-      </div>
+       </div>
   );
 }
 
