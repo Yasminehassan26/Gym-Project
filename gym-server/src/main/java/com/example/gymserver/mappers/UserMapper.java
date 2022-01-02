@@ -14,7 +14,7 @@ public class UserMapper {
         u.setFirstName(myUser.getFirstName());
         u.setLastName(myUser.getLastName());
         u.setPhoneNumber(myUser.getPhoneNumber());
-        u.setBirth_date("2000-07-18");
+        u.setBirth_date(myUser.getBirth_date().toString());
         u.setQuestion(myUser.getQuestion());
         u.setAnswer(myUser.getAnswer());
         u.setAge(myUser.getAge());
@@ -29,7 +29,8 @@ public class UserMapper {
         u.setFirstName(myUser.getFirstName());
         u.setLastName(myUser.getLastName());
         u.setPhoneNumber(myUser.getPhoneNumber());
-        u.setBirth_date(LocalDate.of(2000, Month.JULY, 18));
+        LocalDate birthDate = LocalDate.parse(myUser.getBirth_date());
+        u.setBirth_date(birthDate);
         u.setQuestion(myUser.getQuestion());
         u.setAnswer(myUser.getAnswer());
         u.setAge(myUser.getAge());

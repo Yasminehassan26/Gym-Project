@@ -1,5 +1,7 @@
 package com.example.gymserver.services;
 
+import com.example.gymserver.dto.ProgramFollowUpDTO;
+import com.example.gymserver.dto.SessionDTO;
 import com.example.gymserver.mappers.UserMapper;
 import com.example.gymserver.dto.UserDTO;
 import com.example.gymserver.models.User;
@@ -8,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 
 @Service
 public class UserService {
@@ -51,8 +54,8 @@ public class UserService {
         if(!user.getPassword().equals(updatedUser.getPassword()))
             updatedUser.setPassword(user.getPassword());
 
-//        if(!user.getBirth_date().equals(updatedUser.getBirth_date()))
-//            updatedUser.setBirth_date(user.getBirth_date());
+        if(!user.getBirth_date().equals(updatedUser.getBirth_date()))
+            updatedUser.setBirth_date(LocalDate.parse(user.getBirth_date()));
 
         if(!user.getPhoneNumber().equals(updatedUser.getPhoneNumber()))
             updatedUser.setPhoneNumber(user.getPhoneNumber());
@@ -63,5 +66,20 @@ public class UserService {
         if(!user.getAnswer().equalsIgnoreCase(updatedUser.getAnswer()))
             updatedUser.setAnswer(user.getAnswer());
 
+    }
+    /*
+    * @param userId
+    * @return array of ProgramFollowUpDTO
+    */
+    public ProgramFollowUpDTO[] getTraineeFollowup(Long userId){
+        return null;
+    }
+
+    /*
+    * @param userId
+    * @return array of SessionDTO
+    */
+    public SessionDTO[] getTraineeUpcomingSessions(Long userId){
+        return null;
     }
 }
