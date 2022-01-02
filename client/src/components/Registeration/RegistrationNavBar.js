@@ -44,7 +44,7 @@ function a11yProps(index) {
   };
 }
 
-export default function RegistrationNavBar() {
+export default function RegistrationNavBar({history}) {
   const theme = useTheme();
   const [value, setValue] = useState(0);
 
@@ -77,10 +77,10 @@ export default function RegistrationNavBar() {
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
-          <LoginPage />
+          <LoginPage  history={history}/>
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
-          <SignupPage />
+          <SignupPage  history={history}/>
         </TabPanel>
       </SwipeableViews>
     </Box>

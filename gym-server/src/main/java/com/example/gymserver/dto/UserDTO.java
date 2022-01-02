@@ -13,11 +13,12 @@ public class UserDTO {
     private String lastName;
     private String userName;
     private String password;
-    private LocalDate birth_date;
+    private String birth_date;
     private String phoneNumber;
     private String question;
     private String answer;
     private Integer age;
+    private String role;
 
     public String getFirstName() {
         return firstName;
@@ -51,11 +52,11 @@ public class UserDTO {
         this.password = password;
     }
 
-    public LocalDate getBirth_date() {
+    public String getBirth_date() {
         return birth_date;
     }
 
-    public void setBirth_date(LocalDate birth_date) {
+    public void setBirth_date(String birth_date) {
         this.birth_date = birth_date;
     }
 
@@ -91,4 +92,11 @@ public class UserDTO {
         this.age = age;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
 }

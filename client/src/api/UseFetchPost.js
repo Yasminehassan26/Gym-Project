@@ -1,34 +1,43 @@
-import{useEffect}from 'react';
+import { useEffect } from "react";
 
-const useFetchPost =(url,data)=>{
-const abortCont = new AbortController();
+const UseFetchPost = (url, data) => {
 
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
 
-  useEffect(()=>{
-      var row = JSON.stringify(data);
-      requestOtions={
-          method:"Post",
-          rederict:"follow",
-          body: row
-      };
-   fetch(url,requestOtions)
-    .then(res => {
-        if(!res.ok){
-            throw Error ("couldn't fetch the data for the current resource");
-        }
-        return res.json();
-    })
-   
-    .catch(err => {
-        if(err.name==='AbortError'){
-            console.log('fetched aborted')
-        }else{
-        setIsPending(false);
-        setError(err.message);}
-    })
+  var requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: data,
+    redirect: "follow",
+  };
 
-return () => abortCont.abort();
-},[url])
+  return fetch(url, requestOptions)
+    .then((response) => response.json())
+    .catch((error) => console.log("error", error));
 
-}
-export default useFetch;
+  //   useEffect(()=>{
+  //     //  var row = JSON.stringify(data);
+  //       var requestOtions={
+  //           method:"Post",
+  //           rederict:"follow",
+  //           body: data,
+  //       };
+  //    fetch(url,requestOtions)
+  //     .then(res => {
+  //         if(!res.ok){
+  //             throw Error ("couldn't fetch the data for the current resource");
+  //         }
+  //         return res.json();
+  //     })
+
+  //     .catch(err => {
+  //         if(err.name==='AbortError'){
+  //             console.log('fetched aborted')
+  //         }
+  //     })
+
+  // return () => abortCont.abort();
+  // },[url])
+};
+export default UseFetchPost;

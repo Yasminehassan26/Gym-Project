@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
 import { Link } from 'react-router-dom'
+import Alert from "@mui/material/Alert";
 
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -21,21 +22,17 @@ import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import { SignIn } from "../../api/UseFetchGet";
 
 const theme = createTheme();
 
-export default function SignInSide() {
-  
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
-  };
+
+export default function SignInSide({history}) {
+  const [error, setError] = useState(0);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [type, setType] = useState("warning");
   const [values, setValues] = useState({
-    email: "",
+    username: "",
     password: "",
     showPassword: false,
   });
@@ -43,7 +40,68 @@ export default function SignInSide() {
   const[question,setQuestion] = useState("");
   const[answer, setAnswer] = useState("");
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    let check = 0;
+    if (
+      data.get("password") === "" ||
+      data.get("username") === "" 
+    ) {
+      setError(1);
+      setErrorMessage("Please fill all fields!");
+      setType("warning");
+      check = 1;
+    }
+    if(check===0){
+    var values=
+    {
+    userName:data.get("username"),
+    password: data.get("password")
+    }
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    console.log(values);
+    var requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: JSON.stringify(values),
+      redirect: "follow",
+    };
+  
+    fetch(
+      `http://localhost:8081/api/auth/sign-in`, requestOptions
+    )
+      .then((response) => response.text())
+      .then((data) =>{
+        console.log(data);
+        if(data === "-1"){
+           //wrong username
+           setError(1);
+           setErrorMessage("User Not Registered!!");
+           setType("warning");
+           check = 1;
+        } else if(data === "-2") {
+          //wrong password
+          setError(1);
+          setErrorMessage("Wrong password!!");
+          setType("warning");
+          check = 1;
+        }else{
+          history.push('/');
+          alert("SUCCESS !!");
+        }
+      })
+      .catch((error) => console.log("error", error)); 
+   }
+  };
+ 
+
   const handleChange = (prop) => (event) => {
+    setValues({ ...values, [prop]: event.target.value });
+  };
+
+  const handleChange1 = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
   };
 
@@ -58,16 +116,43 @@ export default function SignInSide() {
     event.preventDefault();
   };
  const handleForgetPassword =()=>{
+   console.log(values.username);
   setForgetPassword(true);
   //call to the back end to get the question  and set them
-  setQuestion("What is your favourite pet");
-  
+  var requestOptions = {
+    method: "GET",
+    redirect: "follow",
+  };
+
+  fetch(
+    `http://localhost:8081/api/auth/get-user-question/${values.username}`,requestOptions
+  )
+    .then((response) => response.text())
+    .then((data) =>{
+      console.log(data);
+      setQuestion(data);
+    })
+    .catch((error) => console.log("error", error)); 
  }
  const handleAnswer= (event)=>{
    //send the answer to the back end and show the result
-   
-   setAnswer(event.target.value)
-   console.log(answer);
+   var requestOptions = {
+    method: "POST",
+    body: answer,
+    redirect: "follow",
+  };
+
+  console.log(answer);
+  fetch(
+    `http://localhost:8081/api/auth/validate-answer/${values.username}`,requestOptions
+  )
+    .then((response) => response.text())
+    .then((data) =>{
+      console.log(data);
+      // setQuestion(data);
+      // setAnswer(event.target.value);
+    })
+    .catch((error) => console.log("error", error)); 
  }
 
   return (
@@ -117,9 +202,10 @@ export default function SignInSide() {
                 margin="dense"
                 fullWidth
                 id="outlined-required"
-                label="Email"
-                name="email"
-                autoComplete="email"
+                label="userName"
+                name="username"
+                autoComplete="username"
+                onChange={handleChange1("username")}
               />
 
               <FormControl
@@ -175,11 +261,12 @@ export default function SignInSide() {
                 id="outlined-required"
                 label="Answer"
                 name="answer"
-                autoComplete="email"
-                onChange={handleAnswer}
-              />
-}
-             
+                autoComplete="username"
+                defaultValue={answer}
+              />}
+             {forgetPassword && <Button onClick={handleAnswer}>OK</Button>
+
+             }
               <Button
                 type="submit"
                 fullWidth
@@ -189,6 +276,9 @@ export default function SignInSide() {
               >
                 Sign In
               </Button>
+              {error === 1 && (
+              <Alert severity={type}>warning — {errorMessage}</Alert>
+            )}
               <Grid container>
                 <Grid item xs>
          
