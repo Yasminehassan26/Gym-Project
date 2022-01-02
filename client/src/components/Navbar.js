@@ -27,8 +27,13 @@ const ColorButton = styled(Button)(({ theme }) => ({
 }));
 export default function Navbar({history}) {
   
-  const [currentUser, setCurrentUser] = useState(-1);
+  const [currentUser, setCurrentUser] = useState(0);
  
+  const handleRoute = () => {
+ 
+    history.push("/Registration");
+  
+};
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" sx={{backgroundColor: "#cc1b85" }}>
@@ -46,7 +51,7 @@ export default function Navbar({history}) {
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             {currentUser !==-1 && <SideMenu history={history} />}
-            {currentUser === -1 && <ColorButton  startIcon= {<AssignmentIndSharpIcon/>} onClick={history.push("/Registration")} > Registration</ColorButton>
+            {currentUser === -1 && <ColorButton  startIcon= {<AssignmentIndSharpIcon/>}  onClick={() => handleRoute()} > Registration</ColorButton>
             //  <SideMenu  history={history} input={['SignIn','SignUp','SignOut']} icons={[<LoginSharpIcon/>,
             // <AssignmentIndSharpIcon/>,<LogoutSharpIcon/>]} />
             }

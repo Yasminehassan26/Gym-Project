@@ -16,29 +16,27 @@ function App() {
 
 
   return (
-    // <Profile/>
+    <HomePage/>
     // <Tips/>
-    <div style={{ backgroundColor: "black" }}>
-       <Navbar  history={history}  /> 
-          <Switch>
-            <Route exact path="/">
-              <HomePage />
-            </Route>
+    // <div style={{ backgroundColor: "black" }}>
+    //    <Navbar  history={history}  /> 
+    //       <Switch>
+    //         <Route exact path="/">
+    //           <HomePage />
+    //         </Route>
 
-            <Route path="/Registration">
-              <RegistrationNavBar history={history}/>
-            </Route>
+    //         <Route path="/Registration">
+    //           <RegistrationNavBar history={history}/>
+    //         </Route>
          
-            <Route path="/SignUp">
-              <SignUp/>
-            </Route>
-            <Route path="/SignIn">
-              <LoginPage />
-            </Route>
-          </Switch>
-
- 
-       </div>
+    //         <Route path="/SignUp">
+    //           <SignUp/>
+    //         </Route>
+    //         <Route path="/SignIn">
+    //           <LoginPage />
+    //         </Route>
+    //       </Switch>
+    //    </div>
   );
 }
 
