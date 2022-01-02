@@ -31,11 +31,10 @@ const ImageSlider = ({ slides }) => {
       direction="row"
       justifyContent="center"
       alignItems="center"
-      container
       spacing={1}
-     
     >
-      {/* <Grid item xs="auto">
+      {/* <G
+      rid item xs="auto">
       <p style={{color:"white",fontSize:"280%",fontStyle:"bolder",fontFammily:"cursive"}}>NO</p>
       <p style={{color:"white"}}>PAIN</p>
       <p style={{color:"white"}}>NO</p>
@@ -53,7 +52,12 @@ const ImageSlider = ({ slides }) => {
             >
               {index === current && (
                 // eslint-disable-next-line jsx-a11y/img-redundant-alt
-                <img src={slide.src} alt="travel image" className="image" sx={{height : 10 }} />
+                <img
+                  src={slide.src}
+                  alt="travel image"
+                  className="image"
+                  sx={{ height: 10 }}
+                />
               )}
             </div>
           );

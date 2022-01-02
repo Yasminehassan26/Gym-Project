@@ -2,7 +2,7 @@ import HomeBar from "./HomeBar";
 import About from "./About";
 import Grid from "@mui/material/Grid";
 
-const HomePage = () => {
+const HomePage = ({history}) => {
   return (
     
     <Grid
@@ -13,7 +13,7 @@ const HomePage = () => {
       backgroundColor = "black"
     >
       <Grid>
-      <HomeBar  />
+      <HomeBar history={history} />
       </Grid>
       <Grid>
       <About />
