@@ -44,7 +44,7 @@ function a11yProps(index) {
   };
 }
 
-export default function RegistrationNavBar({history}) {
+export default function RegistrationNavBar({ history }) {
   const theme = useTheme();
   const [value, setValue] = useState(0);
 
@@ -58,7 +58,7 @@ export default function RegistrationNavBar({history}) {
 
   return (
     <Box sx={{ bgcolor: "background.paper" }}>
-      <AppBar position="static" sx={{backgroundColor: "#cc1b85"}} >
+      <AppBar position="static" sx={{ backgroundColor: "#cc1b85" }}>
         <Tabs
           value={value}
           onChange={handleChange}
@@ -77,10 +77,10 @@ export default function RegistrationNavBar({history}) {
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
-          <LoginPage  history={history}/>
+          <LoginPage history={history} />
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
-          <SignupPage  history={history}/>
+          <SignupPage history={history} />
         </TabPanel>
       </SwipeableViews>
     </Box>

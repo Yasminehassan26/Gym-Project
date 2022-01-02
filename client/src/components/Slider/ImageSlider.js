@@ -37,7 +37,13 @@ const ImageSlider = () => {
   }
 
   return (
-    <div style={{ msOverflowX:"scroll",msOverflowY: "scroll", whiteSpace: "nowrap" }}>
+    <div
+      style={{
+        msOverflowX: "scroll",
+        msOverflowY: "scroll",
+        whiteSpace: "nowrap",
+      }}
+    >
       <Grid
         xs="auto"
         container
@@ -57,12 +63,9 @@ const ImageSlider = () => {
           <WrapperImages>
             {SliderData.map((slide, index) => {
               return (
-                <div
-                  className={index === current ? "slide active" : "slide"}
-           
-                >
+                <div className={index === current ? "slide active" : "slide"}>
                   {index === current && (
-                  // <Img src="https://source.unsplash.com/featured/?gym,athletics" alt="travel image" className="image" />
+                    // <Img src="https://source.unsplash.com/featured/?gym,athletics" alt="travel image" className="image" />
                     <Img src={slide.src} alt="travel image" className="image" />
                   )}
                 </div>

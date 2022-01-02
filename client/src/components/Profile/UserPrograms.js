@@ -26,22 +26,19 @@ export default function UserPrograms() {
           <AccordionDetails>
             <Typography>
               {/* {program.content} */}
-             
-            
+
               <Stack spacing={1} alignItems="center">
-              {program.content.map((content) => (
-                <Stack direction="row" spacing={1}>
-                <Chip
-                  color="secondary"
-                  label={content.name}
-                  icon={<FitnessCenterIcon />}
-                />
-                  <Chip label={content.count} color="success" />
-                </Stack>
-               
+                {program.content.map((content) => (
+                  <Stack direction="row" spacing={1}>
+                    <Chip
+                      color="secondary"
+                      label={content.name}
+                      icon={<FitnessCenterIcon />}
+                    />
+                    <Chip label={content.count} color="success" />
+                  </Stack>
                 ))}
               </Stack>
-           
             </Typography>
           </AccordionDetails>
         </Accordion>

@@ -21,10 +21,9 @@ export default function Navbar({ history }) {
   const [currentUser, setCurrentUser] = useState(-1);
 
   const handleRoute = (text) => {
-    if(text==="Registration"){
-    history.push("/Registration");}
-
-    else  history.push("/");
+    if (text === "Registration") {
+      history.push("/Registration");
+    } else history.push("/");
   };
 
   return (
@@ -37,7 +36,6 @@ export default function Navbar({ history }) {
             component="div"
             sx={{ display: { xs: "none", sm: "block" } }}
             onClick={() => handleRoute("")}
-
           >
             Gym Website
           </Button>

@@ -6,10 +6,10 @@ import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 import ImageIcon from "@mui/icons-material/Image";
-import BoltIcon from '@mui/icons-material/Bolt';
+import BoltIcon from "@mui/icons-material/Bolt";
 import WorkIcon from "@mui/icons-material/Work";
 import BeachAccessIcon from "@mui/icons-material/BeachAccess";
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import Sessions from "./Sessions";
 
 export default function UserSessions() {
@@ -20,8 +20,8 @@ export default function UserSessions() {
       {sessions.map((session) => (
         <ListItem>
           <ListItemAvatar>
-            <Avatar sx={{ bgcolor: "#cc1b85"}} >
-              <BoltIcon  />
+            <Avatar sx={{ bgcolor: "#cc1b85" }}>
+              <BoltIcon />
             </Avatar>
           </ListItemAvatar>
           <ListItemText primary={session.title} secondary={session.date} />

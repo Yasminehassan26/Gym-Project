@@ -24,7 +24,7 @@ import FormHelperText from "@mui/material/FormHelperText";
 import UseFetchPost from "../../api/UseFetchPost";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import Badge from "@mui/material/Badge";
-import ProfileActivities from "./ProfileActivities"
+import ProfileActivities from "./ProfileActivities";
 
 import { styled } from "@mui/material/styles";
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -257,7 +257,7 @@ export default function Profile() {
               </Grid>
             </Grid>
             <Grid item xs={4}>
-            <ProfileActivities/>
+              <ProfileActivities />
             </Grid>
           </Grid>
         </Box>

@@ -1,14 +1,14 @@
-import * as React from 'react';
-import PropTypes from 'prop-types';
-import SwipeableViews from 'react-swipeable-views';
-import { useTheme } from '@mui/material/styles';
-import AppBar from '@mui/material/AppBar';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
-import UserPrograms from './UserPrograms';
-import UserSessions from './UserSessions';
+import * as React from "react";
+import PropTypes from "prop-types";
+import SwipeableViews from "react-swipeable-views";
+import { useTheme } from "@mui/material/styles";
+import AppBar from "@mui/material/AppBar";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import UserPrograms from "./UserPrograms";
+import UserSessions from "./UserSessions";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -39,7 +39,7 @@ TabPanel.propTypes = {
 function a11yProps(index) {
   return {
     id: `full-width-tab-${index}`,
-    'aria-controls': `full-width-tabpanel-${index}`,
+    "aria-controls": `full-width-tabpanel-${index}`,
   };
 }
 
@@ -56,8 +56,8 @@ export default function ProfileActivities() {
   };
 
   return (
-    <Box sx={{ bgcolor: 'background.paper', width: 500 }}>
-      <AppBar position="static" sx={{bgcolor :"#cc1b85"}}>
+    <Box sx={{ bgcolor: "background.paper", width: 500 }}>
+      <AppBar position="static" sx={{ bgcolor: "#cc1b85" }}>
         <Tabs
           value={value}
           onChange={handleChange}
@@ -71,15 +71,15 @@ export default function ProfileActivities() {
         </Tabs>
       </AppBar>
       <SwipeableViews
-        axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+        axis={theme.direction === "rtl" ? "x-reverse" : "x"}
         index={value}
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
-          <UserPrograms/>
+          <UserPrograms />
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
-          <UserSessions/>
+          <UserSessions />
         </TabPanel>
       </SwipeableViews>
     </Box>
