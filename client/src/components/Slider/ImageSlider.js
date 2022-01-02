@@ -53,7 +53,7 @@ const ImageSlider = () => {
             sx={{ fontSize: 40, color: "white" }}
           />
         </Grid>
-        <Grid item xs={8.5} style={{ paddingLeft: "59px" }}>
+        <Grid item xs={8.6} style={{ paddingLeft: "59px" }}>
           <WrapperImages>
             {SliderData.map((slide, index) => {
               return (
@@ -62,13 +62,7 @@ const ImageSlider = () => {
            
                 >
                   {index === current && (
-                    // eslint-disable-next-line jsx-a11y/img-redundant-alt
-                    // <img
-                    //   src={slide.src}
-                    //   alt="travel image"
-                    //   className="image"
-                    //   sx={{ height: 10 }}
-                    // />
+                  // <Img src="https://source.unsplash.com/featured/?gym,athletics" alt="travel image" className="image" />
                     <Img src={slide.src} alt="travel image" className="image" />
                   )}
                 </div>

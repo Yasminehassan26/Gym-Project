@@ -1,14 +1,21 @@
-/* eslint-disable import/no-anonymous-default-export */
-import { Grid } from "@mui/material";
-import { flexbox } from "@mui/system";
-import Slider from "react-animated-slider";
+
 import "react-animated-slider/build/horizontal.css";
 import ImageSlider from "../Slider/ImageSlider";
-import { SliderData } from "../Slider/SliderData";
+import Paper from "@mui/material/Paper";
+import Box from "@mui/material/Box";
+import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
 
-
+const Item = styled(Paper)(({ theme }) => ({
+  ...theme.typography.body2,
+  textAlign: "center",
+  color: " #FFFFFF",
+  height: 60,
+  lineHeight: "60px",
+  backgroundColor: "#A10A7E",
+}));
 export default function About() {
  
+
   return (
     <div
     container
