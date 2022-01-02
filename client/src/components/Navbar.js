@@ -4,17 +4,27 @@ import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
+import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import MenuIcon from "@mui/icons-material/Menu";
 import Drawer from "@mui/material/Drawer";
 import Profile from "./Profile/Profile";
-import SideMenu from "./SideMenu";
+import SideMenu from "./Profile/SideMenu";
 import LoginSharpIcon from '@mui/icons-material/LoginSharp';
 import LogoutSharpIcon from '@mui/icons-material/LogoutSharp';
 import AssignmentIndSharpIcon from '@mui/icons-material/AssignmentIndSharp';
 
+
+
+const ColorButton = styled(Button)(({ theme }) => ({
+  color:"#cc1b85",
+  backgroundColor: '#ffffff',
+  '&:hover': {
+    color:'#ffffff',
+    backgroundColor: "#AF036E",
+  },
+}));
 export default function Navbar({history}) {
   
   const [currentUser, setCurrentUser] = useState(-1);
@@ -35,9 +45,11 @@ export default function Navbar({history}) {
          
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            {currentUser !=-1 && <Profile />}
-            {currentUser == -1 && <SideMenu  history={history} input={['SignIn','SignUp','SignOut']} icons={[<LoginSharpIcon/>,
-            <AssignmentIndSharpIcon/>,<LogoutSharpIcon/>]} />}
+            {currentUser !==-1 && <SideMenu history={history} />}
+            {currentUser === -1 && <ColorButton  startIcon= {<AssignmentIndSharpIcon/>} onClick={history.push("/Registration")} > Registration</ColorButton>
+            //  <SideMenu  history={history} input={['SignIn','SignUp','SignOut']} icons={[<LoginSharpIcon/>,
+            // <AssignmentIndSharpIcon/>,<LogoutSharpIcon/>]} />
+            }
             
            
           </Box>
