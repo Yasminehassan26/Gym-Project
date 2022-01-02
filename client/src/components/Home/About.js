@@ -3,16 +3,18 @@ import { Grid } from "@mui/material";
 import { flexbox } from "@mui/system";
 import Slider from "react-animated-slider";
 import "react-animated-slider/build/horizontal.css";
-import ImagesSlider from "../Slider/ImagesSlider";
+import ImageSlider from "../Slider/ImageSlider";
 import { SliderData } from "../Slider/SliderData";
 
-export default () => {
+
+export default function About() {
+ 
   return (
     <div
-      container
-      direction="column"
-      justifyContent="space-evenly"
-      alignItems="center"
+    container
+    direction="column"
+    justifyContent="space-evenly"
+    alignItems="center"
       style={{
         height: "100%",
         position: "absolute",
@@ -20,18 +22,21 @@ export default () => {
         width: "100%",
         overflow: "hidden",
         backgroundColor: "black",
+        
+      
       }}
     >
-      <ImagesSlider />
-
-      <div
-        style={{ width: "100%", backgroundColor: "#cc1b85", marginTop: "35%" }}
-      >
-        <p style={{ color: "white" }}>Location : ________</p>
-        <p style={{ color: "white" }}>Call us on :_______ </p>
-        <p style={{ color: "white" }}>Facebook Page :___________ </p>
-        <p style={{ color: "white" }}>Workin from :______ to:_____ </p>
+       
+     
+      <ImageSlider />
+  
+      <div style={{ width:"100%",backgroundColor:"#cc1b85",marginTop:"35%" }}>
+        <p style={{ color: "white" }}>Location : ____</p>
+        <p style={{ color: "white" }}>Call us on :___ </p>
+        <p style={{ color: "white" }}>Facebook Page :_____ </p>
+        <p style={{ color: "white" }}>Workin from :__ to:___ </p>
       </div>
+     
     </div>
   );
 };

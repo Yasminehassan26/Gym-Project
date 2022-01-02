@@ -9,16 +9,16 @@ import { DonutLarge } from "@material-ui/icons";
 
 const ImageSlider = () => {
   const WrapperImages = styled.section`
-    max-width: 70rem;
-    margin: 4rem auto;
-    display: grid;
-    grid-gap: 1em;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    grid-auto-rows: 300px;
+    // max-width: 70rem;
+    // margin: 4rem auto;
+    // display: grid;
+    // grid-gap: 1em;
+    // grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    // grid-auto-rows: 300px;
   `;
   const Img = styled.img`
-    width: 100%;
-    height: 100%;
+    width: 65%;
+    height: 65%;
     object-fit: cover;
   `;
   const [current, setCurrent] = useState(0);
@@ -53,13 +53,13 @@ const ImageSlider = () => {
             sx={{ fontSize: 40, color: "white" }}
           />
         </Grid>
-        <Grid item xs={6.5} style={{ paddingLeft: "59px" }}>
+        <Grid item xs={8.5} style={{ paddingLeft: "59px" }}>
           <WrapperImages>
             {SliderData.map((slide, index) => {
               return (
                 <div
                   className={index === current ? "slide active" : "slide"}
-                  key={index}
+           
                 >
                   {index === current && (
                     // eslint-disable-next-line jsx-a11y/img-redundant-alt
