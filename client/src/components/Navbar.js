@@ -31,7 +31,7 @@ export default function Navbar({ history }) {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" sx={{ backgroundColor: "#cc1b85" }}>
         <Toolbar>
-          <TopMenu history={history}/>
+          <TopMenu history={history} />
           <Button
             variant="h6"
             noWrap

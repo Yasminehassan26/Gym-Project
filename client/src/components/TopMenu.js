@@ -51,13 +51,13 @@ export default function TopMenu({ history }) {
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <List>
+      <List sx={{ bgcolor: "rgba(219, 138, 138, 0.3)" }}>
         {["About", "Programs", "Sessions", "Tips", "Trainers", "Shop"].map(
           (text, index) => (
             <ListItem
               button
               key={text}
-              sx={{ bgcolor: "#cc1b85" }}
+              // sx={{ bgcolor: '#8B8B8B' }}
               onClick={() => handleRoute(text)}
             >
               <ListItemIcon>

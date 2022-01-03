@@ -23,7 +23,7 @@ function App() {
       <Navbar history={history} />
       <Switch>
         <Route exact path="/">
-          <HomePage />
+          <HomePage history={history} />
         </Route>
 
         <Route path="/Registration">

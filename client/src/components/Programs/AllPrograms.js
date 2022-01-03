@@ -149,8 +149,8 @@ const AllPrograms = () => {
         width: "100%",
         backgroundImage: {
           flex: 1,
-          resizeMode: 'cover', // or 'stretch'
-      },
+          resizeMode: "cover", // or 'stretch'
+        },
         backgroundImage: `url(${"https://images.unsplash.com/photo-1561729955-89357c733059?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1300&q=800"}`,
       }}
     >
