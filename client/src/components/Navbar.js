@@ -8,6 +8,7 @@ import Button from "@mui/material/Button";
 import SideMenu from "./Profile/SideMenu";
 
 import AssignmentIndSharpIcon from "@mui/icons-material/AssignmentIndSharp";
+import TopMenu from "./TopMenu";
 
 const ColorButton = styled(Button)(({ theme }) => ({
   color: "#cc1b85",
@@ -30,6 +31,7 @@ export default function Navbar({ history }) {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" sx={{ backgroundColor: "#cc1b85" }}>
         <Toolbar>
+          <TopMenu history={history}/>
           <Button
             variant="h6"
             noWrap
