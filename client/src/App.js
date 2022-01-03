@@ -9,9 +9,7 @@ import RegistrationNavBar from "./components/Registeration/RegistrationNavBar";
 import SignUp from "./components/Registeration/SignUpPage";
 import { useHistory } from "react-router-dom";
 import Profile from "./components/Profile/Profile";
-import AllPrograms from "./components/Program/AllPrograms";
-import AllSessions from "./components/Session/AllSessions";
-import TipNavigator from "./components/Tips/TipsNavigator";
+
 
 function App() {
   let history = useHistory();
@@ -19,30 +17,6 @@ function App() {
   return (
     // <HomePage/>
     // <Tips/>
-<<<<<<< HEAD
-    <div style={{
-     width : '100%' , height : '100%' }}>
-       <Navbar  history={history}  /> 
-          {/* <Switch>
-            <Route exact path="/">
-              <HomePage />
-            </Route>
-
-            <Route path="/Registration">
-              <RegistrationNavBar history={history}/>
-            </Route>
-         
-            <Route path="/SignUp">
-              <SignUp/>
-            </Route>
-            <Route path="/SignIn">
-              <LoginPage />
-            </Route>
-          </Switch> */}
-          <AllPrograms/>
-          {/* <AllSessions/> */}
-          {/* <TipNavigator/> */}
-=======
     <div style={{ backgroundColor: "black" }}>
       <Navbar history={history} />
       <Switch>
@@ -53,7 +27,6 @@ function App() {
         <Route path="/Registration">
           <RegistrationNavBar history={history} />
         </Route>
->>>>>>> c65d9c411640c3e66b60f7d8b64a349cd87345df
 
         <Route path="/SignUp">
           <SignUp />
