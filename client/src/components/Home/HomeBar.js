@@ -18,7 +18,7 @@ const HomeBar = () => {
   return (
     <div style={{ position: "static" }}>
       <Box sx={{ flexGrow: 1 }} />
-      <AppBar position="static" style={{backgroundColor: "#cc1b85" }}>
+      <AppBar position="static" style={{ backgroundColor: "#cc1b85" }}>
         <Toolbar disableGutters>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (

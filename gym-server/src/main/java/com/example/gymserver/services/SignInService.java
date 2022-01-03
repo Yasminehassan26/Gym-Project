@@ -1,11 +1,10 @@
 package com.example.gymserver.services;
 
+import com.example.gymserver.dto.UserIdDTO;
 import com.example.gymserver.models.User;
 import com.example.gymserver.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class SignInService {
@@ -22,13 +21,18 @@ public class SignInService {
     * @param password
     * @return id of user if found, -1 if the password is wrong, and -2 if user name is not found
     */
-    public long signIn(String userName, String password){
+    public UserIdDTO signIn(String userName, String password){
         User user = this.userRepository.findUserByUserName(userName).orElse(null);
+        UserIdDTO userIdDTO = new UserIdDTO();
         if(user == null)
-            return UserService.WRONG_USERNAME_STATUS_CODE;
-        if(!password.equals(user.getPassword()))
-            return UserService.WRONG_PASSWORD_STATUS_CODE;
-        return user.getId().longValue();
+            userIdDTO.setStatusCode(UserService.WRONG_USERNAME_STATUS_CODE);
+        else if(!password.equals(user.getPassword()))
+            userIdDTO.setStatusCode(UserService.WRONG_PASSWORD_STATUS_CODE);
+        else{
+            userIdDTO.setUserId(user.getId());
+            userIdDTO.setRole(user.getRole());
+        }
+        return userIdDTO;
     }
 
     /*
@@ -52,13 +56,17 @@ public class SignInService {
      * @param answer
      * @return user id if the answer is correct and -1 if the answer is not correct
      */
-    public long validateAnswer(String userName, String answer){
+    public UserIdDTO validateAnswer(String userName, String answer){
         User user = userRepository.findUserByUserName(userName).orElse(null);
+        UserIdDTO userIdDTO = new UserIdDTO();
         if( user == null )
-            return UserService.WRONG_USERNAME_STATUS_CODE;
-        if( answer.equalsIgnoreCase(user.getAnswer()) )
-            return user.getId();
+            userIdDTO.setStatusCode(UserService.WRONG_USERNAME_STATUS_CODE);
+        if(answer.equalsIgnoreCase(user.getAnswer())){
+            userIdDTO.setUserId(user.getId());
+            userIdDTO.setRole(user.getRole());
+        }
         else
-            return UserService.WRONG_ANSWER_STATUS_CODE;
+            userIdDTO.setStatusCode(UserService.WRONG_ANSWER_STATUS_CODE);
+         return userIdDTO;
     }
 }

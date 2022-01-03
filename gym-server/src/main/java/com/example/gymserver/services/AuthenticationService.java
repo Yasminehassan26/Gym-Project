@@ -1,0 +1,25 @@
+package com.example.gymserver.services;
+
+import com.example.gymserver.models.User;
+import com.example.gymserver.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class AuthenticationService {
+    private UserRepository userRepository;
+
+    @Autowired
+    public AuthenticationService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    public boolean authenticateUser(Long id, String userName){
+        User user = this.userRepository.findUserByUserName(userName).orElse(null);
+        if(user == null)
+            return false;
+        return user.getId() == id;
+    }
+
+    
+}

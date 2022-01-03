@@ -2,24 +2,22 @@ import HomeBar from "./HomeBar";
 import About from "./About";
 import Grid from "@mui/material/Grid";
 
-const HomePage = ({history}) => {
+const HomePage = ({ history }) => {
   return (
-    
     <Grid
       container
       direction="column"
       justifyContent="space-evenly"
       alignItems="center"
-      backgroundColor = "black"
+      backgroundColor="black"
     >
       <Grid>
-      <HomeBar history={history} />
+        <HomeBar history={history} />
       </Grid>
       <Grid>
-      <About />
+        <About />
       </Grid>
     </Grid>
-   
   );
 };
 
