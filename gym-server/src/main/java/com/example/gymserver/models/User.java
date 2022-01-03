@@ -2,7 +2,9 @@ package com.example.gymserver.models;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.Period;
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Entity
 @Table
@@ -19,6 +21,7 @@ public class User {
             generator = "user_sequence"
     )
 
+    @Column(name = "userId")
     private Long id;
     private String firstName;
     private String lastName;
@@ -31,6 +34,13 @@ public class User {
     private String role;
     @Transient
     private Integer age;
+    @OneToMany(
+            mappedBy = "user",
+            orphanRemoval = true,
+            cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
+            fetch = FetchType.LAZY
+    )
+    private List<Session> sessions = new ArrayList<>();
 
     public User() {
     }
