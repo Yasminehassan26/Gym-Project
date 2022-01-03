@@ -1,12 +1,13 @@
 import * as React from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { useState } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import HomePage from "./components/Home/HomePage";
 import About from "./components/Home/About";
 import LoginPage from "./components/Registeration/LoginPage";
 import RegistrationNavBar from "./components/Registeration/RegistrationNavBar";
 import SignUp from "./components/Registeration/SignUpPage";
-import { useHistory } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 import Profile from "./components/Profile/Profile";
 import AllPrograms from "./components/Program/AllPrograms";
 import AllSessions from "./components/Session/AllSessions";
@@ -15,10 +16,10 @@ import TipNavigator from "./components/Tips/TipsNavigator";
 function App() {
   let history = useHistory();
 
-
   return (
-    // <Profile/>
+    // <HomePage/>
     // <Tips/>
+<<<<<<< HEAD
     <div style={{
      width : '100%' , height : '100%' }}>
        <Navbar  history={history}  /> 
@@ -41,9 +42,27 @@ function App() {
           <AllPrograms/>
           {/* <AllSessions/> */}
           {/* <TipNavigator/> */}
+=======
+    <div style={{ backgroundColor: "black" }}>
+      <Navbar history={history} />
+      <Switch>
+        <Route exact path="/">
+          <HomePage />
+        </Route>
 
- 
-       </div>
+        <Route path="/Registration">
+          <RegistrationNavBar history={history} />
+        </Route>
+>>>>>>> c65d9c411640c3e66b60f7d8b64a349cd87345df
+
+        <Route path="/SignUp">
+          <SignUp />
+        </Route>
+        <Route path="/SignIn">
+          <LoginPage />
+        </Route>
+      </Switch>
+    </div>
   );
 }
 

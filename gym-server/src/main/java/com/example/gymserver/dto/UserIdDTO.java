@@ -3,6 +3,7 @@ package com.example.gymserver.dto;
 public class UserIdDTO {
     private long userId;
     private String role;
+    private int statusCode;
 
     public long getUserId() {
         return userId;
@@ -19,4 +20,13 @@ public class UserIdDTO {
     public void setRole(String role) {
         this.role = role;
     }
+
+    public int getStatusCode() {
+        return statusCode;
+    }
+
+    public void setStatusCode(int statusCode) {
+        this.statusCode = statusCode;
+    }
+    
 }

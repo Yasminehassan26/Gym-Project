@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
 import Alert from "@mui/material/Alert";
 
 import Avatar from "@mui/material/Avatar";
@@ -26,8 +26,7 @@ import { SignIn } from "../../api/UseFetchGet";
 
 const theme = createTheme();
 
-
-export default function SignInSide({history}) {
+export default function SignInSide({ history }) {
   const [error, setError] = useState(0);
   const [errorMessage, setErrorMessage] = useState("");
   const [type, setType] = useState("warning");
@@ -36,66 +35,59 @@ export default function SignInSide({history}) {
     password: "",
     showPassword: false,
   });
-  const[forgetPassword,setForgetPassword] = useState(false);
-  const[question,setQuestion] = useState("");
-  const[answer, setAnswer] = useState("");
+  const [forgetPassword, setForgetPassword] = useState(false);
+  const [question, setQuestion] = useState("");
+  const [answer, setAnswer] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     let check = 0;
-    if (
-      data.get("password") === "" ||
-      data.get("username") === "" 
-    ) {
+    if (data.get("password") === "" || data.get("username") === "") {
       setError(1);
       setErrorMessage("Please fill all fields!");
       setType("warning");
       check = 1;
     }
-    if(check===0){
-    var values=
-    {
-    userName:data.get("username"),
-    password: data.get("password")
+    if (check === 0) {
+      var values = {
+        userName: data.get("username"),
+        password: data.get("password"),
+      };
+      var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+      console.log(values);
+      var requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: JSON.stringify(values),
+        redirect: "follow",
+      };
+
+      fetch(`http://localhost:8081/api/auth/sign-in`, requestOptions)
+        .then((response) => response.text())
+        .then((data) => {
+          console.log(data);
+          if (data === "-1") {
+            //wrong username
+            setError(1);
+            setErrorMessage("User Not Registered!!");
+            setType("warning");
+            check = 1;
+          } else if (data === "-2") {
+            //wrong password
+            setError(1);
+            setErrorMessage("Wrong password!!");
+            setType("warning");
+            check = 1;
+          } else {
+            history.push("/");
+            alert("SUCCESS !!");
+          }
+        })
+        .catch((error) => console.log("error", error));
     }
-    var myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    console.log(values);
-    var requestOptions = {
-      method: "POST",
-      headers: myHeaders,
-      body: JSON.stringify(values),
-      redirect: "follow",
-    };
-  
-    fetch(
-      `http://localhost:8081/api/auth/sign-in`, requestOptions
-    )
-      .then((response) => response.text())
-      .then((data) =>{
-        console.log(data);
-        if(data === "-1"){
-           //wrong username
-           setError(1);
-           setErrorMessage("User Not Registered!!");
-           setType("warning");
-           check = 1;
-        } else if(data === "-2") {
-          //wrong password
-          setError(1);
-          setErrorMessage("Wrong password!!");
-          setType("warning");
-          check = 1;
-        }else{
-          history.push('/');
-          alert("SUCCESS !!");
-        }
-      })
-      .catch((error) => console.log("error", error)); 
-   }
   };
- 
 
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
@@ -115,45 +107,47 @@ export default function SignInSide({history}) {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
- const handleForgetPassword =()=>{
-   console.log(values.username);
-  setForgetPassword(true);
-  //call to the back end to get the question  and set them
-  var requestOptions = {
-    method: "GET",
-    redirect: "follow",
-  };
+  const handleForgetPassword = () => {
+    console.log(values.username);
+    setForgetPassword(true);
+    //call to the back end to get the question  and set them
+    var requestOptions = {
+      method: "GET",
+      redirect: "follow",
+    };
 
-  fetch(
-    `http://localhost:8081/api/auth/get-user-question/${values.username}`,requestOptions
-  )
-    .then((response) => response.text())
-    .then((data) =>{
-      console.log(data);
-      setQuestion(data);
-    })
-    .catch((error) => console.log("error", error)); 
- }
- const handleAnswer= (event)=>{
-   //send the answer to the back end and show the result
-   var requestOptions = {
-    method: "POST",
-    body: answer,
-    redirect: "follow",
+    fetch(
+      `http://localhost:8081/api/auth/get-user-question/${values.username}`,
+      requestOptions
+    )
+      .then((response) => response.text())
+      .then((data) => {
+        console.log(data);
+        setQuestion(data);
+      })
+      .catch((error) => console.log("error", error));
   };
+  const handleAnswer = (event) => {
+    //send the answer to the back end and show the result
+    var requestOptions = {
+      method: "POST",
+      body: answer,
+      redirect: "follow",
+    };
 
-  console.log(answer);
-  fetch(
-    `http://localhost:8081/api/auth/validate-answer/${values.username}`,requestOptions
-  )
-    .then((response) => response.text())
-    .then((data) =>{
-      console.log(data);
-      // setQuestion(data);
-      // setAnswer(event.target.value);
-    })
-    .catch((error) => console.log("error", error)); 
- }
+    console.log(answer);
+    fetch(
+      `http://localhost:8081/api/auth/validate-answer/${values.username}`,
+      requestOptions
+    )
+      .then((response) => response.text())
+      .then((data) => {
+        console.log(data);
+        // setQuestion(data);
+        // setAnswer(event.target.value);
+      })
+      .catch((error) => console.log("error", error));
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -165,7 +159,8 @@ export default function SignInSide({history}) {
           sm={4}
           md={7}
           sx={{
-            backgroundImage: "url(https://source.unsplash.com/featured/?gym,athletics)",
+            backgroundImage:
+              "url(https://source.unsplash.com/featured/?gym,athletics)",
             backgroundRepeat: "no-repeat",
             backgroundColor: (t) =>
               t.palette.mode === "light"
@@ -185,7 +180,7 @@ export default function SignInSide({history}) {
               alignItems: "center",
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor:"#cc1b85" }}>
+            <Avatar sx={{ m: 1, bgcolor: "#cc1b85" }}>
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
@@ -222,7 +217,7 @@ export default function SignInSide({history}) {
                   label={'margin="dense"'}
                   id="margin-dense"
                   margin="dense"
-                  name = "password"
+                  name="password"
                   type={values.showPassword ? "password" : "text"}
                   value={values.password}
                   onChange={handleChange("password")}
@@ -248,42 +243,42 @@ export default function SignInSide({history}) {
               <Button
                 fullWidth
                 variant="contained"
-                sx={{ mt: 3, mb: 2 , backgroundColor : "#cc1b85" }}
-               onClick={handleForgetPassword}
-              >Forget Password ?</Button>
-              {forgetPassword &&  <InputLabel required htmlFor="outlined-adornment-password">
+                sx={{ mt: 3, mb: 2, backgroundColor: "#cc1b85" }}
+                onClick={handleForgetPassword}
+              >
+                Forget Password ?
+              </Button>
+              {forgetPassword && (
+                <InputLabel required htmlFor="outlined-adornment-password">
                   {question}
-                </InputLabel>  }
-                {forgetPassword && <TextField
-                required
-                margin="dense"
-                fullWidth
-                id="outlined-required"
-                label="Answer"
-                name="answer"
-                autoComplete="username"
-                defaultValue={answer}
-              />}
-             {forgetPassword && <Button onClick={handleAnswer}>OK</Button>
-
-             }
+                </InputLabel>
+              )}
+              {forgetPassword && (
+                <TextField
+                  required
+                  margin="dense"
+                  fullWidth
+                  id="outlined-required"
+                  label="Answer"
+                  name="answer"
+                  autoComplete="username"
+                  defaultValue={answer}
+                />
+              )}
+              {forgetPassword && <Button onClick={handleAnswer}>OK</Button>}
               <Button
                 type="submit"
                 fullWidth
                 variant="contained"
-                sx={{ mt: 3, mb: 2 ,backgroundColor: "#cc1b85"}}
-                
+                sx={{ mt: 3, mb: 2, backgroundColor: "#cc1b85" }}
               >
                 Sign In
               </Button>
               {error === 1 && (
-              <Alert severity={type}>warning — {errorMessage}</Alert>
-            )}
+                <Alert severity={type}>warning — {errorMessage}</Alert>
+              )}
               <Grid container>
-                <Grid item xs>
-         
-              
-                </Grid>
+                <Grid item xs></Grid>
               </Grid>
             </Box>
           </Box>

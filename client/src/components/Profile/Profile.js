@@ -24,6 +24,7 @@ import FormHelperText from "@mui/material/FormHelperText";
 import UseFetchPost from "../../api/UseFetchPost";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import Badge from "@mui/material/Badge";
+import ProfileActivities from "./ProfileActivities";
 
 import { styled } from "@mui/material/styles";
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -95,7 +96,7 @@ export default function Profile() {
         </AppBar>
         <Box sx={{ flexGrow: 1 }}>
           <Grid container spacing={2}>
-            <Grid item xs={8}>
+            <Grid item xs={7}>
               <Grid container component="main" sx={{ height: "100vh" }}>
                 <CssBaseline />
                 <Grid item component={Paper} elevation={6} square>
@@ -256,24 +257,7 @@ export default function Profile() {
               </Grid>
             </Grid>
             <Grid item xs={4}>
-              <Button
-                variant="contained"
-                style={{
-                  mt: 3,
-                  mb: 2,
-                  backgroundColor: "#cc1b85",
-                  border: "solid",
-                }}
-                onClick={handleSchedule}
-              >
-                {" "}
-                Show Schedule
-              </Button>
-              {schedule && (
-                <div style={{ marginTop: "10%" }}>
-                  The Schedual is empty right now{" "}
-                </div>
-              )}
+              <ProfileActivities />
             </Grid>
           </Grid>
         </Box>

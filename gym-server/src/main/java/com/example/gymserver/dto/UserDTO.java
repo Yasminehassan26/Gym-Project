@@ -9,6 +9,7 @@ import java.time.LocalDate;
 
 public class UserDTO {
 
+    private long userId;
     private String firstName;
     private String lastName;
     private String userName;
@@ -19,6 +20,15 @@ public class UserDTO {
     private String answer;
     private Integer age;
     private String role;
+
+    
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
 
     public String getFirstName() {
         return firstName;

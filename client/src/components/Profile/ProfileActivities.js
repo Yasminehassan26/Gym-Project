@@ -1,5 +1,4 @@
 import * as React from "react";
-import { useState } from "react";
 import PropTypes from "prop-types";
 import SwipeableViews from "react-swipeable-views";
 import { useTheme } from "@mui/material/styles";
@@ -8,8 +7,8 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import SignupPage from "./SignUpPage";
-import LoginPage from "./LoginPage";
+import UserPrograms from "./UserPrograms";
+import UserSessions from "./UserSessions";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -44,9 +43,9 @@ function a11yProps(index) {
   };
 }
 
-export default function RegistrationNavBar({ history }) {
+export default function ProfileActivities() {
   const theme = useTheme();
-  const [value, setValue] = useState(0);
+  const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -57,18 +56,18 @@ export default function RegistrationNavBar({ history }) {
   };
 
   return (
-    <Box sx={{ bgcolor: "background.paper" }}>
-      <AppBar position="static" sx={{ backgroundColor: "#cc1b85" }}>
+    <Box sx={{ bgcolor: "background.paper", width: 500 }}>
+      <AppBar position="static" sx={{ bgcolor: "#cc1b85" }}>
         <Tabs
           value={value}
           onChange={handleChange}
-          indicatorColor="secondary"
+          indicatorColor="#0A6BA1"
           textColor="inherit"
           variant="fullWidth"
           aria-label="full width tabs example"
         >
-          <Tab label="Sign In" {...a11yProps(0)} />
-          <Tab label="Sign Up " {...a11yProps(1)} />
+          <Tab label="Follow Up" {...a11yProps(0)} />
+          <Tab label="Sessions" {...a11yProps(1)} />
         </Tabs>
       </AppBar>
       <SwipeableViews
@@ -77,10 +76,10 @@ export default function RegistrationNavBar({ history }) {
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
-          <LoginPage history={history} />
+          <UserPrograms />
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
-          <SignupPage history={history} />
+          <UserSessions />
         </TabPanel>
       </SwipeableViews>
     </Box>

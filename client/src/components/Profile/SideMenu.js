@@ -13,13 +13,11 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import Profile from "./Profile";
 import LogoutSharpIcon from "@mui/icons-material/LogoutSharp";
 
-const SideMenu = ({ history}) => {
+const SideMenu = ({ history }) => {
   const [rightAnchor, setRightAnchor] = useState(false);
 
   const handleRoute = (text) => {
- 
-      history.push("/");
-    
+    history.push("/");
   };
 
   const toggleDrawer = (open) => (event) => {
@@ -33,7 +31,6 @@ const SideMenu = ({ history}) => {
     setRightAnchor(open);
   };
 
-  
   return (
     <div>
       <IconButton
