@@ -1,5 +1,6 @@
 package com.example.gymserver.controllers;
 
+import com.example.gymserver.dto.ClassFollowUpDTO;
 import com.example.gymserver.dto.ProgramFollowUpDTO;
 import com.example.gymserver.dto.SessionDTO;
 import com.example.gymserver.dto.UserIdDTO;
@@ -27,7 +28,13 @@ public class TraineeController {
     public List<ProgramFollowUpDTO> getFollowUp(
             @PathVariable("userName") String userName, @RequestBody UserIdDTO userIdDTO
     ){
-        return null;
+        List<ProgramFollowUpDTO> test = new ArrayList<>();
+        ClassFollowUpDTO[] testClass= new ClassFollowUpDTO[2];
+        testClass[0] = new ClassFollowUpDTO("yoga", "5/20");
+        testClass[1] = new ClassFollowUpDTO("yoga", "5/20");
+        test.add(new ProgramFollowUpDTO("program 1", testClass));
+        test.add(new ProgramFollowUpDTO("program 2", testClass));
+        return test;
     }
 
 }

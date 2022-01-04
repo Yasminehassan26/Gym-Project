@@ -1,24 +1,17 @@
 package com.example.gymserver.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class ClassFollowUpDTO {
     private String className;
-    private int attendedSessions;
-
-    public String getClassName() {
-        return className;
-    }
-
-    public void setClassName(String className) {
-        this.className = className;
-    }
-
-    public int getAttendedSessions() {
-        return attendedSessions;
-    }
-
-    public void setAttendedSessions(int attendedSessions) {
-        this.attendedSessions = attendedSessions;
-    }
+    private String attendedSessions;
 
     @Override
     public String toString() {
