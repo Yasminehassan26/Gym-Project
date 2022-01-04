@@ -40,7 +40,7 @@ public class Trainee implements Serializable {
             name = "sessionReservation",
             joinColumns = @JoinColumn(name = "traineeId"),
             inverseJoinColumns = @JoinColumn(name = "sessionId"))
-    Set<Session> sessions;
+    List<Session> sessions;
 
 
     public Trainee(Long id){
