@@ -127,7 +127,7 @@ public class TraineeService {
                 if( session != null ){
                     List<PClassFollowUp> classFollowUps = pClassFollowUpRepository
                             .findFollowUpsByTraineeAndClass(userIdDTO.getUserId(),session.getProgramClass().getId()).orElse(null);
-                    if( classFollowUps != null ){
+                    if( classFollowUps != null && classFollowUps.size() != 0){
                         boolean noRemainingSessions = true;
                         for(PClassFollowUp classFollowUp : classFollowUps){
                             if( classFollowUp.getSessionsRemaining() != 0 ){
