@@ -40,6 +40,9 @@ export default function TopMenu({ history }) {
     } else if (text === "Tips") {
       history.push("/AllTips");
     }
+    else if (text === "Sign out") {
+      history.push("/");
+    }
     // else  if (text === "Trainers") {
     //   history.push("/Trainers");
     // }
@@ -70,6 +73,18 @@ export default function TopMenu({ history }) {
             </ListItem>
           )
         )}
+        {typeof ReactSession.get("user") !== "undefined" && (
+          <ListItem
+            button
+            // sx={{ bgcolor: '#8B8B8B' }}
+            onClick={() => handleRoute("Sign out")}
+          >
+            <ListItemIcon>
+              <FitnessCenterIcon />
+            </ListItemIcon>
+            <ListItemText primary="Sign out" />
+          </ListItem>
+        )}
       </List>
     </Box>
   );
@@ -91,7 +106,7 @@ export default function TopMenu({ history }) {
         open={state["top"]}
         onClose={toggleDrawer("top", false)}
       >
-        {typeof ReactSession.get("user")!== "undefined" && <Profile />}
+        {typeof ReactSession.get("user") !== "undefined" && <Profile />}
         {list("top")}
       </Drawer>
     </div>

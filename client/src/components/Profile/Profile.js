@@ -159,7 +159,7 @@ export default function Profile() {
 
   return (
     <div>
-      <IconButton
+      {/* <IconButton
         size="large"
         edge="end"
         aria-label="account of current user"
@@ -168,7 +168,14 @@ export default function Profile() {
         color="inherit"
       >
         <AccountCircle />
-      </IconButton>
+      </IconButton> */}
+      <Button
+        variant="outlined"
+        startIcon={<AccountCircle color="secondary"/>}
+        onClick={() => setOpen(true)}
+      >
+        My Profile
+      </Button>
       <Dialog
         fullScreen
         open={open}
@@ -289,35 +296,39 @@ export default function Profile() {
                             defaultValue={state.password}
                             onChange={handleChange("password")}
                           /> */}
-                           <FormControl fullWidth sx={{ m: 1, width: "25ch" }} variant="outlined">
-                  <InputLabel htmlFor="outlined-adornment-password">
-                    Password
-                  </InputLabel>
-                  <OutlinedInput
-                    fullWidth
-                    id="outlined-adornment-password"
-                    type={state.showPassword ? "text" : "password"}
-                    value={state.password}
-                    onChange={handleChange("password")}
-                    endAdornment={
-                      <InputAdornment position="end">
-                        <IconButton
-                          aria-label="toggle password visibility"
-                          onClick={handleClickShowPassword}
-                          onMouseDown={handleMouseDownPassword}
-                          edge="end"
-                        >
-                          {state.showPassword ? (
-                            <VisibilityOff />
-                          ) : (
-                            <Visibility />
-                          )}
-                        </IconButton>
-                      </InputAdornment>
-                    }
-                    label="Password"
-                  />
-                </FormControl>
+                          <FormControl
+                            fullWidth
+                            sx={{ m: 1, width: "25ch" }}
+                            variant="outlined"
+                          >
+                            <InputLabel htmlFor="outlined-adornment-password">
+                              Password
+                            </InputLabel>
+                            <OutlinedInput
+                              fullWidth
+                              id="outlined-adornment-password"
+                              type={state.showPassword ? "text" : "password"}
+                              value={state.password}
+                              onChange={handleChange("password")}
+                              endAdornment={
+                                <InputAdornment position="end">
+                                  <IconButton
+                                    aria-label="toggle password visibility"
+                                    onClick={handleClickShowPassword}
+                                    onMouseDown={handleMouseDownPassword}
+                                    edge="end"
+                                  >
+                                    {state.showPassword ? (
+                                      <VisibilityOff />
+                                    ) : (
+                                      <Visibility />
+                                    )}
+                                  </IconButton>
+                                </InputAdornment>
+                              }
+                              label="Password"
+                            />
+                          </FormControl>
                         </Grid>
                         <Grid item xs={12} sm={6}>
                           <h4>Mobile number</h4>
