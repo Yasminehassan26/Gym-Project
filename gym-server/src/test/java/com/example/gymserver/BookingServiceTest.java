@@ -5,6 +5,7 @@ import com.example.gymserver.controllers.SignUpController;
 import com.example.gymserver.controllers.TraineeController;
 import com.example.gymserver.dto.*;
 
+import com.example.gymserver.models.Session;
 import com.example.gymserver.repositories.UserRepository;
 import com.example.gymserver.services.TraineeService;
 import org.junit.jupiter.api.Test;
@@ -83,7 +84,8 @@ public class BookingServiceTest {
     }
 
     @Test
-    public void bookSessionFull(){}
+    public void bookSessionFull(){
+    }
 
     @Test
     public void bookBookedSession(){}
