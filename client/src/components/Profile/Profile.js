@@ -21,12 +21,16 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import FormControl from "@mui/material/FormControl";
 import FormHelperText from "@mui/material/FormHelperText";
-import UseFetchPost from "../../api/UseFetchPost";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import Badge from "@mui/material/Badge";
+import validator from "validator";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import InputAdornment from "@mui/material/InputAdornment";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import ProfileActivities from "./ProfileActivities";
 import { styled } from "@mui/material/styles";
-import { ReactSession } from 'react-client-session';
+import { ReactSession } from "react-client-session";
 import {
   getProfileInfo,
   getPrograms,
@@ -51,35 +55,72 @@ export default function Profile() {
     birthdate: "",
     question: "",
     answer: "",
+    showPassword: false,
   });
   const [error, setError] = useState(0);
   const [errorMessage, setErrorMessage] = useState("");
   const [type, setType] = useState("");
-  const [schedule, setSchedule] = useState(false);
   const [programs, setPrograms] = useState([]);
   const [sessions, setSessions] = useState([]);
 
   const handleClose = (event) => {
     setOpen(false);
   };
+  const handleClickShowPassword = () => {
+    setState({
+      ...state,
+      showPassword: !state.showPassword,
+    });
+  };
 
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
   const handleSubmit = (event) => {
     //console.log(data);
-    var values = {
-      userId: ReactSession.get("user").Id,
-      firstName: state.firstName,
-      lastName: state.lastName,
-      userName: ReactSession.get("user").userName,
-      password: state.password,
-      birth_date: state.birthdate,
-      phoneNumber: state.mobile,
-      question: state.question,
-      answer: state.answer,
-      age: null,
-      role: "trainee",
-    };
-    console.log(values);
-    updateUser(values, ReactSession.get("user").userName);
+    if (
+      state.firstName === "" ||
+      state.lastName === "" ||
+      state.password === "" ||
+      state.birthdate === "" ||
+      state.mobile === "" ||
+      state.question === "" ||
+      state.answer === ""
+    ) {
+      setError(1);
+      setErrorMessage("Please fill all fields!");
+      setType("warning");
+    } else {
+      if (
+        !validator.isStrongPassword(state.password, {
+          minLength: 8,
+          minLowercase: 1,
+          minUppercase: 1,
+          minNumbers: 1,
+          minSymbols: 1,
+        })
+      ) {
+        setError(1);
+        setErrorMessage("Please enter a strong password");
+        setType("warning");
+      } else {
+        var values = {
+          userId: ReactSession.get("user").Id,
+          firstName: state.firstName,
+          lastName: state.lastName,
+          userName: ReactSession.get("user").userName,
+          password: state.password,
+          birth_date: state.birthdate,
+          phoneNumber: state.mobile,
+          question: state.question,
+          answer: state.answer,
+          age: null,
+          role: "trainee",
+        };
+        console.log(values);
+        updateUser(values, ReactSession.get("user").userName);
+      }
+    }
   };
   const handleChange = (prop) => (event) => {
     setState({ ...state, [prop]: event.target.value });
@@ -193,11 +234,7 @@ export default function Profile() {
                         sx={{ width: 100, height: 100, color: "#cc1b85" }}
                       />{" "}
                     </Badge>
-                    <Box
-                      component="form"
-                      noValidate
-                      sx={{ mt: 3 }}
-                    >
+                    <Box component="form" noValidate sx={{ mt: 3 }}>
                       <Grid container spacing={2}>
                         <Grid item xs={12} sm={6}>
                           <h4>First Name</h4>
@@ -241,7 +278,7 @@ export default function Profile() {
                         </Grid>
                         <Grid item xs={12}>
                           <h4>Password</h4>
-                          <TextField
+                          {/* <TextField
                             required
                             fullWidth
                             name="password"
@@ -251,7 +288,36 @@ export default function Profile() {
                             autoComplete="new-password"
                             defaultValue={state.password}
                             onChange={handleChange("password")}
-                          />
+                          /> */}
+                           <FormControl fullWidth sx={{ m: 1, width: "25ch" }} variant="outlined">
+                  <InputLabel htmlFor="outlined-adornment-password">
+                    Password
+                  </InputLabel>
+                  <OutlinedInput
+                    fullWidth
+                    id="outlined-adornment-password"
+                    type={state.showPassword ? "text" : "password"}
+                    value={state.password}
+                    onChange={handleChange("password")}
+                    endAdornment={
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowPassword}
+                          onMouseDown={handleMouseDownPassword}
+                          edge="end"
+                        >
+                          {state.showPassword ? (
+                            <VisibilityOff />
+                          ) : (
+                            <Visibility />
+                          )}
+                        </IconButton>
+                      </InputAdornment>
+                    }
+                    label="Password"
+                  />
+                </FormControl>
                         </Grid>
                         <Grid item xs={12} sm={6}>
                           <h4>Mobile number</h4>
