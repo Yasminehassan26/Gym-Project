@@ -61,10 +61,10 @@ export default function SessionCard({ session }) {
         sx={{ color: "white" }}
         avatar={
           <Avatar sx={{ bgcolor: "#cc1b85" }} aria-label="recipe">
-            {session.id}
+            {session.sessionId}
           </Avatar>
         }
-        title={session.className}
+        title={session.name}
         subheader={
           <Typography style={{ color: "white", fontSize: 14 }}>
             {session.date}
@@ -75,13 +75,13 @@ export default function SessionCard({ session }) {
       <CardContent>
         <Typography variant="body2" color="white">
           {"Number Of Attendence: " +
-            session.noOfAttendence +
+            session.attendee.substr(0, session.attendee.indexOf('/')) +
             " Out Of: " +
-            session.maxNoOfAttendence}
+            session.attendee.substr(session.attendee.indexOf('/')+1, session.attendee.length)}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        {session.noOfAttendence < session.maxNoOfAttendence && (
+        {session.attendee.substr(0, session.attendee.indexOf('/')) < session.attendee.substr(session.attendee.indexOf('/')+1, session.attendee.length) && (
           <Button
             variant="contained"
             disableElevation
@@ -95,7 +95,7 @@ export default function SessionCard({ session }) {
             BOOK
           </Button>
         )}
-        {session.noOfAttendence === session.maxNoOfAttendence && (
+        {session.attendee.substr(0, session.attendee.indexOf('/')) === session.attendee.substr(session.attendee.indexOf('/')+1, session.attendee.length) && (
           <Button
             disabled
             variant="contained"

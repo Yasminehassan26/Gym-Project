@@ -18,6 +18,7 @@ const AllSessions = () => {
       .then((response) => response.json())
       .then((data)=>{
         setSessions(data);
+        console.log(sessions);
       })
       .catch((error) => console.log("error", error));
   },[]);
