@@ -5,7 +5,7 @@ import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Button from "@mui/material/Button";
-import SideMenu from "./Profile/SideMenu";
+import Profile from "./Profile/Profile";
 
 import AssignmentIndSharpIcon from "@mui/icons-material/AssignmentIndSharp";
 import TopMenu from "./TopMenu";
@@ -44,7 +44,7 @@ export default function Navbar({ history }) {
           </Button>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <SideMenu history={history} />
+            <Profile />
               <ColorButton
                   startIcon={<AssignmentIndSharpIcon />}
                   onClick={() => handleRoute("Registration")}
