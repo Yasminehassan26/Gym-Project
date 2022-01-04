@@ -1,5 +1,7 @@
 package com.example.gymserver.controllers;
 
+import com.example.gymserver.dto.ProgramDTO;
+import com.example.gymserver.dto.SessionDTO;
 import com.example.gymserver.models.Program;
 import com.example.gymserver.models.Session;
 import com.example.gymserver.services.BookingService;
@@ -23,12 +25,12 @@ public class BookingController {
     }
 
     @GetMapping("/programs")
-    public List<Program> getAllPrograms(){
+    public List<ProgramDTO> getAllPrograms(){
         return bookingService.getAllPrograms();
     }
 
     @GetMapping("/sessions")
-    public List<Session> getAllSessions(){
+    public List<SessionDTO> getAllSessions(){
         return bookingService.getAllSessions();
     }
     
