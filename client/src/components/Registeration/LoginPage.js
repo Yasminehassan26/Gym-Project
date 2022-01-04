@@ -70,13 +70,13 @@ export default function SignInSide({ history }) {
         .then((response) => response.json())
         .then((res) => {
           console.log(res);
-          if (res.statusCode === "-1") {
+          if (res.statusCode === -1) {
             //wrong username
             setError(1);
             setErrorMessage("User Not Registered!!");
             setType("warning");
             check = 1;
-          } else if (res.statusCode === "-2") {
+          } else if (res.statusCode === -2) {
             //wrong password
             setError(1);
             setErrorMessage("Wrong password!!");
