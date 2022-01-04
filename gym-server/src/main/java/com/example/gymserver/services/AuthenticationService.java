@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AuthenticationService {
+    public final static int UNAUTHENTICATED_USER_STATUS_CODE = -100;
     private UserRepository userRepository;
 
     @Autowired
@@ -23,5 +24,5 @@ public class AuthenticationService {
         return user.getId() == id;
     }
 
-    
+
 }

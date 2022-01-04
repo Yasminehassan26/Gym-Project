@@ -10,20 +10,28 @@ import com.example.gymserver.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.beans.Transient;
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class TraineeService {
-
     private AuthenticationService authenticationService;
     private ProgramRepository programRepository;
     private PClassFollowUpRepository pClassFollowUpRepository;
     private PClassDetailsRepository pClassDetailsRepository;
     private TraineeRepository traineeRepository;
     private SessionRepository sessionRepository;
+
+
+    public static final int NO_BOOKED_PROGRAM_STATUS_CODE = -1;
+    public static final int NO_REMAINING_SESSIONS_STATUS_CODE = -2;
+    public static final int TRAINEE_REGISTERED_BEFORE_STATUS_CODE = -4;
+    public static final int FULL_SESSION_STATUS_CODE = -5;
+    public static final int INVALID_ENTITY_STATUS_CODE = -10;
+
+
 
     @Autowired
     public TraineeService(AuthenticationService authenticationService,
@@ -73,10 +81,10 @@ public class TraineeService {
         }
     }
 
-    public String bookProgram(String userName, Long programID, UserIdDTO userIdDTO) {
-        String confirmation = "";
+    public int bookProgram(String userName, Long programID, UserIdDTO userIdDTO) {
+        int statusCode = 0;
         if(!this.authenticationService.authenticateUser(userIdDTO.getUserId(), userName))
-            confirmation = "unauthorized user";
+            statusCode = AuthenticationService.UNAUTHENTICATED_USER_STATUS_CODE;
         else{
             Program program = this.programRepository.findById(programID).orElse(null);
             if(program != null){
@@ -99,52 +107,52 @@ public class TraineeService {
                                                     .build();
                         this.pClassFollowUpRepository.save(followUp);
                     }
-                    confirmation = "DONE";
                 }
-                else confirmation = "null program";
+                else statusCode = INVALID_ENTITY_STATUS_CODE;
             }
-            else confirmation = "wrong program id";
+            else statusCode = INVALID_ENTITY_STATUS_CODE;
         }
-        return confirmation;
+        return statusCode;
     }
 
-    @Transient
-    public String bookSession(String userName, Long sessionID, UserIdDTO userIdDTO) {
-        String confirmation = "";
+    @Transactional
+    public int bookSession(String userName, Long sessionID, UserIdDTO userIdDTO) {
+        int statusCode = 0;
         if(!this.authenticationService.authenticateUser(userIdDTO.getUserId(), userName))
-            confirmation = "unauthorized user";
+            statusCode = AuthenticationService.UNAUTHENTICATED_USER_STATUS_CODE;
         else{
+            Trainee trainee = traineeRepository.getById(userIdDTO.getUserId());
             Session session = this.sessionRepository.findById(sessionID).orElse(null);
-            if( session != null ){
-                List<PClassFollowUp> classFollowUps = pClassFollowUpRepository
-                        .findFollowUpsByTraineeAndClass(userIdDTO.getUserId(),session.getProgramClass().getId()).orElse(null);
-                if( classFollowUps != null ){
-                    boolean noRemainingSessions = true;
-                    for(PClassFollowUp classFollowUp : classFollowUps){
-                        if( classFollowUp.getSessionsRemaining() != 0 ){
-                            classFollowUp.reserveSession();
-                            noRemainingSessions = false;
-                            if( !session.isFull() ){
-                                session.addAttendee();
-                                Trainee trainee = traineeRepository.getById(userIdDTO.getUserId());
-                                trainee.getSessions().add(session);
+            if(!trainee.getSessions().contains(session)){
+                if( session != null ){
+                    List<PClassFollowUp> classFollowUps = pClassFollowUpRepository
+                            .findFollowUpsByTraineeAndClass(userIdDTO.getUserId(),session.getProgramClass().getId()).orElse(null);
+                    if( classFollowUps != null ){
+                        boolean noRemainingSessions = true;
+                        for(PClassFollowUp classFollowUp : classFollowUps){
+                            if( classFollowUp.getSessionsRemaining() != 0 ){
+                                classFollowUp.reserveSession();
+                                noRemainingSessions = false;
+                                if( !session.isFull() ){
+                                    session.addAttendee();
+                                    trainee.getSessions().add(session);
+                                }
+                                else
+                                    statusCode = FULL_SESSION_STATUS_CODE;
+                                break;
                             }
-                            else
-                                confirmation = "Session is full!";
-
-                            break;
                         }
+                        if( noRemainingSessions )
+                            statusCode = NO_REMAINING_SESSIONS_STATUS_CODE;
                     }
-                    if( noRemainingSessions )
-                        confirmation = "No remaining sessions for this class!";
+                    else
+                        statusCode = NO_BOOKED_PROGRAM_STATUS_CODE;
                 }
                 else
-                    confirmation = "No booked programs including this session!";
+                    statusCode = INVALID_ENTITY_STATUS_CODE;
             }
-            else
-                confirmation = "No session by this id!";
-
+            else statusCode = TRAINEE_REGISTERED_BEFORE_STATUS_CODE;
         }
-        return confirmation;
+        return statusCode;
     }
 }
