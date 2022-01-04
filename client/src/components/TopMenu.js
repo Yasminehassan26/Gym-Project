@@ -41,7 +41,7 @@ export default function TopMenu({ history }) {
       history.push("/AllTips");
     }
     else if (text === "Sign out") {
-      ReactSession.clear();
+      sessionStorage.clear();
       history.push("/");
     }
     // else  if (text === "Trainers") {

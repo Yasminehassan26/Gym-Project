@@ -16,6 +16,8 @@ import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
 import Alert from "@mui/material/Alert";
 
+import {ReactSession} from 'react-client-session';
+
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
@@ -38,13 +40,36 @@ export default function SessionCard({ session }) {
 
   const handleBookSession = () => {
     if (alert === false) {
+      setAlert(true);
+      console.log("book clicked");
+      if (typeof ReactSession.get("user") === 'undefined') {
+        setAlertState(-3);
+      } else {
+        var data = {
+          userId: ReactSession.get("user").Id,
+          role: ReactSession.get("user").role,
+          statusCode: 0,
+        };
+        console.log(data);
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        var requestOptions = {
+          method: "POST",
+          headers: myHeaders,
+          body: JSON.stringify(data),
+          redirect: "follow",
+        };
+        fetch(`http://localhost:8082/api/trainee/book-session/${ReactSession.get("user").userName}/${session.sessionId}`, requestOptions)
+          .then((response) => response.text())
+          .then((data) => {
+            console.log(data);
+            setAlertState(parseInt(data));
+          })
+          .catch((error) => console.log("error", error));
+      }
       //send to back end user id and show alert booked successfully any
       //should check first the user id if it is n't null as if it is don't send a request to the backend
-      const res = -2;
-      setAlertState(res);
-      setAlert(true);
-
-      console.log("book clicked");
+      
     }
   };
 
@@ -67,7 +92,7 @@ export default function SessionCard({ session }) {
         title={session.name}
         subheader={
           <Typography style={{ color: "white", fontSize: 14 }}>
-            {session.date}
+            {session.date.substr(0,session.date.indexOf('T'))}
           </Typography>
         }
       />
@@ -110,7 +135,7 @@ export default function SessionCard({ session }) {
           </Button>
         )}
 
-        {alert && alertState === 1 && (
+        {alert && alertState === 0 && (
           <Alert severity="success">Booked Successfully!!</Alert>
         )}
         {alert && alertState === -1 && (
@@ -119,6 +144,11 @@ export default function SessionCard({ session }) {
         {alert && alertState === -2 && (
           <Alert severity="error">
             Sorry Remaining sessions of that class in your program ended !!
+          </Alert>
+        )}
+        {alert && alertState === -3 && (
+          <Alert severity="error">
+            Go Register First.
           </Alert>
         )}
         <ExpandMore
@@ -151,7 +181,7 @@ export default function SessionCard({ session }) {
                 primary="Start Time:"
                 secondary={
                   <Typography style={{ color: "white", fontSize: 14 }}>
-                    {session.startTime}
+                    {session.date.substr(session.date.indexOf('T')+1,session.date.length)}
                   </Typography>
                 }
               />
@@ -162,7 +192,7 @@ export default function SessionCard({ session }) {
                 primary="End Time:"
                 secondary={
                   <Typography style={{ color: "white", fontSize: 14 }}>
-                    {session.endTime}
+                    {session.endTime.substr(session.date.indexOf('T')+1,session.endTime.length)}
                   </Typography>
                 }
               />

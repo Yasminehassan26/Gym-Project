@@ -306,6 +306,7 @@ export default function Profile() {
                             </InputLabel>
                             <OutlinedInput
                               fullWidth
+                              name="password"
                               id="outlined-adornment-password"
                               type={state.showPassword ? "text" : "password"}
                               value={state.password}

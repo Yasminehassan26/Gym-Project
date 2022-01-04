@@ -16,6 +16,8 @@ import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
 import Alert from "@mui/material/Alert";
 
+import { ReactSession } from 'react-client-session';
+
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
@@ -30,7 +32,7 @@ const ExpandMore = styled((props) => {
 export default function ProgramCard({ program }) {
   const [expanded, setExpanded] = React.useState(false);
   const [alert, setAlert] = React.useState(false);
-
+  const [alertData, setAlertData] = React.useState();
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -39,6 +41,31 @@ export default function ProgramCard({ program }) {
     if (alert === false) {
       setAlert(true);
       console.log("book clicked");
+      if (typeof ReactSession.get("user") === 'undefined') {
+        setAlertData(-1);
+      } else {
+        var data = {
+          userId: ReactSession.get("user").Id,
+          role: ReactSession.get("user").role,
+          statusCode: 0,
+        };
+        console.log(data);
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        var requestOptions = {
+          method: "POST",
+          headers: myHeaders,
+          body: JSON.stringify(data),
+          redirect: "follow",
+        };
+        fetch(`http://localhost:8082/api/trainee/book-program/${ReactSession.get("user").userName}/${program.programId}`, requestOptions)
+          .then((response) => response.text())
+          .then((data) => {
+            console.log(data);
+            setAlertData(1);
+          })
+          .catch((error) => console.log("error", error));
+      }
     }
     //send to back end user id and show alert booked successfully any
     //should check first the user id if it is n't null as if it is don't send a request to the backend
@@ -62,7 +89,7 @@ export default function ProgramCard({ program }) {
         title={program.name}
         subheader={
           <Typography style={{ color: "white", fontSize: 14 }}>
-            {" "}
+            {"Duration: "}
             {program.duration}
           </Typography>
         }
@@ -86,7 +113,8 @@ export default function ProgramCard({ program }) {
         >
           BOOK
         </Button>
-        {alert && <Alert severity="success">Booked Successfully!!</Alert>}
+        {alertData === 1 && alert && <Alert severity="success">Booked Successfully!!</Alert>}
+        {alertData === -1 && alert && <Alert severity="error">Go Register First.</Alert>}
         <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}
