@@ -26,8 +26,13 @@ import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import Badge from "@mui/material/Badge";
 import ProfileActivities from "./ProfileActivities";
 import { styled } from "@mui/material/styles";
-import {ReactSession} from 'react-client-session';
-import { getProfileInfo,getPrograms,getSession } from "../../api/ProfileApi";
+import { ReactSession } from "react-client-session";
+import {
+  getProfileInfo,
+  getPrograms,
+  getSession,
+  updateUser,
+} from "../../api/ProfileApi";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -54,25 +59,43 @@ export default function Profile() {
   const [schedule, setSchedule] = useState(false);
   const [programs, setPrograms] = useState([]);
   const [sessions, setSessions] = useState([]);
-  const handleClose = () => {
+
+  const handleClose = (event) => {
     setOpen(false);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    console.log(data);
+    var values = {
+      firstName: data.get("firstName"),
+      lastName: data.get("lastName"),
+      password: data.get("password"),
+      userName: data.get("username"),
+      birth_date: data.get("birthdate"),
+      phoneNumber: data.get("mobile"),
+      question: data.get("question"),
+      answer: data.get("answer"),
+      age: data.get(null),
+      role: "trainee",
+    };
+    updateUser(values, ReactSession.get("user").userName).then((info) => {
+      console.log(info);
+    });
   };
   const handleChange = (prop) => (event) => {
     setState({ ...state, [prop]: event.target.value });
   };
-  const handleSchedule = () => {
-    setSchedule(!schedule);
-  };
+
   useEffect(() => {
-  //const handleClick = () =>{
-    //setOpen(true);
     console.log(ReactSession.get("user").userName);
     var values = {
       userId: ReactSession.get("user").Id,
       role: ReactSession.get("user").role,
       statusCode: 0,
     };
-    getProfileInfo(values,ReactSession.get("user").userName).then((data) => {
+    getProfileInfo(values, ReactSession.get("user").userName).then((data) => {
       console.log(data);
       var addData = {
         firstName: data.firstName,
@@ -83,26 +106,19 @@ export default function Profile() {
         birthdate: data.birth_date,
         question: data.question,
         answer: data.answer,
-      }
+      };
       setState(addData);
-      /*setState({ ...state, ["firstName"]: data.firstName });
-      setState({ ...state, ["lastName"]: data.lastName });
-      setState({ ...state, ["userName"]: data.userName });
-      setState({ ...state, ["password"]: data.password });
-      setState({ ...state, ["mobile"]: data.phoneNumber });
-      setState({ ...state, ["birthdate"]: data.birth_date });
-      setState({ ...state, ["question"]: data.question });
-      setState({ ...state, ["answer"]: data.answer });*/
     });
-    getPrograms(values,ReactSession.get("user").userName).then((program) => {
+    getPrograms(values, ReactSession.get("user").userName).then((program) => {
       console.log(program);
       setPrograms(program);
     });
-    getSession(values,ReactSession.get("user").userName).then((session) => {
+    getSession(values, ReactSession.get("user").userName).then((session) => {
       console.log(session);
       setSessions(session);
     });
   }, []);
+
   return (
     <div>
       <IconButton
@@ -110,7 +126,7 @@ export default function Profile() {
         edge="end"
         aria-label="account of current user"
         aria-haspopup="true"
-        onClick={()=>setOpen(true)}
+        onClick={() => setOpen(true)}
         color="inherit"
       >
         <AccountCircle />
@@ -134,9 +150,6 @@ export default function Profile() {
             <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
               My Profile
             </Typography>
-            <Button autoFocus color="inherit" onClick={handleClose}>
-              save
-            </Button>
           </Toolbar>
         </AppBar>
         <Box sx={{ flexGrow: 1 }}>
@@ -180,7 +193,12 @@ export default function Profile() {
                         sx={{ width: 100, height: 100, color: "#cc1b85" }}
                       />{" "}
                     </Badge>
-                    <Box component="form" noValidate sx={{ mt: 3 }}>
+                    <Box
+                      component="form"
+                      noValidate
+                      onSubmit={handleSubmit}
+                      sx={{ mt: 3 }}
+                    >
                       <Grid container spacing={2}>
                         <Grid item xs={12} sm={6}>
                           <h4>First Name</h4>
@@ -217,7 +235,6 @@ export default function Profile() {
                             name="username"
                             autoComplete="username"
                             defaultValue={state.userName}
-
                           />
                         </Grid>
                         <Grid item xs={12}>
@@ -231,7 +248,6 @@ export default function Profile() {
                             id="password"
                             autoComplete="new-password"
                             defaultValue={state.password}
-
                           />
                         </Grid>
                         <Grid item xs={12} sm={6}>
@@ -245,7 +261,6 @@ export default function Profile() {
                             label="Mobile Number"
                             autoFocus
                             defaultValue={state.mobile}
-
                           />
                         </Grid>
                         <Grid item xs={12} sm={6}>
@@ -299,10 +314,17 @@ export default function Profile() {
                             name="answer"
                             autoComplete="answer"
                             defaultValue={state.answer}
-
                           />
                         </Grid>
                       </Grid>
+                      <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        sx={{ mt: 3, mb: 2, backgroundColor: "#cc1b85" }}
+                      >
+                        Save
+                      </Button>
                       {error === 1 && (
                         <Alert severity={type}>warning — {errorMessage}</Alert>
                       )}
@@ -312,7 +334,7 @@ export default function Profile() {
               </Grid>
             </Grid>
             <Grid item xs={4}>
-              <ProfileActivities programs={programs} sessions={sessions}/>
+              <ProfileActivities programs={programs} sessions={sessions} />
             </Grid>
           </Grid>
         </Box>
