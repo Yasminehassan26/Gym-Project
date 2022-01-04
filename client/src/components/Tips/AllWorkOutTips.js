@@ -1,8 +1,9 @@
 import TipCard from "./TipCard";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
+import Navbar from "../Navbar";
 
-const AllWorkOutTips = () => {
+const AllWorkOutTips = ({history}) => {
   //on opening the page this data should be fetched from the backend
   const workOutTips = [
     {
@@ -60,6 +61,8 @@ const AllWorkOutTips = () => {
     },
   ];
   return (
+
+
     <Box
       sx={{
         height: "100%",
@@ -86,6 +89,8 @@ const AllWorkOutTips = () => {
         })}
       </Grid>
     </Box>
+  
+
   );
 };
 

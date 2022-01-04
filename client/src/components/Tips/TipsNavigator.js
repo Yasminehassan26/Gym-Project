@@ -10,6 +10,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import AllWorkOutTips from "./AllWorkOutTips";
 import AllHealthTips from "./AllHealthTips";
+import Navbar from "../Navbar";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -57,6 +58,10 @@ export default function TipNavigator({ history }) {
   };
 
   return (
+    <div>
+                <Navbar history={history} />
+
+
     <Box sx={{ bgcolor: "background.paper" }}>
       <AppBar position="static" sx={{ backgroundColor: "#cc1b85" }}>
         <Tabs
@@ -84,5 +89,6 @@ export default function TipNavigator({ history }) {
         </TabPanel>
       </SwipeableViews>
     </Box>
+    </div>
   );
 }

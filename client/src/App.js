@@ -23,7 +23,6 @@ function App() {
     // <HomePage/>
     // <Tips/>
     <div style={{ backgroundColor: "black" }}>
-      <Navbar history={history} />
       <Switch>
         <Route exact path="/">
           <HomePage history={history} />
