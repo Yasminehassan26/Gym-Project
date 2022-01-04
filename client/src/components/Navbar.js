@@ -44,7 +44,7 @@ export default function Navbar({ history }) {
           </Button>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <Profile />
+              
               <ColorButton
                   startIcon={<AssignmentIndSharpIcon />}
                   onClick={() => handleRoute("Registration")}

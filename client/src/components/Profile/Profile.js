@@ -21,9 +21,13 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import FormControl from "@mui/material/FormControl";
 import FormHelperText from "@mui/material/FormHelperText";
-import UseFetchPost from "../../api/UseFetchPost";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import Badge from "@mui/material/Badge";
+import validator from "validator";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import InputAdornment from "@mui/material/InputAdornment";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import ProfileActivities from "./ProfileActivities";
 import { styled } from "@mui/material/styles";
 import { ReactSession } from "react-client-session";
@@ -51,38 +55,72 @@ export default function Profile() {
     birthdate: "",
     question: "",
     answer: "",
+    showPassword: false,
   });
-  const [first, setFirst] = useState("");
   const [error, setError] = useState(0);
   const [errorMessage, setErrorMessage] = useState("");
   const [type, setType] = useState("");
-  const [schedule, setSchedule] = useState(false);
   const [programs, setPrograms] = useState([]);
   const [sessions, setSessions] = useState([]);
 
   const handleClose = (event) => {
     setOpen(false);
   };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log(data);
-    var values = {
-      firstName: data.get("firstName"),
-      lastName: data.get("lastName"),
-      password: data.get("password"),
-      userName: data.get("username"),
-      birth_date: data.get("birthdate"),
-      phoneNumber: data.get("mobile"),
-      question: data.get("question"),
-      answer: data.get("answer"),
-      age: data.get(null),
-      role: "trainee",
-    };
-    updateUser(values, ReactSession.get("user").userName).then((info) => {
-      console.log(info);
+  const handleClickShowPassword = () => {
+    setState({
+      ...state,
+      showPassword: !state.showPassword,
     });
+  };
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+  const handleSubmit = (event) => {
+    //console.log(data);
+    if (
+      state.firstName === "" ||
+      state.lastName === "" ||
+      state.password === "" ||
+      state.birthdate === "" ||
+      state.mobile === "" ||
+      state.question === "" ||
+      state.answer === ""
+    ) {
+      setError(1);
+      setErrorMessage("Please fill all fields!");
+      setType("warning");
+    } else {
+      if (
+        !validator.isStrongPassword(state.password, {
+          minLength: 8,
+          minLowercase: 1,
+          minUppercase: 1,
+          minNumbers: 1,
+          minSymbols: 1,
+        })
+      ) {
+        setError(1);
+        setErrorMessage("Please enter a strong password");
+        setType("warning");
+      } else {
+        var values = {
+          userId: ReactSession.get("user").Id,
+          firstName: state.firstName,
+          lastName: state.lastName,
+          userName: ReactSession.get("user").userName,
+          password: state.password,
+          birth_date: state.birthdate,
+          phoneNumber: state.mobile,
+          question: state.question,
+          answer: state.answer,
+          age: null,
+          role: "trainee",
+        };
+        console.log(values);
+        updateUser(values, ReactSession.get("user").userName);
+      }
+    }
   };
   const handleChange = (prop) => (event) => {
     setState({ ...state, [prop]: event.target.value });
@@ -121,7 +159,7 @@ export default function Profile() {
 
   return (
     <div>
-      <IconButton
+      {/* <IconButton
         size="large"
         edge="end"
         aria-label="account of current user"
@@ -130,7 +168,14 @@ export default function Profile() {
         color="inherit"
       >
         <AccountCircle />
-      </IconButton>
+      </IconButton> */}
+      <Button
+        variant="outlined"
+        startIcon={<AccountCircle color="secondary"/>}
+        onClick={() => setOpen(true)}
+      >
+        My Profile
+      </Button>
       <Dialog
         fullScreen
         open={open}
@@ -150,6 +195,9 @@ export default function Profile() {
             <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
               My Profile
             </Typography>
+            <Button autoFocus color="inherit" onClick={handleSubmit}>
+              save
+            </Button>
           </Toolbar>
         </AppBar>
         <Box sx={{ flexGrow: 1 }}>
@@ -193,12 +241,7 @@ export default function Profile() {
                         sx={{ width: 100, height: 100, color: "#cc1b85" }}
                       />{" "}
                     </Badge>
-                    <Box
-                      component="form"
-                      noValidate
-                      onSubmit={handleSubmit}
-                      sx={{ mt: 3 }}
-                    >
+                    <Box component="form" noValidate sx={{ mt: 3 }}>
                       <Grid container spacing={2}>
                         <Grid item xs={12} sm={6}>
                           <h4>First Name</h4>
@@ -211,6 +254,7 @@ export default function Profile() {
                             label="First Name"
                             autoFocus
                             defaultValue={state.firstName}
+                            onChange={handleChange("firstName")}
                           />
                         </Grid>
                         <Grid item xs={12} sm={6}>
@@ -223,6 +267,7 @@ export default function Profile() {
                             name="lastName"
                             defaultValue={state.lastName}
                             autoComplete="lname"
+                            onChange={handleChange("lastName")}
                           />
                         </Grid>
                         <Grid item xs={12}>
@@ -235,11 +280,12 @@ export default function Profile() {
                             name="username"
                             autoComplete="username"
                             defaultValue={state.userName}
+                            onChange={handleChange("userName")}
                           />
                         </Grid>
                         <Grid item xs={12}>
                           <h4>Password</h4>
-                          <TextField
+                          {/* <TextField
                             required
                             fullWidth
                             name="password"
@@ -248,7 +294,41 @@ export default function Profile() {
                             id="password"
                             autoComplete="new-password"
                             defaultValue={state.password}
-                          />
+                            onChange={handleChange("password")}
+                          /> */}
+                          <FormControl
+                            fullWidth
+                            sx={{ m: 1, width: "25ch" }}
+                            variant="outlined"
+                          >
+                            <InputLabel htmlFor="outlined-adornment-password">
+                              Password
+                            </InputLabel>
+                            <OutlinedInput
+                              fullWidth
+                              id="outlined-adornment-password"
+                              type={state.showPassword ? "text" : "password"}
+                              value={state.password}
+                              onChange={handleChange("password")}
+                              endAdornment={
+                                <InputAdornment position="end">
+                                  <IconButton
+                                    aria-label="toggle password visibility"
+                                    onClick={handleClickShowPassword}
+                                    onMouseDown={handleMouseDownPassword}
+                                    edge="end"
+                                  >
+                                    {state.showPassword ? (
+                                      <VisibilityOff />
+                                    ) : (
+                                      <Visibility />
+                                    )}
+                                  </IconButton>
+                                </InputAdornment>
+                              }
+                              label="Password"
+                            />
+                          </FormControl>
                         </Grid>
                         <Grid item xs={12} sm={6}>
                           <h4>Mobile number</h4>
@@ -261,6 +341,7 @@ export default function Profile() {
                             label="Mobile Number"
                             autoFocus
                             defaultValue={state.mobile}
+                            onChange={handleChange("mobile")}
                           />
                         </Grid>
                         <Grid item xs={12} sm={6}>
@@ -275,6 +356,7 @@ export default function Profile() {
                             InputLabelProps={{
                               shrink: true,
                             }}
+                            onChange={handleChange("birthdate")}
                           />
                         </Grid>
                         <Grid item xs={12}>
@@ -314,17 +396,10 @@ export default function Profile() {
                             name="answer"
                             autoComplete="answer"
                             defaultValue={state.answer}
+                            onChange={handleChange("answer")}
                           />
                         </Grid>
                       </Grid>
-                      <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        sx={{ mt: 3, mb: 2, backgroundColor: "#cc1b85" }}
-                      >
-                        Save
-                      </Button>
                       {error === 1 && (
                         <Alert severity={type}>warning — {errorMessage}</Alert>
                       )}

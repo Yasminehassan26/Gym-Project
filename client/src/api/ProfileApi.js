@@ -57,7 +57,7 @@ export function getProfileInfo(values,userName) {
           redirect: "follow",
         };
 
-        fetch("http://localhost:8082/api/sign-up/trainee", requestOptions)
+        return fetch(`http://localhost:8082/api/user/update-profile/${userName}`, requestOptions)
           .then((response) => response.json())
           .catch((error) => console.log("error", error));
   }
