@@ -147,6 +147,7 @@ export default function Profile() {
                             id="firstName"
                             label="First Name"
                             autoFocus
+                            defaultValue={state["firstName"]}
                           />
                         </Grid>
                         <Grid item xs={12} sm={6}>
@@ -157,6 +158,7 @@ export default function Profile() {
                             id="lastName"
                             label="Last Name"
                             name="lastName"
+                            defaultValue={state.lastName}
                             autoComplete="lname"
                           />
                         </Grid>
@@ -169,6 +171,8 @@ export default function Profile() {
                             label="Username"
                             name="username"
                             autoComplete="username"
+                            defaultValue={state.userName}
+
                           />
                         </Grid>
                         <Grid item xs={12}>
@@ -181,10 +185,12 @@ export default function Profile() {
                             type="password"
                             id="password"
                             autoComplete="new-password"
+                            defaultValue={state.password}
+
                           />
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                          <h4>First Name</h4>
+                          <h4>Mobile number</h4>
                           <TextField
                             autoComplete="fname"
                             name="mobile"
@@ -193,6 +199,8 @@ export default function Profile() {
                             id="firstName"
                             label="Mobile Number"
                             autoFocus
+                            defaultValue={state["mobile"]}
+
                           />
                         </Grid>
                         <Grid item xs={12} sm={6}>
@@ -202,7 +210,7 @@ export default function Profile() {
                             label="Birthday"
                             type="date"
                             name="birthdate"
-                            defaultValue="2022-01-01"
+                            defaultValue={state.birthdate}
                             sx={{ width: 267 }}
                             InputLabelProps={{
                               shrink: true,
@@ -245,6 +253,8 @@ export default function Profile() {
                             label="answer"
                             name="answer"
                             autoComplete="answer"
+                            defaultValue={state.answer}
+
                           />
                         </Grid>
                       </Grid>

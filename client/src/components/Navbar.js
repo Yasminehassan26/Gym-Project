@@ -8,6 +8,7 @@ import Button from "@mui/material/Button";
 import SideMenu from "./Profile/SideMenu";
 
 import AssignmentIndSharpIcon from "@mui/icons-material/AssignmentIndSharp";
+import TopMenu from "./TopMenu";
 
 const ColorButton = styled(Button)(({ theme }) => ({
   color: "#cc1b85",
@@ -18,7 +19,7 @@ const ColorButton = styled(Button)(({ theme }) => ({
   },
 }));
 export default function Navbar({ history }) {
-  const [currentUser, setCurrentUser] = useState(-1);
+  const [currentUser, setCurrentUser] = useState(1);
 
   const handleRoute = (text) => {
     if (text === "Registration") {
@@ -30,6 +31,7 @@ export default function Navbar({ history }) {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" sx={{ backgroundColor: "#cc1b85" }}>
         <Toolbar>
+          <TopMenu history={history} />
           <Button
             variant="h6"
             noWrap

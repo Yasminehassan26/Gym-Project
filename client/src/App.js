@@ -9,7 +9,9 @@ import RegistrationNavBar from "./components/Registeration/RegistrationNavBar";
 import SignUp from "./components/Registeration/SignUpPage";
 import { useHistory } from "react-router-dom";
 import Profile from "./components/Profile/Profile";
-import Tips from "./components/TipsPage/Tips";
+import AllPrograms from "./components/Programs/AllPrograms";
+import AllSessions from "./components/Sessions/AllSessions";
+import AllTips from "./components/Tips/TipsNavigator";
 
 function App() {
   let history = useHistory();
@@ -21,13 +23,21 @@ function App() {
       <Navbar history={history} />
       <Switch>
         <Route exact path="/">
-          <HomePage />
+          <HomePage history={history} />
         </Route>
 
         <Route path="/Registration">
           <RegistrationNavBar history={history} />
         </Route>
-
+        <Route path="/AllPrograms">
+          <AllPrograms history={history} />
+        </Route>
+        <Route path="/AllSessions">
+          <AllSessions history={history} />
+        </Route>
+        <Route path="/AllTips">
+          <AllTips history={history} />
+        </Route>
         <Route path="/SignUp">
           <SignUp />
         </Route>
