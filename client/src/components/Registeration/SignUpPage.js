@@ -91,7 +91,7 @@ export default function SignUp({ history }) {
           redirect: "follow",
         };
 
-        fetch("http://localhost:8081/api/sign-up/trainee", requestOptions)
+        fetch("http://localhost:8082/api/sign-up/trainee", requestOptions)
           .then((response) => response.json())
           .then((res) => {
             console.log(res);
@@ -107,7 +107,7 @@ export default function SignUp({ history }) {
           })
           .catch((error) => console.log("error", error));
         var result = UseFetchPost(
-          "http://localhost:8081/api/sign-up/trainee",
+          "http://localhost:8082/api/sign-up/trainee",
           data
         );
         console.log(result);

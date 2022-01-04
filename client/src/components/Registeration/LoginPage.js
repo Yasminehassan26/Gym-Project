@@ -23,7 +23,7 @@ import FormControl from "@mui/material/FormControl";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { SignIn } from "../../api/UseFetchGet";
-import ReactSession from "react-client-session/dist/ReactSession";
+import {ReactSession} from 'react-client-session';
 import Navbar from "../Navbar";
 
 const theme = createTheme();
@@ -66,7 +66,7 @@ export default function SignInSide({ history }) {
         redirect: "follow",
       };
 
-      fetch(`http://localhost:8081/api/auth/sign-in`, requestOptions)
+      fetch(`http://localhost:8082/api/auth/sign-in`, requestOptions)
         .then((response) => response.json())
         .then((res) => {
           console.log(res);
@@ -83,10 +83,9 @@ export default function SignInSide({ history }) {
             setType("warning");
             check = 1;
           } else {
-            var session = {userName:data.userName,Id:res.userId ,role:res.role};
+            var session = {userName:data.get("username"),Id:res.userId ,role:res.role};
             ReactSession.set("user",session);
             history.push("/");
-            alert("SUCCESS !!");
           }
         })
         .catch((error) => console.log("error", error));
@@ -121,7 +120,7 @@ export default function SignInSide({ history }) {
     };
 
     fetch(
-      `http://localhost:8081/api/auth/get-user-question/${values.username}`,
+      `http://localhost:8082/api/auth/get-user-question/${values.username}`,
       requestOptions
     )
       .then((response) => response.text())
@@ -141,7 +140,7 @@ export default function SignInSide({ history }) {
 
     console.log(answer);
     fetch(
-      `http://localhost:8081/api/auth/validate-answer/${values.username}`,
+      `http://localhost:8082/api/auth/validate-answer/${values.username}`,
       requestOptions
     )
       .then((response) => response.text())

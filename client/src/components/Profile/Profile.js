@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography";
 import CloseIcon from "@mui/icons-material/Close";
 import Slide from "@mui/material/Slide";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Avatar from "@mui/material/Avatar";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -27,6 +27,7 @@ import Badge from "@mui/material/Badge";
 import ProfileActivities from "./ProfileActivities";
 import { styled } from "@mui/material/styles";
 import {ReactSession} from 'react-client-session';
+import { getProfileInfo,getPrograms,getSession } from "../../api/ProfileApi";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -50,6 +51,8 @@ export default function Profile() {
   const [errorMessage, setErrorMessage] = useState("");
   const [type, setType] = useState("");
   const [schedule, setSchedule] = useState(false);
+  const [programs, setPrograms] = useState([]);
+  const [sessions, setSessions] = useState([]);
   const handleClose = () => {
     setOpen(false);
   };
@@ -59,37 +62,34 @@ export default function Profile() {
   const handleSchedule = () => {
     setSchedule(!schedule);
   };
-  useEffect(() => {
+  const handleClick = () => {
+    setOpen(true);
+    console.log(ReactSession.get("user").userName);
     var values = {
       userId: ReactSession.get("user").Id,
       role: ReactSession.get("user").role,
       statusCode: 0,
     };
-    var myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    console.log(values);
-    var requestOptions = {
-      method: "GET",
-      headers: myHeaders,
-      body: JSON.stringify(values),
-      redirect: "follow",
-    };
-
-    fetch(`http://localhost:8081/api/user/profile/${ReactSession.get("user").userName}`, requestOptions)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        setState({ ...state, ["firstName"]: data.firstName });
-        setState({ ...state, ["lastName"]: data.lastName });
-        setState({ ...state, ["userName"]: data.userName });
-        setState({ ...state, ["password"]: data.password });
-        setState({ ...state, ["mobile"]: data.phoneNumber });
-        setState({ ...state, ["birthdate"]: data.birth_date });
-        setState({ ...state, ["question"]: data.question });
-        setState({ ...state, ["answer"]: data.answer });
-      })
-      .catch((error) => console.log("error", error));
-  }, []);
+    getProfileInfo(values,ReactSession.get("user").userName).then((data) => {
+      console.log(data);
+      setState({ ...state, ["firstName"]: data.firstName });
+      setState({ ...state, ["lastName"]: data.lastName });
+      setState({ ...state, ["userName"]: data.userName });
+      setState({ ...state, ["password"]: data.password });
+      setState({ ...state, ["mobile"]: data.phoneNumber });
+      setState({ ...state, ["birthdate"]: data.birth_date });
+      setState({ ...state, ["question"]: data.question });
+      setState({ ...state, ["answer"]: data.answer });
+    });
+    getPrograms(values,ReactSession.get("user").userName).then((program) => {
+      console.log(program);
+      setPrograms(program);
+    });
+    getSession(values,ReactSession.get("user").userName).then((session) => {
+      console.log(session);
+      setSessions(session);
+    });
+  }
   return (
     <div>
       <IconButton
@@ -97,7 +97,7 @@ export default function Profile() {
         edge="end"
         aria-label="account of current user"
         aria-haspopup="true"
-        onClick={() => setOpen(true)}
+        onClick={() => handleClick()}
         color="inherit"
       >
         <AccountCircle />
@@ -179,7 +179,7 @@ export default function Profile() {
                             id="firstName"
                             label="First Name"
                             autoFocus
-                            defaultValue={state["firstName"]}
+                            defaultValue={state.firstName}
                           />
                         </Grid>
                         <Grid item xs={12} sm={6}>
@@ -231,7 +231,7 @@ export default function Profile() {
                             id="firstName"
                             label="Mobile Number"
                             autoFocus
-                            defaultValue={state["mobile"]}
+                            defaultValue={state.mobile}
 
                           />
                         </Grid>
@@ -299,7 +299,7 @@ export default function Profile() {
               </Grid>
             </Grid>
             <Grid item xs={4}>
-              <ProfileActivities />
+              <ProfileActivities programs={programs} sessions={sessions}/>
             </Grid>
           </Grid>
         </Box>

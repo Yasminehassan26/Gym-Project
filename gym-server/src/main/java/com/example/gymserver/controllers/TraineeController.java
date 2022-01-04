@@ -14,7 +14,7 @@ import java.util.List;
 @RequestMapping("/api/trainee/")
 public class TraineeController {
 
-    @GetMapping("sessions/{userName}")
+    @PostMapping("sessions/{userName}")
     public List<SessionDTO> getSessions(
             @PathVariable("userName") String userName, @RequestBody UserIdDTO userIdDTO
     ){
@@ -24,7 +24,7 @@ public class TraineeController {
         return test;
     }
 
-    @GetMapping("follow-up/{userName}")
+    @PostMapping("follow-up/{userName}")
     public List<ProgramFollowUpDTO> getFollowUp(
             @PathVariable("userName") String userName, @RequestBody UserIdDTO userIdDTO
     ){

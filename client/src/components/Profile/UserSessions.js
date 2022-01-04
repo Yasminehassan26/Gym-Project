@@ -10,34 +10,11 @@ import BoltIcon from "@mui/icons-material/Bolt";
 import WorkIcon from "@mui/icons-material/Work";
 import BeachAccessIcon from "@mui/icons-material/BeachAccess";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import {ReactSession} from 'react-client-session';
 //import Sessions from "./Sessions";
 
-export default function UserSessions() {
-  const [sessions, setSessions] = useState([]);
-  useEffect(() => {
-    var values = {
-      userId: ReactSession.get("user").Id,
-      role: ReactSession.get("user").role,
-      statusCode: 0,
-    };
-    var myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    console.log(values);
-    var requestOptions = {
-      method: "GET",
-      headers: myHeaders,
-      body: JSON.stringify(values),
-      redirect: "follow",
-    };
-
-    fetch(`http://localhost:8081/api/user/profile/${ReactSession.get("user").userName}`, requestOptions)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        setSessions(data);
-      })
-      .catch((error) => console.log("error", error));
-  }, []);
+export default function UserSessions({Sessions}) {
+  const [sessions, setSessions] = useState(Sessions);
   return (
     <List sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
       {sessions.map((session) => (
@@ -47,7 +24,7 @@ export default function UserSessions() {
               <BoltIcon />
             </Avatar>
           </ListItemAvatar>
-          <ListItemText primary={session.title} secondary={session.date} />
+          <ListItemText primary={session.name} secondary={session.date} />
         </ListItem>
       ))}
     </List>
