@@ -74,15 +74,25 @@ export default function Profile() {
     };
     getProfileInfo(values,ReactSession.get("user").userName).then((data) => {
       console.log(data);
-      //setFirst(data.firstName);
-      setState({ ...state, ["firstName"]: data.firstName });
+      var addData = {
+        firstName: data.firstName,
+        lastName: data.lastName,
+        userName: data.userName,
+        password: data.password,
+        mobile: data.phoneNumber,
+        birthdate: data.birth_date,
+        question: data.question,
+        answer: data.answer,
+      }
+      setState(addData);
+      /*setState({ ...state, ["firstName"]: data.firstName });
       setState({ ...state, ["lastName"]: data.lastName });
       setState({ ...state, ["userName"]: data.userName });
       setState({ ...state, ["password"]: data.password });
       setState({ ...state, ["mobile"]: data.phoneNumber });
       setState({ ...state, ["birthdate"]: data.birth_date });
       setState({ ...state, ["question"]: data.question });
-      setState({ ...state, ["answer"]: data.answer });
+      setState({ ...state, ["answer"]: data.answer });*/
     });
     getPrograms(values,ReactSession.get("user").userName).then((program) => {
       console.log(program);
@@ -182,7 +192,7 @@ export default function Profile() {
                             id="firstName"
                             label="First Name"
                             autoFocus
-                            defaultValue={first}
+                            defaultValue={state.firstName}
                           />
                         </Grid>
                         <Grid item xs={12} sm={6}>
