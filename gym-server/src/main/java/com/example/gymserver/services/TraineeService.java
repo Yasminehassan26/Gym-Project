@@ -10,6 +10,7 @@ import com.example.gymserver.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.beans.Transient;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -108,42 +109,45 @@ public class TraineeService {
         return confirmation;
     }
 
-    @Transient
+    @Transactional
     public String bookSession(String userName, Long sessionID, UserIdDTO userIdDTO) {
         String confirmation = "";
         if(!this.authenticationService.authenticateUser(userIdDTO.getUserId(), userName))
             confirmation = "unauthorized user";
         else{
+            Trainee trainee = traineeRepository.getById(userIdDTO.getUserId());
             Session session = this.sessionRepository.findById(sessionID).orElse(null);
-            if( session != null ){
-                List<PClassFollowUp> classFollowUps = pClassFollowUpRepository
-                        .findFollowUpsByTraineeAndClass(userIdDTO.getUserId(),session.getProgramClass().getId()).orElse(null);
-                if( classFollowUps != null ){
-                    boolean noRemainingSessions = true;
-                    for(PClassFollowUp classFollowUp : classFollowUps){
-                        if( classFollowUp.getSessionsRemaining() != 0 ){
-                            classFollowUp.reserveSession();
-                            noRemainingSessions = false;
-                            if( !session.isFull() ){
-                                session.addAttendee();
-                                Trainee trainee = traineeRepository.getById(userIdDTO.getUserId());
-                                trainee.getSessions().add(session);
-                            }
-                            else
-                                confirmation = "Session is full!";
+            if(!trainee.getSessions().contains(session)){
+                if( session != null ){
+                    List<PClassFollowUp> classFollowUps = pClassFollowUpRepository
+                            .findFollowUpsByTraineeAndClass(userIdDTO.getUserId(),session.getProgramClass().getId()).orElse(null);
+                    if( classFollowUps != null ){
+                        boolean noRemainingSessions = true;
+                        for(PClassFollowUp classFollowUp : classFollowUps){
+                            if( classFollowUp.getSessionsRemaining() != 0 ){
+                                classFollowUp.reserveSession();
+                                noRemainingSessions = false;
+                                if( !session.isFull() ){
+                                    session.addAttendee();
+                                    trainee.getSessions().add(session);
+                                    confirmation = "DONE";
+                                }
+                                else
+                                    confirmation = "Session is full!";
 
-                            break;
+                                break;
+                            }
                         }
+                        if( noRemainingSessions )
+                            confirmation = "No remaining sessions for this class!";
                     }
-                    if( noRemainingSessions )
-                        confirmation = "No remaining sessions for this class!";
+                    else
+                        confirmation = "No booked programs including this session!";
                 }
                 else
-                    confirmation = "No booked programs including this session!";
+                    confirmation = "No session by this id!";
             }
-            else
-                confirmation = "No session by this id!";
-
+            else confirmation = "Trainee already registered!";
         }
         return confirmation;
     }
