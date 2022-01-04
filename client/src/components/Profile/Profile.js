@@ -37,38 +37,32 @@ const Input = styled("input")({
 });
 export default function Profile() {
   const [open, setOpen] = React.useState(false);
-  // const [state, setState] = useState({
-  //   firstName: "",
-  //   lastName: "",
-  //   userName: "",
-  //   password: "",
-  //   mobile: "",
-  //   birthdate: "",
-  //   question: "",
-  //   answer: "",
-  // });
-  const [firstName, setFirstName] = useState("");
-  const [lastName , setLasttName] = useState("");
-  const [userName, setUserName] = useState("");
-  const [password, setPassword] = useState("");
-  const [mobile, setMobile] = useState("");
-  const [birthdate, setBirthdate] = useState("");
-  const [question, setQuestion] = useState("");
-  const [answer, setAnswer] = useState("");
-
+  const [state, setState] = useState({
+    firstName: "",
+    lastName: "",
+    userName: "",
+    password: "",
+    mobile: "",
+    birthdate: "",
+    question: "",
+    answer: "",
+  });
+  const [first, setFirst] = useState("");
   const [error, setError] = useState(0);
   const [errorMessage, setErrorMessage] = useState("");
   const [type, setType] = useState("");
+  const [schedule, setSchedule] = useState(false);
   const [programs, setPrograms] = useState([]);
   const [sessions, setSessions] = useState([]);
   const handleClose = () => {
     setOpen(false);
   };
   const handleChange = (prop) => (event) => {
-    setQuestion(event.target.value)
-
+    setState({ ...state, [prop]: event.target.value });
   };
-
+  const handleSchedule = () => {
+    setSchedule(!schedule);
+  };
   useEffect(() => {
   //const handleClick = () =>{
     //setOpen(true);
@@ -80,21 +74,25 @@ export default function Profile() {
     };
     getProfileInfo(values,ReactSession.get("user").userName).then((data) => {
       console.log(data);
-      setFirstName(data.firstName);
-      setLasttName( data.lastName);
-      setUserName(data.userName);
-      setBirthdate(data.birth_date);
-      setQuestion(data.question);
-      setAnswer(data.answer);
-      setPassword(data.password);
-      // setState({ ...state, ["firstName"]: data.firstName });
-      // setState({ ...state, ["lastName"]: data.lastName });
-      // setState({ ...state, ["userName"]: data.userName });
-      // setState({ ...state, ["password"]: data.password });
-      // setState({ ...state, ["mobile"]: data.phoneNumber });
-      // setState({ ...state, ["birthdate"]: data.birth_date });
-      // setState({ ...state, ["question"]: data.question });
-      // setState({ ...state, ["answer"]: data.answer });
+      var addData = {
+        firstName: data.firstName,
+        lastName: data.lastName,
+        userName: data.userName,
+        password: data.password,
+        mobile: data.phoneNumber,
+        birthdate: data.birth_date,
+        question: data.question,
+        answer: data.answer,
+      }
+      setState(addData);
+      /*setState({ ...state, ["firstName"]: data.firstName });
+      setState({ ...state, ["lastName"]: data.lastName });
+      setState({ ...state, ["userName"]: data.userName });
+      setState({ ...state, ["password"]: data.password });
+      setState({ ...state, ["mobile"]: data.phoneNumber });
+      setState({ ...state, ["birthdate"]: data.birth_date });
+      setState({ ...state, ["question"]: data.question });
+      setState({ ...state, ["answer"]: data.answer });*/
     });
     getPrograms(values,ReactSession.get("user").userName).then((program) => {
       console.log(program);
@@ -194,7 +192,7 @@ export default function Profile() {
                             id="firstName"
                             label="First Name"
                             autoFocus
-                            defaultValue={firstName}
+                            defaultValue={state.firstName}
                           />
                         </Grid>
                         <Grid item xs={12} sm={6}>
@@ -205,7 +203,7 @@ export default function Profile() {
                             id="lastName"
                             label="Last Name"
                             name="lastName"
-                            defaultValue={lastName}
+                            defaultValue={state.lastName}
                             autoComplete="lname"
                           />
                         </Grid>
@@ -218,7 +216,7 @@ export default function Profile() {
                             label="Username"
                             name="username"
                             autoComplete="username"
-                            defaultValue={userName}
+                            defaultValue={state.userName}
 
                           />
                         </Grid>
@@ -232,7 +230,7 @@ export default function Profile() {
                             type="password"
                             id="password"
                             autoComplete="new-password"
-                            defaultValue={password}
+                            defaultValue={state.password}
 
                           />
                         </Grid>
@@ -246,7 +244,7 @@ export default function Profile() {
                             id="mobile"
                             label="Mobile Number"
                             autoFocus
-                            defaultValue={mobile}
+                            defaultValue={state.mobile}
 
                           />
                         </Grid>
@@ -257,7 +255,7 @@ export default function Profile() {
                             label="Birthday"
                             type="date"
                             name="birthdate"
-                            defaultValue={birthdate}
+                            defaultValue={state.birthdate}
                             sx={{ width: 267 }}
                             InputLabelProps={{
                               shrink: true,
@@ -274,7 +272,7 @@ export default function Profile() {
                               required
                               labelId="demo-simple-select-helper-label"
                               id="demo-simple-select-helper"
-                              value={question}
+                              value={state.question}
                               name="question"
                               label="Question"
                               onChange={handleChange("question")}
@@ -300,7 +298,7 @@ export default function Profile() {
                             label="answer"
                             name="answer"
                             autoComplete="answer"
-                            defaultValue={answer}
+                            defaultValue={state.answer}
 
                           />
                         </Grid>

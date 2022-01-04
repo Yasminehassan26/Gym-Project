@@ -108,10 +108,6 @@ export default function SignUp({ history }) {
             }
           })
           .catch((error) => console.log("error", error));
-        /*var result = UseFetchPost(
-          "http://localhost:8082/api/sign-up/trainee",
-          data
-        );*/
       }
     }
   };
