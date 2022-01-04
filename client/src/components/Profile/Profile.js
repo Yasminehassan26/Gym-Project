@@ -72,14 +72,14 @@ export default function Profile() {
     };
     getProfileInfo(values,ReactSession.get("user").userName).then((data) => {
       console.log(data);
-      setState({ ...state, ["firstName"]: data.firstName });
-      setState({ ...state, ["lastName"]: data.lastName });
-      setState({ ...state, ["userName"]: data.userName });
-      setState({ ...state, ["password"]: data.password });
-      setState({ ...state, ["mobile"]: data.phoneNumber });
-      setState({ ...state, ["birthdate"]: data.birth_date });
-      setState({ ...state, ["question"]: data.question });
-      setState({ ...state, ["answer"]: data.answer });
+      // setState({ ...state, ["firstName"]: data.firstName });
+      // setState({ ...state, ["lastName"]: data.lastName });
+      // setState({ ...state, ["userName"]: data.userName });
+      // setState({ ...state, ["password"]: data.password });
+      // setState({ ...state, ["mobile"]: data.phoneNumber });
+      // setState({ ...state, ["birthdate"]: data.birth_date });
+      // setState({ ...state, ["question"]: data.question });
+      // setState({ ...state, ["answer"]: data.answer });
     });
     getPrograms(values,ReactSession.get("user").userName).then((program) => {
       console.log(program);
