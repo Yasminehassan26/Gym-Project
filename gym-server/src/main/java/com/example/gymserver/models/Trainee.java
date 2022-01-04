@@ -23,7 +23,7 @@ public class Trainee implements Serializable {
     @Column(name = "traineeId")
     private Long id;
 
-    @OneToOne
+    @OneToOne(cascade=CascadeType.ALL)
     @MapsId
     @JsonIgnore
     @JoinColumn(name = "traineeId")
