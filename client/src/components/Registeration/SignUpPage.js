@@ -18,6 +18,8 @@ import FormHelperText from "@mui/material/FormHelperText";
 import UseFetchPost from "../../api/UseFetchPost";
 import validator from "validator";
 
+import {ReactSession} from 'react-client-session';
+
 export default function SignUp({ history }) {
   const [state, setState] = useState({
     firstName: "",
@@ -90,14 +92,16 @@ export default function SignUp({ history }) {
         };
 
         fetch("http://localhost:8081/api/sign-up/trainee", requestOptions)
-          .then((response) => response.text())
-          .then((data) => {
-            console.log(data);
-            if (data === -1) {
+          .then((response) => response.json())
+          .then((res) => {
+            console.log(res);
+            if (res.statusCode === -1) {
               setError(1);
               setErrorMessage("UserName already exists !");
               setType("error");
             } else {
+              var session = {userName:data.userName,Id:res.userId ,role:res.role};
+              ReactSession.set("user",session);
               history.push("/");
             }
           })

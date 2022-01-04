@@ -1,6 +1,7 @@
 import ProgramCard from "./ProgramCard";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
+import {ReactSession} from 'react-client-session';
 
 const AllPrograms = () => {
   //on opening the page this data should be fetched from the backend
@@ -140,6 +141,14 @@ const AllPrograms = () => {
       price: 1000,
       Description:
         "This is a monthly program that consists of multiple sport types",
+    },
+    {
+      id: 12,
+      name: "selver",
+      Duration: "1 Month",
+      price: 1000,
+      Description:
+        ReactSession.get("userId"),
     },
   ];
   return (

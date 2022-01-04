@@ -23,6 +23,8 @@ import FormControl from "@mui/material/FormControl";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { SignIn } from "../../api/UseFetchGet";
+import ReactSession from "react-client-session/dist/ReactSession";
+import Navbar from "../Navbar";
 
 const theme = createTheme();
 
@@ -65,22 +67,24 @@ export default function SignInSide({ history }) {
       };
 
       fetch(`http://localhost:8081/api/auth/sign-in`, requestOptions)
-        .then((response) => response.text())
-        .then((data) => {
-          console.log(data);
-          if (data === "-1") {
+        .then((response) => response.json())
+        .then((res) => {
+          console.log(res);
+          if (res.statusCode === "-1") {
             //wrong username
             setError(1);
             setErrorMessage("User Not Registered!!");
             setType("warning");
             check = 1;
-          } else if (data === "-2") {
+          } else if (res.statusCode === "-2") {
             //wrong password
             setError(1);
             setErrorMessage("Wrong password!!");
             setType("warning");
             check = 1;
           } else {
+            var session = {userName:data.userName,Id:res.userId ,role:res.role};
+            ReactSession.set("user",session);
             history.push("/");
             alert("SUCCESS !!");
           }

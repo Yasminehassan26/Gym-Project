@@ -25,8 +25,9 @@ import UseFetchPost from "../../api/UseFetchPost";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import Badge from "@mui/material/Badge";
 import ProfileActivities from "./ProfileActivities";
-
 import { styled } from "@mui/material/styles";
+import {ReactSession} from 'react-client-session';
+
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -58,6 +59,37 @@ export default function Profile() {
   const handleSchedule = () => {
     setSchedule(!schedule);
   };
+  useEffect(() => {
+    var values = {
+      userId: ReactSession.get("user").Id,
+      role: ReactSession.get("user").role,
+      statusCode: 0,
+    };
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    console.log(values);
+    var requestOptions = {
+      method: "GET",
+      headers: myHeaders,
+      body: JSON.stringify(values),
+      redirect: "follow",
+    };
+
+    fetch(`http://localhost:8081/api/user/profile/${ReactSession.get("user").userName}`, requestOptions)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setState({ ...state, ["firstName"]: data.firstName });
+        setState({ ...state, ["lastName"]: data.lastName });
+        setState({ ...state, ["userName"]: data.userName });
+        setState({ ...state, ["password"]: data.password });
+        setState({ ...state, ["mobile"]: data.phoneNumber });
+        setState({ ...state, ["birthdate"]: data.birth_date });
+        setState({ ...state, ["question"]: data.question });
+        setState({ ...state, ["answer"]: data.answer });
+      })
+      .catch((error) => console.log("error", error));
+  }, []);
   return (
     <div>
       <IconButton
