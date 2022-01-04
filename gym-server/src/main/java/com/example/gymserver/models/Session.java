@@ -68,4 +68,12 @@ public class Session {
             )
     )
     private Class programClass;
+
+    public void addAttendee() {
+        noOfAttendees++;
+    }
+
+    public boolean isFull() {
+        return this.noOfAttendees == this.maxNoOfAttendees;
+    }
 }

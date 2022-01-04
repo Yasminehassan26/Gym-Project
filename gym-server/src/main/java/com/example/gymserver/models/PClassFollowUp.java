@@ -41,4 +41,7 @@ public class PClassFollowUp {
     private LocalDate endDate;
 
 
+    public void reserveSession() {
+        this.sessionsRemaining--;
+    }
 }
