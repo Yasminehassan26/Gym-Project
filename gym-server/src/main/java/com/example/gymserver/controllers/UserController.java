@@ -7,6 +7,7 @@ import com.example.gymserver.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
@@ -24,7 +25,7 @@ public class UserController {
      * @return user info if userId is matched to the username
      *            null otherwise
      */
-    @GetMapping("/profile/{userName}")
+    @PostMapping("/profile/{userName}")
     public UserDTO getUserProfile(@PathVariable("userName") String userName, @RequestBody UserIdDTO userIdDTO){
         return this.userService.getUserProfile(userIdDTO.getUserId(), userName);
     }

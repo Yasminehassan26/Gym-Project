@@ -44,20 +44,15 @@ export default function Navbar({ history }) {
           </Button>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            {ReactSession.get("user") != null && <SideMenu history={history} />}
-            {
-              ReactSession.get("user") == null && (
-                <ColorButton
+            <SideMenu history={history} />
+              <ColorButton
                   startIcon={<AssignmentIndSharpIcon />}
                   onClick={() => handleRoute("Registration")}
                 >
                   {" "}
                   Registration
                 </ColorButton>
-              )
-              //  <SideMenu  history={history} input={['SignIn','SignUp','SignOut']} icons={[<LoginSharpIcon/>,
-              // <AssignmentIndSharpIcon/>,<LogoutSharpIcon/>]} />
-            }
+            
           </Box>
         </Toolbar>
       </AppBar>

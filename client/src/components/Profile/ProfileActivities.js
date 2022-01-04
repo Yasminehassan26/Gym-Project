@@ -43,7 +43,7 @@ function a11yProps(index) {
   };
 }
 
-export default function ProfileActivities() {
+export default function ProfileActivities({programs, sessions}) {
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
 
@@ -76,10 +76,10 @@ export default function ProfileActivities() {
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
-          <UserPrograms />
+          <UserPrograms Programs={programs} />
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
-          <UserSessions />
+          <UserSessions Sessions={sessions} />
         </TabPanel>
       </SwipeableViews>
     </Box>
