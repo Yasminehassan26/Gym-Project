@@ -62,7 +62,7 @@ export default function ProgramCard({ program }) {
           .then((response) => response.text())
           .then((data) => {
             console.log(data);
-            setAlertData(1);
+            setAlertData(parseInt(data));
           })
           .catch((error) => console.log("error", error));
       }
@@ -113,7 +113,7 @@ export default function ProgramCard({ program }) {
         >
           BOOK
         </Button>
-        {alertData === 1 && alert && <Alert severity="success">Booked Successfully!!</Alert>}
+        {alertData === 0 && alert && <Alert severity="success">Booked Successfully!!</Alert>}
         {alertData === -1 && alert && <Alert severity="error">Go Register First.</Alert>}
         <ExpandMore
           expand={expanded}
