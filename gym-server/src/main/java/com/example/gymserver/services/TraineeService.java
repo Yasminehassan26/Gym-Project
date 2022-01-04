@@ -1,8 +1,10 @@
 package com.example.gymserver.services;
 
 import com.example.gymserver.dto.ProgramFollowUpDTO;
+import com.example.gymserver.dto.SessionDTO;
 import com.example.gymserver.dto.UserIdDTO;
 import com.example.gymserver.mappers.PClassFollowUpMapper;
+import com.example.gymserver.mappers.SessionMapper;
 import com.example.gymserver.models.*;
 import com.example.gymserver.repositories.PClassDetailsRepository;
 import com.example.gymserver.repositories.PClassFollowUpRepository;
@@ -17,7 +19,7 @@ import java.util.List;
 
 @Service
 public class TraineeService {
-
+    
     private AuthenticationService authenticationService;
     private ProgramRepository programRepository;
     private PClassFollowUpRepository pClassFollowUpRepository;
@@ -35,6 +37,19 @@ public class TraineeService {
         this.programRepository = programRepository;
         this.pClassDetailsRepository = pClassDetailsRepository;
         this.traineeRepository = traineeRepository;
+    }
+
+    public List<SessionDTO> getSessions(String userName, UserIdDTO userIdDTO) {
+        if(!this.authenticationService.authenticateUser(userIdDTO.getUserId(), userName))
+            return null;
+        else{
+            List<SessionDTO> sessionDTOS = new ArrayList<>();
+            Trainee trainee = this.traineeRepository.getById(userIdDTO.getUserId());
+            for(Session session : trainee.getSessions()){
+                sessionDTOS.add(SessionMapper.toSessionDTO(session));
+            }
+            return sessionDTOS;
+        }
     }
 
     public List<ProgramFollowUpDTO> getFollowUps(String userName, UserIdDTO userIdDTO) {
@@ -81,7 +96,6 @@ public class TraineeService {
                                                     .endDate(LocalDate.parse("2022-05-22"))
                                                     .sessionsRemaining(classDetails.getNoOfClasses())
                                                     .build();
-//                        System.out.println(followUp.toString());
                         this.pClassFollowUpRepository.save(followUp);
                     }
                     confirmation = "DONE";
@@ -93,4 +107,13 @@ public class TraineeService {
         return confirmation;
     }
 
+    public String bookSession(String userName, Long sessionID, UserIdDTO userIdDTO) {
+        String confirmation = "";
+        if(!this.authenticationService.authenticateUser(userIdDTO.getUserId(), userName))
+            confirmation = "unauthorized user";
+        else{
+
+        }
+        return confirmation;
+    }
 }

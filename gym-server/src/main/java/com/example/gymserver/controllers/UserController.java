@@ -34,7 +34,7 @@ public class UserController {
      * 
      * @param user
      */
-    @PutMapping("/update-profile/{userName}")
+    @PostMapping("/update-profile/{userName}")
     public void updateUserInfo(@RequestBody UserDTO user){
         userService.updateUserInfo(user);
     }
