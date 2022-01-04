@@ -127,7 +127,7 @@ export default function Profile() {
   };
 
   useEffect(() => {
-    console.log(ReactSession.get("user").userName);
+    if(typeof ReactSession.get("user") != 'undefined'){
     var values = {
       userId: ReactSession.get("user").Id,
       role: ReactSession.get("user").role,
@@ -154,7 +154,7 @@ export default function Profile() {
     getSession(values, ReactSession.get("user").userName).then((session) => {
       console.log(session);
       setSessions(session);
-    });
+    });}
   }, []);
 
   return (
@@ -306,6 +306,7 @@ export default function Profile() {
                             </InputLabel>
                             <OutlinedInput
                               fullWidth
+                              name="password"
                               id="outlined-adornment-password"
                               type={state.showPassword ? "text" : "password"}
                               value={state.password}
