@@ -11,4 +11,5 @@ import java.util.Optional;
 public interface SessionRepository extends JpaRepository<Session, Long> {
     @Query("SELECT s FROM Session s WHERE s.startTime >= ?1")
     Optional<Session> findUpComingSessions(LocalDate sessionTime);
+
 }

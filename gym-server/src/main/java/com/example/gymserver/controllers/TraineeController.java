@@ -24,17 +24,14 @@ public class TraineeController {
         this.traineeService =traineeService;
     }
 
-    @GetMapping("sessions/{userName}")
+    @PostMapping("sessions/{userName}")
     public List<SessionDTO> getSessions(
             @PathVariable("userName") String userName, @RequestBody UserIdDTO userIdDTO
     ){
-        List<SessionDTO> test = new ArrayList<>();
-//        test.add(new SessionDTO("yoga","2022-1-6"));
-//        test.add(new SessionDTO("general","2022-1-6"));
-        return test;
+        return this.traineeService.getSessions(userName, userIdDTO);
     }
 
-    @GetMapping("follow-up/{userName}")
+    @PostMapping("follow-up/{userName}")
     public List<ProgramFollowUpDTO> getFollowUps(
             @PathVariable("userName") String userName, @RequestBody UserIdDTO userIdDTO
     ){
@@ -48,6 +45,16 @@ public class TraineeController {
             @RequestBody UserIdDTO userIdDTO
     ){
         Long programID = Long.parseLong(programId);
-        return traineeService.bookProgram(userName, programID, userIdDTO);
+        return this.traineeService.bookProgram(userName, programID, userIdDTO);
+    }
+
+    @PostMapping("book-session/{userName}/{sessionId}")
+    public String bookSession(
+            @PathVariable("userName") String userName,
+            @PathVariable("sessionId") String sessionId,
+            @RequestBody UserIdDTO userIdDTO
+    ){
+        Long sessionID = Long.parseLong(sessionId);
+        return this.traineeService.bookSession(userName, sessionID, userIdDTO);
     }
 }
