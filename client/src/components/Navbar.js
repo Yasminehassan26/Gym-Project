@@ -44,7 +44,7 @@ export default function Navbar({ history }) {
           </Button>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
-              
+          {typeof ReactSession.get("user") === "undefined" && 
               <ColorButton
                   startIcon={<AssignmentIndSharpIcon />}
                   onClick={() => handleRoute("Registration")}
@@ -52,7 +52,7 @@ export default function Navbar({ history }) {
                   {" "}
                   Registration
                 </ColorButton>
-            
+          }
           </Box>
         </Toolbar>
       </AppBar>
