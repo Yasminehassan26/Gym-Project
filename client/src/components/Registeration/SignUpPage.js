@@ -79,6 +79,7 @@ export default function SignUp({ history }) {
           question: data.get("question"),
           answer: data.get("answer"),
           age: data.get(null),
+          role: "trainee",
         };
 
         var myHeaders = new Headers();
@@ -103,14 +104,14 @@ export default function SignUp({ history }) {
               var session = {userName:data.userName,Id:res.userId ,role:res.role};
               ReactSession.set("user",session);
               history.push("/");
+              console.log(res);
             }
           })
           .catch((error) => console.log("error", error));
-        var result = UseFetchPost(
+        /*var result = UseFetchPost(
           "http://localhost:8082/api/sign-up/trainee",
           data
-        );
-        console.log(result);
+        );*/
       }
     }
   };
