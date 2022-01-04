@@ -45,3 +45,19 @@ export function getProfileInfo(values,userName) {
       .then((response) => response.json())
       .catch((error) => console.log("error", error));
   }
+
+  export function updateUser(values,userName) {
+   var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
+        var requestOptions = {
+          method: "POST",
+          headers: myHeaders,
+          body: JSON.stringify(values),
+          redirect: "follow",
+        };
+
+        fetch("http://localhost:8082/api/sign-up/trainee", requestOptions)
+          .then((response) => response.json())
+          .catch((error) => console.log("error", error));
+  }
