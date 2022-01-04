@@ -47,6 +47,7 @@ export default function Profile() {
     question: "",
     answer: "",
   });
+  const [first, setFirst] = useState("");
   const [error, setError] = useState(0);
   const [errorMessage, setErrorMessage] = useState("");
   const [type, setType] = useState("");
@@ -62,8 +63,9 @@ export default function Profile() {
   const handleSchedule = () => {
     setSchedule(!schedule);
   };
-  const handleClick = () => {
-    setOpen(true);
+  useEffect(() => {
+  //const handleClick = () =>{
+    //setOpen(true);
     console.log(ReactSession.get("user").userName);
     var values = {
       userId: ReactSession.get("user").Id,
@@ -72,6 +74,7 @@ export default function Profile() {
     };
     getProfileInfo(values,ReactSession.get("user").userName).then((data) => {
       console.log(data);
+      //setFirst(data.firstName);
       setState({ ...state, ["firstName"]: data.firstName });
       setState({ ...state, ["lastName"]: data.lastName });
       setState({ ...state, ["userName"]: data.userName });
@@ -89,7 +92,7 @@ export default function Profile() {
       console.log(session);
       setSessions(session);
     });
-  }
+  }, []);
   return (
     <div>
       <IconButton
@@ -97,7 +100,7 @@ export default function Profile() {
         edge="end"
         aria-label="account of current user"
         aria-haspopup="true"
-        onClick={() => handleClick()}
+        onClick={()=>setOpen(true)}
         color="inherit"
       >
         <AccountCircle />
@@ -179,7 +182,7 @@ export default function Profile() {
                             id="firstName"
                             label="First Name"
                             autoFocus
-                            defaultValue={state.firstName}
+                            defaultValue={first}
                           />
                         </Grid>
                         <Grid item xs={12} sm={6}>
@@ -228,7 +231,7 @@ export default function Profile() {
                             name="mobile"
                             required
                             fullWidth
-                            id="firstName"
+                            id="mobile"
                             label="Mobile Number"
                             autoFocus
                             defaultValue={state.mobile}
