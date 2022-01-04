@@ -17,22 +17,30 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/booking")
 public class BookingController {
-    
+
     private final BookingService bookingService;
 
     public BookingController(BookingService bookingService) {
         this.bookingService = bookingService;
     }
 
+    /**
+     *
+     * @return list of available programs
+     */
     @GetMapping("/programs")
     public List<ProgramDTO> getAllPrograms(){
         return bookingService.getAllPrograms();
     }
 
+    /**
+     *
+     * @return list of upcomming sessions
+     */
     @GetMapping("/sessions")
     public List<SessionDTO> getAllSessions(){
         return bookingService.getAllSessions();
     }
-    
-    
+
+
 }

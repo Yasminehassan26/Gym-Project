@@ -24,6 +24,12 @@ public class TraineeController {
         this.traineeService =traineeService;
     }
 
+    /**
+     *
+     * @param userName
+     * @param userIdDTO
+     * @return list of trainee booked sessions
+     */
     @PostMapping("sessions/{userName}")
     public List<SessionDTO> getSessions(
             @PathVariable("userName") String userName, @RequestBody UserIdDTO userIdDTO
@@ -31,6 +37,12 @@ public class TraineeController {
         return this.traineeService.getSessions(userName, userIdDTO);
     }
 
+    /**
+     *
+     * @param userName
+     * @param userIdDTO
+     * @return list of trainee booked programs
+     */
     @PostMapping("follow-up/{userName}")
     public List<ProgramFollowUpDTO> getFollowUps(
             @PathVariable("userName") String userName, @RequestBody UserIdDTO userIdDTO
@@ -38,8 +50,18 @@ public class TraineeController {
         return this.traineeService.getFollowUps(userName, userIdDTO);
     }
 
+    /**
+     *
+     * @param userName
+     * @param userIdDTO
+     * @return status code
+     *
+     * SUCCESS_STATUS_CODE = 0
+     * UNAUTHENTICATED_USER_STATUS_CODE = -100
+     * INVALID_ENTITY_STATUS_CODE = -10
+     */
     @PostMapping("book-program/{userName}/{programId}")
-    public String bookProgram(
+    public int bookProgram(
             @PathVariable("userName") String userName,
             @PathVariable("programId") String programId,
             @RequestBody UserIdDTO userIdDTO
@@ -48,8 +70,23 @@ public class TraineeController {
         return this.traineeService.bookProgram(userName, programID, userIdDTO);
     }
 
+    /**
+     *
+     * @param userName
+     * @param sessionId
+     * @param userIdDTO
+     * @return status code
+     *
+     * NO_BOOKED_PROGRAM_STATUS_CODE = -1;
+     * NO_REMAINING_SESSIONS_STATUS_CODE = -2;
+     * TRAINEE_REGISTERED_BEFORE_STATUS_CODE = -4;
+     * FULL_SESSION_STATUS_CODE = -5;
+     * SUCCESS_STATUS_CODE = 0
+     * UNAUTHENTICATED_USER_STATUS_CODE = -100
+     * INVALID_ENTITY_STATUS_CODE = -10
+     */
     @PostMapping("book-session/{userName}/{sessionId}")
-    public String bookSession(
+    public int bookSession(
             @PathVariable("userName") String userName,
             @PathVariable("sessionId") String sessionId,
             @RequestBody UserIdDTO userIdDTO

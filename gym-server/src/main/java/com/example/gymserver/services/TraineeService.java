@@ -11,20 +11,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.beans.Transient;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class TraineeService {
-
     private AuthenticationService authenticationService;
     private ProgramRepository programRepository;
     private PClassFollowUpRepository pClassFollowUpRepository;
     private PClassDetailsRepository pClassDetailsRepository;
     private TraineeRepository traineeRepository;
     private SessionRepository sessionRepository;
+
+
+    public static final int NO_BOOKED_PROGRAM_STATUS_CODE = -1;
+    public static final int NO_REMAINING_SESSIONS_STATUS_CODE = -2;
+    public static final int TRAINEE_REGISTERED_BEFORE_STATUS_CODE = -4;
+    public static final int FULL_SESSION_STATUS_CODE = -5;
+    public static final int INVALID_ENTITY_STATUS_CODE = -10;
+
+
 
     @Autowired
     public TraineeService(AuthenticationService authenticationService,
@@ -74,10 +81,10 @@ public class TraineeService {
         }
     }
 
-    public String bookProgram(String userName, Long programID, UserIdDTO userIdDTO) {
-        String confirmation = "";
+    public int bookProgram(String userName, Long programID, UserIdDTO userIdDTO) {
+        int statusCode = 0;
         if(!this.authenticationService.authenticateUser(userIdDTO.getUserId(), userName))
-            confirmation = "unauthorized user";
+            statusCode = AuthenticationService.UNAUTHENTICATED_USER_STATUS_CODE;
         else{
             Program program = this.programRepository.findById(programID).orElse(null);
             if(program != null){
@@ -100,20 +107,19 @@ public class TraineeService {
                                                     .build();
                         this.pClassFollowUpRepository.save(followUp);
                     }
-                    confirmation = "DONE";
                 }
-                else confirmation = "null program";
+                else statusCode = INVALID_ENTITY_STATUS_CODE;
             }
-            else confirmation = "wrong program id";
+            else statusCode = INVALID_ENTITY_STATUS_CODE;
         }
-        return confirmation;
+        return statusCode;
     }
 
     @Transactional
-    public String bookSession(String userName, Long sessionID, UserIdDTO userIdDTO) {
-        String confirmation = "";
+    public int bookSession(String userName, Long sessionID, UserIdDTO userIdDTO) {
+        int statusCode = 0;
         if(!this.authenticationService.authenticateUser(userIdDTO.getUserId(), userName))
-            confirmation = "unauthorized user";
+            statusCode = AuthenticationService.UNAUTHENTICATED_USER_STATUS_CODE;
         else{
             Trainee trainee = traineeRepository.getById(userIdDTO.getUserId());
             Session session = this.sessionRepository.findById(sessionID).orElse(null);
@@ -130,25 +136,23 @@ public class TraineeService {
                                 if( !session.isFull() ){
                                     session.addAttendee();
                                     trainee.getSessions().add(session);
-                                    confirmation = "DONE";
                                 }
                                 else
-                                    confirmation = "Session is full!";
-
+                                    statusCode = FULL_SESSION_STATUS_CODE;
                                 break;
                             }
                         }
                         if( noRemainingSessions )
-                            confirmation = "No remaining sessions for this class!";
+                            statusCode = NO_REMAINING_SESSIONS_STATUS_CODE;
                     }
                     else
-                        confirmation = "No booked programs including this session!";
+                        statusCode = NO_BOOKED_PROGRAM_STATUS_CODE;
                 }
                 else
-                    confirmation = "No session by this id!";
+                    statusCode = INVALID_ENTITY_STATUS_CODE;
             }
-            else confirmation = "Trainee already registered!";
+            else statusCode = TRAINEE_REGISTERED_BEFORE_STATUS_CODE;
         }
-        return confirmation;
+        return statusCode;
     }
 }

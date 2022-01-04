@@ -15,10 +15,10 @@ import java.time.LocalDate;
 @Service
 public class UserService {
     public final static String USER_NOT_FOUND_MESSAGE = "User not found!";
-    public final static int SUCCESS_STATUS_CODE = 0;
     public final static int WRONG_USERNAME_STATUS_CODE = -1;
     public final static int WRONG_PASSWORD_STATUS_CODE = -2;
     public final static int WRONG_ANSWER_STATUS_CODE = -3;
+
 
     private UserRepository userRepository;
     private AuthenticationService authenticationService;
@@ -38,13 +38,13 @@ public class UserService {
         return UserMapper.toUserDto(user);
     }
 
-    
+
 
     @Transactional
     public void updateUserInfo(UserDTO user){
         if(!authenticationService.authenticateUser(user.getUserId(), user.getUserName()))
             return;
-        
+
         User updatedUser = this.userRepository.findUserByUserName(user.getUserName()).orElse(null);
         if(!user.getFirstName().equals(updatedUser.getFirstName()))
             updatedUser.setFirstName(user.getFirstName());
