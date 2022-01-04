@@ -18,13 +18,13 @@ public class SignUpController {
     public SignUpController(SignUpService signUpService) {
         this.signUpService = signUpService;
     }
-    
+
 
     /**
-     * 
+     *
      * @param user
-     * @return userId if username is valid
-     *         -1 if username exists
+     * @return userIdDTO containing correct userId if valid signup and statusCode = 0
+     *
      */
     @PostMapping("/trainee")
     public UserIdDTO signUp(@RequestBody UserDTO user){
