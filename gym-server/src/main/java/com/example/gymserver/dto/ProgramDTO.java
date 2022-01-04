@@ -18,6 +18,4 @@ public class ProgramDTO {
     private String price;
     private String description;
     private List<PClassDetailsDTO> classesDetails;
-
-
 }

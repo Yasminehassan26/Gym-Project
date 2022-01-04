@@ -34,7 +34,7 @@ export default function UserPrograms({Programs}) {
                   <Stack direction="row" spacing={1}>
                     <Chip
                       color="secondary"
-                      label={content.name}
+                      label={content.className}
                       icon={<FitnessCenterIcon />}
                     />
                     <Chip label={content.attendedSessions} color="success" />
