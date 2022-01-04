@@ -30,8 +30,8 @@ public class UserService {
     }
 
     public UserDTO getUserProfile(Long id, String userName){
-        User user = this.userRepository.findById(id).orElse(null);
-        if(user == null)
+        User user = this.userRepository.findUserByUserName(userName).orElse(null);
+        if(user == null )
             return null;
         if(!authenticationService.authenticateUser(id, userName))
             return null;
@@ -41,9 +41,9 @@ public class UserService {
 
 
     @Transactional
-    public void updateUserInfo(UserDTO user){
+    public int updateUserInfo(UserDTO user){
         if(!authenticationService.authenticateUser(user.getUserId(), user.getUserName()))
-            return;
+            return AuthenticationService.UNAUTHENTICATED_USER_STATUS_CODE;
 
         User updatedUser = this.userRepository.findUserByUserName(user.getUserName()).orElse(null);
         if(!user.getFirstName().equals(updatedUser.getFirstName()))
@@ -66,6 +66,8 @@ public class UserService {
 
         if(!user.getAnswer().equalsIgnoreCase(updatedUser.getAnswer()))
             updatedUser.setAnswer(user.getAnswer());
+
+        return 0;
 
     }
     /*

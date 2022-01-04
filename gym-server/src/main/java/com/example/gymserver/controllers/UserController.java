@@ -19,9 +19,9 @@ public class UserController {
     }
 
     /**
-     * 
+     *
      * @param userName
-     * @param userIdDTO 
+     * @param userIdDTO
      * @return user info if userId is matched to the username
      *            null otherwise
      */
@@ -31,17 +31,17 @@ public class UserController {
     }
 
     /**
-     * 
+     *
      * @param user
      */
     @PostMapping("/update-profile/{userName}")
-    public void updateUserInfo(@RequestBody UserDTO user){
-        userService.updateUserInfo(user);
+    public int updateUserInfo(@RequestBody UserDTO user){
+        return userService.updateUserInfo(user);
     }
 
-    
 
-   
+
+
 
 
 }
