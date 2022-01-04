@@ -4,33 +4,15 @@ import java.time.LocalDate;
 import java.util.Arrays;
 
 public class ProgramFollowUpDTO {
-    private Long programId;
-    private String programName;
-    private LocalDate endDate;
+    private String title;
     private ClassFollowUpDTO[] classesFollowUp;
 
-    public Long getProgramId() {
-        return programId;
-    }
-
-    public void setProgramId(Long programId) {
-        this.programId = programId;
-    }
-
-    public String getProgramName() {
-        return programName;
+    public String getProgramTitle() {
+        return title;
     }
 
     public void setProgramName(String programName) {
-        this.programName = programName;
-    }
-
-    public LocalDate getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(LocalDate endDate) {
-        this.endDate = endDate;
+        this.title = programName;
     }
 
     public ClassFollowUpDTO[] getClassesFollowUp() {
@@ -44,9 +26,7 @@ public class ProgramFollowUpDTO {
     @Override
     public String toString() {
         return "ProgramFollowUpDTO{" +
-                "programId=" + programId +
-                ", programName='" + programName + '\'' +
-                ", endDate=" + endDate +
+                ", programName='" + title + '\'' +
                 ", classesFollowUp=" + Arrays.toString(classesFollowUp) +
                 '}';
     }

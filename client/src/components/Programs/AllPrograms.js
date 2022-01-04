@@ -142,14 +142,6 @@ const AllPrograms = () => {
       Description:
         "This is a monthly program that consists of multiple sport types",
     },
-    {
-      id: 12,
-      name: "selver",
-      Duration: "1 Month",
-      price: 1000,
-      Description:
-        ReactSession.get("userId"),
-    },
   ];
   return (
     <Box
