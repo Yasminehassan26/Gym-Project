@@ -10,9 +10,11 @@ import java.util.Objects;
 @Embeddable
 @Setter
 @Getter
-@AllArgsConstructor
-@NoArgsConstructor
 @EqualsAndHashCode
+@ToString
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class PClassDetailsKey implements Serializable {
     @Column(name = "programId",
             nullable = false)

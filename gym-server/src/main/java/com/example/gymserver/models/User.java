@@ -1,9 +1,6 @@
 package com.example.gymserver.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -17,8 +14,11 @@ import java.util.Set;
 @Table
 @Setter
 @Getter
-@AllArgsConstructor
+@EqualsAndHashCode
+@ToString
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class User implements Serializable {
 
     @Id
@@ -72,20 +72,4 @@ public class User implements Serializable {
 //            inverseJoinColumns = @JoinColumn(name = "sessionId"))
 //    Set<Session> sessions;
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", userName='" + userName + '\'' +
-                ", password='" + password + '\'' +
-                ", birth_date=" + birth_date +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", question='" + question + '\'' +
-                ", answer='" + answer + '\'' +
-                ", role='" + role + '\'' +
-                ", age=" + age +
-                '}';
-    }
 }

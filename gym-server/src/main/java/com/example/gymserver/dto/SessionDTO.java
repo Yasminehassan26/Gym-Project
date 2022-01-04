@@ -4,9 +4,10 @@ import lombok.*;
 
 @Setter
 @Getter
-@AllArgsConstructor
-@NoArgsConstructor
+@ToString
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class SessionDTO {
     private Long sessionId;
     private String name;

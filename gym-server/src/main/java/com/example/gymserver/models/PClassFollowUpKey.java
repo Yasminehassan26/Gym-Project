@@ -1,8 +1,6 @@
 package com.example.gymserver.models;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -12,6 +10,10 @@ import java.io.Serializable;
 @Setter
 @Getter
 @EqualsAndHashCode
+@ToString
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class PClassFollowUpKey implements Serializable {
     @Column(name = "programId",
             nullable = false)

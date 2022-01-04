@@ -6,6 +6,7 @@ import com.example.gymserver.models.PClassDetails;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class PClassDetailsMapper {
 
     public static List<PClassDetailsDTO> toPClassDetailsDTO(List<PClassDetails> pClassDetailsList){

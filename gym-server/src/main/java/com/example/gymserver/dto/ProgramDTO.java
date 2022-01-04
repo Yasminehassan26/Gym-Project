@@ -6,9 +6,10 @@ import java.util.List;
 
 @Setter
 @Getter
-@AllArgsConstructor
-@NoArgsConstructor
+@ToString
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ProgramDTO {
     private long programId;
     private String name;

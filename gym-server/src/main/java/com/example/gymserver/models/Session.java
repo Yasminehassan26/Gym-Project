@@ -1,9 +1,6 @@
 package com.example.gymserver.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -14,8 +11,11 @@ import java.util.Set;
 @Table
 @Setter
 @Getter
-@AllArgsConstructor
+@EqualsAndHashCode
+@ToString
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class Session {
     @Id
     @SequenceGenerator(

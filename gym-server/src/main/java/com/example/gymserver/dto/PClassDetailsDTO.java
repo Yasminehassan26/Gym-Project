@@ -4,9 +4,10 @@ import lombok.*;
 
 @Setter
 @Getter
-@AllArgsConstructor
-@NoArgsConstructor
+@ToString
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class PClassDetailsDTO {
     private String className;
     private int noOfClasses;

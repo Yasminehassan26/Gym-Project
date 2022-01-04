@@ -1,9 +1,6 @@
 package com.example.gymserver.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -13,8 +10,11 @@ import java.util.List;
 @Table(name = "program")
 @Setter
 @Getter
-@AllArgsConstructor
+@EqualsAndHashCode
+@ToString
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class Program {
     @Id
     @SequenceGenerator(

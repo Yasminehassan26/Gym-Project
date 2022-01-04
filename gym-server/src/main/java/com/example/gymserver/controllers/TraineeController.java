@@ -35,16 +35,10 @@ public class TraineeController {
     }
 
     @GetMapping("follow-up/{userName}")
-    public List<ProgramFollowUpDTO> getFollowUp(
+    public List<ProgramFollowUpDTO> getFollowUps(
             @PathVariable("userName") String userName, @RequestBody UserIdDTO userIdDTO
     ){
-        List<ProgramFollowUpDTO> test = new ArrayList<>();
-        ClassFollowUpDTO[] testClass= new ClassFollowUpDTO[2];
-        testClass[0] = new ClassFollowUpDTO("yoga", "5/20");
-        testClass[1] = new ClassFollowUpDTO("yoga", "5/20");
-        test.add(new ProgramFollowUpDTO("program 1", testClass));
-        test.add(new ProgramFollowUpDTO("program 2", testClass));
-        return test;
+        return this.traineeService.getFollowUps(userName, userIdDTO);
     }
 
     @PostMapping("book-program/{userName}/{programId}")
