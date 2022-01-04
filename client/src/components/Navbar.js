@@ -9,6 +9,7 @@ import SideMenu from "./Profile/SideMenu";
 
 import AssignmentIndSharpIcon from "@mui/icons-material/AssignmentIndSharp";
 import TopMenu from "./TopMenu";
+import {ReactSession} from 'react-client-session';
 
 const ColorButton = styled(Button)(({ theme }) => ({
   color: "#cc1b85",
@@ -19,14 +20,14 @@ const ColorButton = styled(Button)(({ theme }) => ({
   },
 }));
 export default function Navbar({ history }) {
-  const [currentUser, setCurrentUser] = useState(1);
+  //const [currentUser, setCurrentUser] = useState(ReactSession.get("userId"));
 
   const handleRoute = (text) => {
     if (text === "Registration") {
       history.push("/Registration");
     } else history.push("/");
   };
-
+  //this.forceUpdate();
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" sx={{ backgroundColor: "#cc1b85" }}>
@@ -43,9 +44,9 @@ export default function Navbar({ history }) {
           </Button>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            {currentUser !== -1 && <SideMenu history={history} />}
+            {ReactSession.get("user") != null && <SideMenu history={history} />}
             {
-              currentUser === -1 && (
+              ReactSession.get("user") == null && (
                 <ColorButton
                   startIcon={<AssignmentIndSharpIcon />}
                   onClick={() => handleRoute("Registration")}

@@ -13,8 +13,11 @@ import AllPrograms from "./components/Programs/AllPrograms";
 import AllSessions from "./components/Sessions/AllSessions";
 import AllTips from "./components/Tips/TipsNavigator";
 
+import {ReactSession} from 'react-client-session';
+
 function App() {
   let history = useHistory();
+  ReactSession.setStoreType("sessionStorage");
 
   return (
     // <HomePage/>
@@ -25,7 +28,6 @@ function App() {
         <Route exact path="/">
           <HomePage history={history} />
         </Route>
-
         <Route path="/Registration">
           <RegistrationNavBar history={history} />
         </Route>

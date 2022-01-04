@@ -36,7 +36,6 @@ public class UserMapper {
         u.setAnswer(myUser.getAnswer());
         u.setAge(myUser.getAge());
         u.setRole(myUser.getRole());
-        u.setId(myUser.getUserId());
         return u;
     }
 }
