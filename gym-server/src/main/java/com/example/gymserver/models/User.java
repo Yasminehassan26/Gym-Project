@@ -53,9 +53,9 @@ public class User implements Serializable {
     @Transient
     private Integer age;
 
-    @OneToOne(cascade=CascadeType.PERSIST, mappedBy = "user")
-    @PrimaryKeyJoinColumn
-    private Trainee trainee;
+//    @OneToOne(cascade=CascadeType.PERSIST, mappedBy = "user")
+//    @PrimaryKeyJoinColumn
+//    private Trainee trainee;
 
 //    @OneToMany(
 //            mappedBy = "user",
