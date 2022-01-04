@@ -12,6 +12,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
 public class ProgramFollowUpDTO {
     private String title;
     private List<ClassFollowUpDTO> classesFollowUp;
