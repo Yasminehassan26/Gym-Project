@@ -1,12 +1,25 @@
 package com.example.gymserver.models;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.Period;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
 
 @Entity
 @Table
-public class User {
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
+public class User implements Serializable {
 
     @Id
     @SequenceGenerator(
@@ -19,131 +32,45 @@ public class User {
             generator = "user_sequence"
     )
 
+    @Column(name = "userId")
     private Long id;
+    @Column(nullable = false)
     private String firstName;
+    @Column(nullable = false)
     private String lastName;
+    @Column(unique = true, nullable = false)
     private String userName;
+    @Column(nullable = false)
     private String password;
     private LocalDate birth_date;
     private String phoneNumber;
+    @Column(nullable = false)
     private String question;
+    @Column(nullable = false)
     private String answer;
+    @Column(nullable = false)
     private String role;
     @Transient
     private Integer age;
 
-    public User() {
-    }
+    @OneToOne(cascade=CascadeType.PERSIST, mappedBy = "user")
+    @PrimaryKeyJoinColumn
+    private Trainee trainee;
 
-    public User(Long id,
-                String firstName,
-                String lastName,
-                String userName,
-                String password,
-                LocalDate birth_date,
-                String phoneNumber,
-                String question,
-                String answer,
-                String role) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.userName = userName;
-        this.password = password;
-        this.birth_date = birth_date;
-        this.phoneNumber = phoneNumber;
-        this.question = question;
-        this.answer = answer;
-        this.role = role;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public LocalDate getBirth_date() {
-        return birth_date;
-    }
-
-    public void setBirth_date(LocalDate birth_date) {
-        this.birth_date = birth_date;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getQuestion() {
-        return question;
-    }
-
-    public void setQuestion(String question) {
-        this.question = question;
-    }
-
-    public String getAnswer() {
-        return answer;
-    }
-
-    public void setAnswer(String answer) {
-        this.answer = answer;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
+//    @OneToMany(
+//            mappedBy = "user",
+//            orphanRemoval = true,
+//            cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
+//            fetch = FetchType.LAZY
+//    )
+//    private List<PClassFollowUp> pClassFollowUps = new ArrayList<>();
+//
+//    @ManyToMany(fetch = FetchType.LAZY)
+//    @JoinTable(
+//            name = "sessionReservation",
+//            joinColumns = @JoinColumn(name = "userId"),
+//            inverseJoinColumns = @JoinColumn(name = "sessionId"))
+//    Set<Session> sessions;
 
     @Override
     public String toString() {
@@ -157,8 +84,8 @@ public class User {
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", question='" + question + '\'' +
                 ", answer='" + answer + '\'' +
+                ", role='" + role + '\'' +
                 ", age=" + age +
-                ", role=" + role +
                 '}';
     }
 }
