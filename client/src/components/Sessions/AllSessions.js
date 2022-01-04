@@ -1,71 +1,26 @@
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import SessionCard from "./SessionCard";
+import { useState, useEffect } from "react";
 
 const AllSessions = () => {
   //on opening the page this data should be fetched from the backend
-  const sessions = [
-    {
-      id: 12,
-      className: "Yoga",
-      trainerName: "Mayar Mohamed",
-      date: "2/1/2021",
-      startTime: "4:30 pm",
-      endTime: "6:30 pm",
-      noOfAttendence: 3,
-      maxNoOfAttendence: 10,
-    },
-    {
-      id: 12,
-      className: "Yoga",
-      trainerName: "Mayar Mohamed",
-      date: "2/1/2021",
-      startTime: "4:30 pm",
-      endTime: "6:30 pm",
-      noOfAttendence: 10,
-      maxNoOfAttendence: 10,
-    },
-    {
-      id: 12,
-      className: "Yoga",
-      trainerName: "Mayar Mohamed",
-      date: "2/1/2021",
-      startTime: "4:30 pm",
-      endTime: "6:30 pm",
-      noOfAttendence: 3,
-      maxNoOfAttendence: 10,
-    },
-    {
-      id: 12,
-      className: "Yoga",
-      trainerName: "Mayar Mohamed",
-      date: "2/1/2021",
-      startTime: "4:30 pm",
-      endTime: "6:30 pm",
-      noOfAttendence: 3,
-      maxNoOfAttendence: 10,
-    },
-    {
-      id: 12,
-      className: "Yoga",
-      trainerName: "Mayar Mohamed",
-      date: "2/1/2021",
-      startTime: "4:30 pm",
-      endTime: "6:30 pm",
-      noOfAttendence: 3,
-      maxNoOfAttendence: 10,
-    },
-    {
-      id: 12,
-      className: "Yoga",
-      trainerName: "Mayar Mohamed",
-      date: "2/1/2021",
-      startTime: "4:30 pm",
-      endTime: "6:30 pm",
-      noOfAttendence: 3,
-      maxNoOfAttendence: 10,
-    },
-  ];
+  const [sessions, setSessions] = useState([]);
+  useEffect(() => {
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    var requestOptions = {
+      method: "GET",
+      headers: myHeaders,
+      redirect: "follow",
+    };
+    fetch("http://localhost:8082/api/booking/sessions", requestOptions)
+      .then((response) => response.json())
+      .then((data)=>{
+        setSessions(data);
+      })
+      .catch((error) => console.log("error", error));
+  },[]);
   return (
     <Box
       sx={{

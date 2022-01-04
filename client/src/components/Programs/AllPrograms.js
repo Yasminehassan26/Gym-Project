@@ -2,147 +2,26 @@ import ProgramCard from "./ProgramCard";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import {ReactSession} from 'react-client-session';
+import { useState,useEffect } from "react";
 
 const AllPrograms = () => {
   //on opening the page this data should be fetched from the backend
-  const programs = [
-    {
-      id: 12,
-      name: "selver",
-      Duration: "1 Month",
-      price: 1000,
-      Description:
-        "This is a monthly program that consists of multiple sport types",
-    },
-    {
-      id: 12,
-      name: "selver",
-      Duration: "1 Month",
-      price: 1000,
-      Description:
-        "This is a monthly program that consists of multiple sport types",
-    },
-    {
-      id: 12,
-      name: "selver",
-      Duration: "1 Month",
-      price: 1000,
-      Description:
-        "This is a monthly program that consists of multiple sport types",
-    },
-    {
-      id: 12,
-      name: "selver",
-      Duration: "1 Month",
-      price: 1000,
-      Description:
-        "This is a monthly program that consists of multiple sport types",
-    },
-    {
-      id: 12,
-      name: "selver",
-      Duration: "1 Month",
-      price: 1000,
-      Description:
-        "This is a monthly program that consists of multiple sport types",
-    },
-    {
-      id: 12,
-      name: "selver",
-      Duration: "1 Month",
-      price: 1000,
-      Description:
-        "This is a monthly program that consists of multiple sport types",
-    },
-    {
-      id: 12,
-      name: "selver",
-      Duration: "1 Month",
-      price: 1000,
-      Description:
-        "This is a monthly program that consists of multiple sport types",
-    },
-    {
-      id: 12,
-      name: "selver",
-      Duration: "1 Month",
-      price: 1000,
-      Description:
-        "This is a monthly program that consists of multiple sport types",
-    },
-    {
-      id: 12,
-      name: "selver",
-      Duration: "1 Month",
-      price: 1000,
-      Description:
-        "This is a monthly program that consists of multiple sport types",
-    },
-    {
-      id: 12,
-      name: "selver",
-      Duration: "1 Month",
-      price: 1000,
-      Description:
-        "This is a monthly program that consists of multiple sport types",
-    },
-    {
-      id: 12,
-      name: "selver",
-      Duration: "1 Month",
-      price: 1000,
-      Description:
-        "This is a monthly program that consists of multiple sport types",
-    },
-    {
-      id: 12,
-      name: "selver",
-      Duration: "1 Month",
-      price: 1000,
-      Description:
-        "This is a monthly program that consists of multiple sport types",
-    },
-    {
-      id: 12,
-      name: "selver",
-      Duration: "1 Month",
-      price: 1000,
-      Description:
-        "This is a monthly program that consists of multiple sport types",
-    },
-    {
-      id: 12,
-      name: "selver",
-      Duration: "1 Month",
-      price: 1000,
-      Description:
-        "This is a monthly program that consists of multiple sport types",
-    },
-    {
-      id: 12,
-      name: "selver",
-      Duration: "1 Month",
-      price: 1000,
-      Description:
-        "This is a monthly program that consists of multiple sport types",
-    },
-    {
-      id: 12,
-      name: "selver",
-      Duration: "1 Month",
-      price: 1000,
-      Description:
-        "This is a monthly program that consists of multiple sport types",
-    },
-    {
-      id: 12,
-      name: "selver",
-      Duration: "1 Month",
-      price: 1000,
-      Description:
-        "This is a monthly program that consists of multiple sport types",
-    },
-  ];
+  const [programs, setPrograms] = useState([]);
+  useEffect(() => {
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    var requestOptions = {
+      method: "GET",
+      headers: myHeaders,
+      redirect: "follow",
+    };
+    fetch("http://localhost:8082/api/booking/programs", requestOptions)
+      .then((response) => response.json())
+      .then((data)=>{
+        setPrograms(data);
+      })
+      .catch((error) => console.log("error", error));
+  },[]);
   return (
     <Box
       sx={{

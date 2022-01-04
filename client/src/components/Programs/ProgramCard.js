@@ -29,19 +29,10 @@ const ExpandMore = styled((props) => {
 
 export default function ProgramCard({ program }) {
   const [expanded, setExpanded] = React.useState(false);
-  const [programDetails, setProgramDetails] = React.useState([]);
   const [alert, setAlert] = React.useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
-    //call back end to get the program details
-    const proD = [
-      { className: "yoga", numberOfSessions: 3 },
-      { className: "zomba", numberOfSessions: 2 },
-      { className: "yoga", numberOfSessions: 4 },
-    ];
-    setProgramDetails(proD);
-    console.log(programDetails);
   };
 
   const handleBookProgram = () => {
@@ -65,21 +56,21 @@ export default function ProgramCard({ program }) {
         sx={{ color: "white", fontStyle: "bold" }}
         avatar={
           <Avatar sx={{ bgcolor: "#cc1b85" }} aria-label="recipe">
-            {program.id}
+            {program.programId}
           </Avatar>
         }
         title={program.name}
         subheader={
           <Typography style={{ color: "white", fontSize: 14 }}>
             {" "}
-            {program.Duration}
+            {program.duration}
           </Typography>
         }
       />
 
       <CardContent>
         <Typography variant="body2" color="white">
-          {program.Description}
+          {program.description}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
@@ -109,16 +100,22 @@ export default function ProgramCard({ program }) {
         <CardContent sx={{ backgroundColor: "rgba(219, 138, 138, 0.3)" }}>
           <Typography paragraph>Prgram Detatils:</Typography>
 
-          {programDetails.map((classItem) => (
+          {program.classesDetails.map((classItem) => (
             <List sx={{ width: "100%", maxWidth: 360, color: "white" }}>
               <ListItem>
                 <ListItemText
                   primary={"Class: " + classItem.className}
                   secondary={
-                    <Typography style={{ color: "white", fontSize: 14 }}>
-                      {" "}
-                      {"Number of sessions: " + classItem.numberOfSessions}
-                    </Typography>
+                    <div>
+                      <Typography style={{ color: "white", fontSize: 14 }}>
+                        {" "}
+                        {"Number of sessions: " + classItem.noOfClasses}
+                      </Typography>
+                      <Typography style={{ color: "white", fontSize: 14 }}>
+                        {" "}
+                        {"Description: " + classItem.description}
+                      </Typography>
+                    </div>
                   }
                 />
               </ListItem>
