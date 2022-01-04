@@ -21,7 +21,7 @@ public class AuthenticationService {
         User user = this.userRepository.findUserByUserName(userName).orElse(null);
         if(user == null)
             return false;
-        return user.getId() == id;
+        return user.getId().equals(id);
     }
 
 
