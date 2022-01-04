@@ -15,10 +15,13 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import FormControl from "@mui/material/FormControl";
 import FormHelperText from "@mui/material/FormHelperText";
-import UseFetchPost from "../../api/UseFetchPost";
 import validator from "validator";
-
-import {ReactSession} from 'react-client-session';
+import IconButton from "@mui/material/IconButton";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import InputAdornment from "@mui/material/InputAdornment";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import { ReactSession } from "react-client-session";
 
 export default function SignUp({ history }) {
   const [state, setState] = useState({
@@ -30,7 +33,10 @@ export default function SignUp({ history }) {
     birthdate: "",
     question: "",
     answer: "",
+    showPassword: false,
   });
+
+  const [forgetPassword, setForgetPassword] = useState(false);
   const [error, setError] = useState(0);
   const [errorMessage, setErrorMessage] = useState("");
   const [type, setType] = useState("");
@@ -101,8 +107,12 @@ export default function SignUp({ history }) {
               setErrorMessage("UserName already exists !");
               setType("error");
             } else {
-              var session = {userName:data.userName,Id:res.userId ,role:res.role};
-              ReactSession.set("user",session);
+              var session = {
+                userName: data.userName,
+                Id: res.userId,
+                role: res.role,
+              };
+              ReactSession.set("user", session);
               history.push("/");
               console.log(res);
             }
@@ -110,6 +120,16 @@ export default function SignUp({ history }) {
           .catch((error) => console.log("error", error));
       }
     }
+  };
+  const handleClickShowPassword = () => {
+    setState({
+      ...state,
+      showPassword: !state.showPassword,
+    });
+  };
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
   };
 
   const handleChange = (prop) => (event) => {
@@ -174,7 +194,7 @@ export default function SignUp({ history }) {
                 />
               </Grid>
               <Grid item xs={12}>
-                <TextField
+                {/* <TextField
                   required
                   fullWidth
                   name="password"
@@ -182,7 +202,36 @@ export default function SignUp({ history }) {
                   type="password"
                   id="password"
                   autoComplete="new-password"
-                />
+                /> */}
+                <FormControl fullWidth sx={{ m: 1, width: "25ch" }} variant="outlined">
+                  <InputLabel htmlFor="outlined-adornment-password">
+                    Password
+                  </InputLabel>
+                  <OutlinedInput
+                    fullWidth
+                    id="outlined-adornment-password"
+                    type={state.showPassword ? "text" : "password"}
+                    value={state.password}
+                    onChange={handleChange("password")}
+                    endAdornment={
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowPassword}
+                          onMouseDown={handleMouseDownPassword}
+                          edge="end"
+                        >
+                          {state.showPassword ? (
+                            <VisibilityOff />
+                          ) : (
+                            <Visibility />
+                          )}
+                        </IconButton>
+                      </InputAdornment>
+                    }
+                    label="Password"
+                  />
+                </FormControl>
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField

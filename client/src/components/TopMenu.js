@@ -12,6 +12,9 @@ import MailIcon from "@mui/icons-material/Mail";
 import MenuIcon from "@mui/icons-material/Menu";
 import IconButton from "@mui/material/IconButton";
 import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
+import Profile from "./Profile/Profile";
+import { ReactSession } from "react-client-session";
+
 export default function TopMenu({ history }) {
   const [state, setState] = React.useState({
     top: false,
@@ -88,6 +91,7 @@ export default function TopMenu({ history }) {
         open={state["top"]}
         onClose={toggleDrawer("top", false)}
       >
+        {typeof ReactSession.get("user")!== "undefined" && <Profile />}
         {list("top")}
       </Drawer>
     </div>
