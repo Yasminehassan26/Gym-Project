@@ -6,37 +6,38 @@ import com.example.gymserver.dto.UserIdDTO;
 import com.example.gymserver.mappers.PClassFollowUpMapper;
 import com.example.gymserver.mappers.SessionMapper;
 import com.example.gymserver.models.*;
-import com.example.gymserver.repositories.PClassDetailsRepository;
-import com.example.gymserver.repositories.PClassFollowUpRepository;
-import com.example.gymserver.repositories.ProgramRepository;
-import com.example.gymserver.repositories.TraineeRepository;
+import com.example.gymserver.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.beans.Transient;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class TraineeService {
-    
+
     private AuthenticationService authenticationService;
     private ProgramRepository programRepository;
     private PClassFollowUpRepository pClassFollowUpRepository;
     private PClassDetailsRepository pClassDetailsRepository;
     private TraineeRepository traineeRepository;
+    private SessionRepository sessionRepository;
 
     @Autowired
     public TraineeService(AuthenticationService authenticationService,
                           ProgramRepository programRepository,
                           PClassFollowUpRepository pClassFollowUpRepository,
                           PClassDetailsRepository pClassDetailsRepository,
-                          TraineeRepository traineeRepository){
+                          TraineeRepository traineeRepository,
+                          SessionRepository sessionRepository){
         this.authenticationService = authenticationService;
         this.pClassFollowUpRepository = pClassFollowUpRepository;
         this.programRepository = programRepository;
         this.pClassDetailsRepository = pClassDetailsRepository;
         this.traineeRepository = traineeRepository;
+        this.sessionRepository = sessionRepository;
     }
 
     public List<SessionDTO> getSessions(String userName, UserIdDTO userIdDTO) {
@@ -107,12 +108,41 @@ public class TraineeService {
         return confirmation;
     }
 
-
+    @Transient
     public String bookSession(String userName, Long sessionID, UserIdDTO userIdDTO) {
         String confirmation = "";
         if(!this.authenticationService.authenticateUser(userIdDTO.getUserId(), userName))
             confirmation = "unauthorized user";
         else{
+            Session session = this.sessionRepository.findById(sessionID).orElse(null);
+            if( session != null ){
+                List<PClassFollowUp> classFollowUps = pClassFollowUpRepository
+                        .findFollowUpsByTraineeAndClass(userIdDTO.getUserId(),session.getProgramClass().getId()).orElse(null);
+                if( classFollowUps != null ){
+                    boolean noRemainingSessions = true;
+                    for(PClassFollowUp classFollowUp : classFollowUps){
+                        if( classFollowUp.getSessionsRemaining() != 0 ){
+                            classFollowUp.reserveSession();
+                            noRemainingSessions = false;
+                            if( !session.isFull() ){
+                                session.addAttendee();
+                                Trainee trainee = traineeRepository.getById(userIdDTO.getUserId());
+                                trainee.getSessions().add(session);
+                            }
+                            else
+                                confirmation = "Session is full!";
+
+                            break;
+                        }
+                    }
+                    if( noRemainingSessions )
+                        confirmation = "No remaining sessions for this class!";
+                }
+                else
+                    confirmation = "No booked programs including this session!";
+            }
+            else
+                confirmation = "No session by this id!";
 
         }
         return confirmation;

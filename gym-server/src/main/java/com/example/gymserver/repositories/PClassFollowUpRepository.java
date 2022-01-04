@@ -18,4 +18,7 @@ public interface PClassFollowUpRepository extends JpaRepository<PClassFollowUp, 
 
     @Query("SELECT p FROM PClassFollowUp p WHERE p.id.traineeId = ?1 AND p.id.programId = ?2")
     Optional<List<PClassFollowUp>> findFollowUpsByTraineeAndProgram(Long traineeId, Long programId);
+
+    @Query("SELECT p FROM PClassFollowUp p WHERE p.id.traineeId = ?1 AND p.id.classId = ?2")
+    Optional<List<PClassFollowUp>> findFollowUpsByTraineeAndClass(Long traineeId, Long classId);
 }
