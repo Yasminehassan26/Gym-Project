@@ -40,6 +40,7 @@ export default function SessionCard({ session }) {
 
   const handleBookSession = () => {
     if (alert === false) {
+      console.log(ReactSession.get("user"));
       setAlert(true);
       console.log("book clicked");
       if (typeof ReactSession.get("user") === 'undefined') {
@@ -139,7 +140,7 @@ export default function SessionCard({ session }) {
           <Alert severity="success">Booked Successfully!!</Alert>
         )}
         {alert && alertState === -1 && (
-          <Alert severity="error">Sorry your program duration ended !!</Alert>
+          <Alert severity="error">Sorry didn't book a program yet !!</Alert>
         )}
         {alert && alertState === -2 && (
           <Alert severity="error">
