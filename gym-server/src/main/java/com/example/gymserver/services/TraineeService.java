@@ -107,6 +107,7 @@ public class TraineeService {
         return confirmation;
     }
 
+
     public String bookSession(String userName, Long sessionID, UserIdDTO userIdDTO) {
         String confirmation = "";
         if(!this.authenticationService.authenticateUser(userIdDTO.getUserId(), userName))
