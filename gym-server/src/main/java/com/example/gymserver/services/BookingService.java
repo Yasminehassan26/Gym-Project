@@ -17,19 +17,13 @@ import java.util.List;
 
 @Service
 public class BookingService{
-    private AuthenticationService authenticationService;
     private ProgramRepository programRepository;
-    private ClassRepository classRepository;
     @Autowired
     private SessionRepository sessionRepository;
 
     @Autowired
-    public BookingService(AuthenticationService authenticationService,
-                          ProgramRepository programRepository,
-                          ClassRepository classRepository) {
-        this.authenticationService = authenticationService;
+    public BookingService(ProgramRepository programRepository) {
         this.programRepository = programRepository;
-        this.classRepository = classRepository;
     }
 
     public List<ProgramDTO> getAllPrograms() {

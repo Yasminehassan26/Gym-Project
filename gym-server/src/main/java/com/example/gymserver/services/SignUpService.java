@@ -27,22 +27,23 @@ public class SignUpService {
     * @return id of new user and -1 in case this user name already exists
     */
     public UserIdDTO signUp(UserDTO user){
-        
+
         User res = this.userRepository.findUserByUserName(user.getUserName()).orElse(null);
         UserIdDTO userIdDTO = new UserIdDTO();
         System.out.println(res);
         if(res == null){
             User newUser = UserMapper.toUser(user);
-            this.userRepository.save(newUser);
             Trainee newTrainee = new Trainee();
             newTrainee.setUser(newUser);
             this.traineeRepository.save(newTrainee);
+            this.userRepository.save(newUser);
             System.out.println(newUser.toString());
             userIdDTO.setUserId(newUser.getId());
             userIdDTO.setRole("Trainee");
         }else{
             userIdDTO.setStatusCode(UserService.WRONG_USERNAME_STATUS_CODE);
         }
+        System.out.println(userIdDTO.toString());
         return userIdDTO;
     }
 

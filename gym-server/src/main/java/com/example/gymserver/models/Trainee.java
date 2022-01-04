@@ -1,5 +1,6 @@
 package com.example.gymserver.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -22,8 +23,9 @@ public class Trainee implements Serializable {
     @Column(name = "traineeId")
     private Long id;
 
-    @OneToOne
+    @OneToOne(cascade=CascadeType.ALL)
     @MapsId
+    @JsonIgnore
     @JoinColumn(name = "traineeId")
     private User user;
 
@@ -42,9 +44,5 @@ public class Trainee implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "sessionId"))
     List<Session> sessions;
 
-
-    public Trainee(Long id){
-        this.id = id;
-    }
 
 }
