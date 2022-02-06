@@ -47,9 +47,9 @@ export default function TopMenu({ history }) {
     // else  if (text === "Trainers") {
     //   history.push("/Trainers");
     // }
-    // else  if (text === "Shop") {
-    //   history.push("/Shop");
-    // }
+    else  if (text === "Shop") {
+      history.push("/Shop");
+    }
   };
   const list = (anchor) => (
     <Box
@@ -107,7 +107,7 @@ export default function TopMenu({ history }) {
         open={state["top"]}
         onClose={toggleDrawer("top", false)}
       >
-        {typeof ReactSession.get("user") !== "undefined" && <Profile />}
+        {/* {typeof ReactSession.get("user") !== "undefined" && <Profile />} */}
         {list("top")}
       </Drawer>
     </div>

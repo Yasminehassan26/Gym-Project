@@ -53,6 +53,8 @@ export default function Navbar({ history }) {
                   Registration
                 </ColorButton>
           }
+          
+             {typeof ReactSession.get("user") !== "undefined" && <Profile />}
           </Box>
         </Toolbar>
       </AppBar>

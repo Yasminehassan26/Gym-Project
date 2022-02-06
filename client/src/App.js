@@ -12,16 +12,15 @@ import Profile from "./components/Profile/Profile";
 import AllPrograms from "./components/Programs/AllPrograms";
 import AllSessions from "./components/Sessions/AllSessions";
 import AllTips from "./components/Tips/TipsNavigator";
-
+import ShopCard from "./components/Shop/ShopCard"
 import {ReactSession} from 'react-client-session';
-
+import Shop from "./components/Shop/ShopNavigator";
 function App() {
   let history = useHistory();
   ReactSession.setStoreType("sessionStorage");
 
   return (
-    // <HomePage/>
-    // <Tips/>
+    //  <Shop history={history}/>
     <div style={{ backgroundColor: "black" }}>
       <Switch>
         <Route exact path="/">
@@ -38,6 +37,9 @@ function App() {
         </Route>
         <Route path="/AllTips">
           <AllTips history={history} />
+        </Route>
+        <Route path="/Shop">
+          <Shop history={history} />
         </Route>
         <Route path="/SignUp">
           <SignUp />
