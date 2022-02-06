@@ -13,6 +13,7 @@ import AllPrograms from "./components/Programs/AllPrograms";
 import AllSessions from "./components/Sessions/AllSessions";
 import AllTips from "./components/Tips/TipsNavigator";
 import ShopCard from "./components/Shop/ShopCard"
+import AllTrainers from "./components/Trainer/AllTrainers";
 import {ReactSession} from 'react-client-session';
 import Shop from "./components/Shop/ShopNavigator";
 function App() {
@@ -20,7 +21,6 @@ function App() {
   ReactSession.setStoreType("sessionStorage");
 
   return (
-    //  <Shop history={history}/>
     <div style={{ backgroundColor: "black" }}>
       <Switch>
         <Route exact path="/">
@@ -38,11 +38,14 @@ function App() {
         <Route path="/AllTips">
           <AllTips history={history} />
         </Route>
-        <Route path="/Shop">
-          <Shop history={history} />
-        </Route>
         <Route path="/SignUp">
           <SignUp />
+        </Route>
+        <Route path="/Trainers">
+          <AllTrainers />
+        </Route>
+        <Route path="/Shop">
+          <Shop />
         </Route>
         <Route path="/SignIn">
           <LoginPage />

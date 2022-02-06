@@ -44,9 +44,9 @@ export default function TopMenu({ history }) {
       sessionStorage.clear();
       history.push("/");
     }
-    // else  if (text === "Trainers") {
-    //   history.push("/Trainers");
-    // }
+    else  if (text === "Trainers") {
+      history.push("/Trainers");
+    }
     else  if (text === "Shop") {
       history.push("/Shop");
     }
