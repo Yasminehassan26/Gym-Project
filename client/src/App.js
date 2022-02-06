@@ -12,7 +12,7 @@ import Profile from "./components/Profile/Profile";
 import AllPrograms from "./components/Programs/AllPrograms";
 import AllSessions from "./components/Sessions/AllSessions";
 import AllTips from "./components/Tips/TipsNavigator";
-
+import AllTrainers from "./components/Trainer/AllTrainers";
 import {ReactSession} from 'react-client-session';
 
 function App() {
@@ -20,33 +20,32 @@ function App() {
   ReactSession.setStoreType("sessionStorage");
 
   return (
-    // <HomePage/>
-    // <Tips/>
-    <div style={{ backgroundColor: "black" }}>
-      <Switch>
-        <Route exact path="/">
-          <HomePage history={history} />
-        </Route>
-        <Route path="/Registration">
-          <RegistrationNavBar history={history} />
-        </Route>
-        <Route path="/AllPrograms">
-          <AllPrograms history={history} />
-        </Route>
-        <Route path="/AllSessions">
-          <AllSessions history={history} />
-        </Route>
-        <Route path="/AllTips">
-          <AllTips history={history} />
-        </Route>
-        <Route path="/SignUp">
-          <SignUp />
-        </Route>
-        <Route path="/SignIn">
-          <LoginPage />
-        </Route>
-      </Switch>
-    </div>
+ <AllTrainers/>
+    // <div style={{ backgroundColor: "black" }}>
+    //   <Switch>
+    //     <Route exact path="/">
+    //       <HomePage history={history} />
+    //     </Route>
+    //     <Route path="/Registration">
+    //       <RegistrationNavBar history={history} />
+    //     </Route>
+    //     <Route path="/AllPrograms">
+    //       <AllPrograms history={history} />
+    //     </Route>
+    //     <Route path="/AllSessions">
+    //       <AllSessions history={history} />
+    //     </Route>
+    //     <Route path="/AllTips">
+    //       <AllTips history={history} />
+    //     </Route>
+    //     <Route path="/SignUp">
+    //       <SignUp />
+    //     </Route>
+    //     <Route path="/SignIn">
+    //       <LoginPage />
+    //     </Route>
+    //   </Switch>
+    // </div>
   );
 }
 
