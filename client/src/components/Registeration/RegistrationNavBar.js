@@ -10,6 +10,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import SignupPage from "./SignUpPage";
 import LoginPage from "./LoginPage";
+import Navbar from "../Navbar";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -58,6 +59,8 @@ export default function RegistrationNavBar({ history }) {
 
   return (
     <Box sx={{ bgcolor: "background.paper" }}>
+            <Navbar history={history} />
+
       <AppBar position="static" sx={{ backgroundColor: "#cc1b85" }}>
         <Tabs
           value={value}

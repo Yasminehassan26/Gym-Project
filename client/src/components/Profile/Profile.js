@@ -44,6 +44,14 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 const Input = styled("input")({
   display: "none",
 });
+const ColorButton = styled(Button)(({ theme }) => ({
+  color: "#cc1b85",
+  backgroundColor: "#ffffff",
+  "&:hover": {
+    color: "#ffffff",
+    backgroundColor: "#AF036E",
+  },
+}));
 export default function Profile() {
   const [open, setOpen] = React.useState(false);
   const [state, setState] = useState({
@@ -127,55 +135,46 @@ export default function Profile() {
   };
 
   useEffect(() => {
-    if(typeof ReactSession.get("user") != 'undefined'){
-    var values = {
-      userId: ReactSession.get("user").Id,
-      role: ReactSession.get("user").role,
-      statusCode: 0,
-    };
-    getProfileInfo(values, ReactSession.get("user").userName).then((data) => {
-      console.log(data);
-      var addData = {
-        firstName: data.firstName,
-        lastName: data.lastName,
-        userName: data.userName,
-        password: data.password,
-        mobile: data.phoneNumber,
-        birthdate: data.birth_date,
-        question: data.question,
-        answer: data.answer,
+    if (typeof ReactSession.get("user") != "undefined") {
+      var values = {
+        userId: ReactSession.get("user").Id,
+        role: ReactSession.get("user").role,
+        statusCode: 0,
       };
-      setState(addData);
-    });
-    getPrograms(values, ReactSession.get("user").userName).then((program) => {
-      console.log(program);
-      setPrograms(program);
-    });
-    getSession(values, ReactSession.get("user").userName).then((session) => {
-      console.log(session);
-      setSessions(session);
-    });}
+      getProfileInfo(values, ReactSession.get("user").userName).then((data) => {
+        console.log(data);
+        var addData = {
+          firstName: data.firstName,
+          lastName: data.lastName,
+          userName: data.userName,
+          password: data.password,
+          mobile: data.phoneNumber,
+          birthdate: data.birth_date,
+          question: data.question,
+          answer: data.answer,
+        };
+        setState(addData);
+      });
+      getPrograms(values, ReactSession.get("user").userName).then((program) => {
+        console.log(program);
+        setPrograms(program);
+      });
+      getSession(values, ReactSession.get("user").userName).then((session) => {
+        console.log(session);
+        setSessions(session);
+      });
+    }
   }, []);
 
   return (
     <div>
-      {/* <IconButton
-        size="large"
-        edge="end"
-        aria-label="account of current user"
-        aria-haspopup="true"
-        onClick={() => setOpen(true)}
-        color="inherit"
-      >
-        <AccountCircle />
-      </IconButton> */}
-      <Button
+      <ColorButton
         variant="outlined"
-        startIcon={<AccountCircle color="secondary"/>}
+        startIcon={<AccountCircle color="secondary" />}
         onClick={() => setOpen(true)}
       >
         My Profile
-      </Button>
+      </ColorButton>
       <Dialog
         fullScreen
         open={open}
