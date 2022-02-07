@@ -9,7 +9,7 @@ export function getProfileInfo(values,userName) {
       redirect: "follow",
     };
 
-    return fetch("http://localhost:8082/api/user/profile/mena", requestOptions)
+    return fetch(`http://localhost:8082/api/user/profile/${userName}`, requestOptions)
       .then((response) => response.json())
       .catch((error) => console.log("error", error));
   }
