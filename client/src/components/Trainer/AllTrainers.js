@@ -5,10 +5,10 @@ import {ReactSession} from 'react-client-session';
 import { useState,useEffect } from "react";
 import Navbar from "../Navbar";
 
-const AllPrograms = ({history}) => {
+const AllTrainers = ({history}) => {
   //on opening the page this data should be fetched from the backend
   const [trainers, setTrainers] = useState([]);
-  const data = [{id:1 , name:"Tarek Ashor" , bio:"hey I am captain tarek and it will be great to see you soon " , phoneNumber:"01201687799",
+  const data = [{id:1 , name:"Mohamed Yasser" , bio:"hey I am captain tarek and it will be great to see you soon " , phoneNumber:"01201687799",
 sports:[{sport:"kick boxing"},{sport:"fittness"},{sport:"yoga"}], achievements:[{achievement:"Africa championship" , date:"30/12/2021"},{achievement:"Egypt championship" , date:"12/1/2020"}] },
 {id:2 , name:"Tarek Ashor" , bio:"hey I am captain tarek and it will be great to see you soon " , phoneNumber:"01201687799",
 sports:[{sport:"kick boxing"},{sport:"fittness"},{sport:"yoga"}], achievements:[{achievement:"Africa championship" , date:"30/12/2021"},{achievement:"Egypt championship" , date:"12/1/2020"}] },
@@ -79,4 +79,4 @@ sports:[{sport:"kick boxing"},{sport:"fittness"},{sport:"yoga"}], achievements:[
   );
 };
 
-export default AllPrograms;
+export default AllTrainers;

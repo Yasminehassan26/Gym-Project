@@ -62,41 +62,38 @@ export default function ShopNavigator({ history }) {
 
   return (
     <div>
-                <Navbar history={history} />
-
-
-    <Box sx={{ bgcolor: "background.paper" }}>
-      <AppBar position="static" sx={{ backgroundColor: "#cc1b85" }}>
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          indicatorColor="secondary"
-          textColor="inherit"
-          variant="fullWidth"
-          aria-label="full width tabs example"
+      <Navbar history={history} />
+      <Box sx={{ bgcolor: "background.paper" }}>
+        <AppBar position="static" sx={{ backgroundColor: "#cc1b85" }}>
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            indicatorColor="secondary"
+            textColor="inherit"
+            variant="fullWidth"
+            aria-label="full width tabs example"
+          >
+            <Tab label="Clothes" {...a11yProps(0)} />
+            <Tab label="Equipments" {...a11yProps(1)} />
+            <Tab label="Supplies" {...a11yProps(2)} />
+          </Tabs>
+        </AppBar>
+        <SwipeableViews
+          axis={theme.direction === "rtl" ? "x-reverse" : "x"}
+          index={value}
+          onChangeIndex={handleChangeIndex}
         >
-          <Tab label="Clothes" {...a11yProps(0)} />
-          <Tab label="Equipments" {...a11yProps(1)} />
-          <Tab label="Supplies" {...a11yProps(2)} />
-
-        </Tabs>
-      </AppBar>
-      <SwipeableViews
-        axis={theme.direction === "rtl" ? "x-reverse" : "x"}
-        index={value}
-        onChangeIndex={handleChangeIndex}
-      >
-        <TabPanel value={value} index={0} dir={theme.direction}>
-          <Cards Elements={Clothes} />
-        </TabPanel>
-        <TabPanel value={value} index={1} dir={theme.direction}>
-          <Cards Elements={Equipments} />
-        </TabPanel>
-        <TabPanel value={value} index={2} dir={theme.direction}>
-          <Cards Elements={Supplies} />
-        </TabPanel>
-      </SwipeableViews>
-    </Box>
+          <TabPanel value={value} index={0} dir={theme.direction}>
+            <Cards Elements={Clothes} />
+          </TabPanel>
+          <TabPanel value={value} index={1} dir={theme.direction}>
+            <Cards Elements={Equipments} />
+          </TabPanel>
+          <TabPanel value={value} index={2} dir={theme.direction}>
+            <Cards Elements={Supplies} />
+          </TabPanel>
+        </SwipeableViews>
+      </Box>
     </div>
   );
 }
