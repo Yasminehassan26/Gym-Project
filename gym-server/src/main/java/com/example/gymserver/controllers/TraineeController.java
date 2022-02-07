@@ -57,8 +57,10 @@ public class TraineeController {
      * @return status code
      *
      * SUCCESS_STATUS_CODE = 0
+     * TRAINEE_REGISTERED_BEFORE_STATUS_CODE = -4
      * UNAUTHENTICATED_USER_STATUS_CODE = -100
      * INVALID_ENTITY_STATUS_CODE = -10
+     *
      */
     @PostMapping("book-program/{userName}/{programId}")
     public int bookProgram(

@@ -86,6 +86,12 @@ public class TraineeService {
         if(!this.authenticationService.authenticateUser(userIdDTO.getUserId(), userName))
             statusCode = AuthenticationService.UNAUTHENTICATED_USER_STATUS_CODE;
         else{
+            // Check if program reserved before
+            List<PClassFollowUp> classesFollowUp = this.pClassFollowUpRepository
+                    .findFollowUpsByTraineeAndProgram(userIdDTO.getUserId(), programID).orElse(null);
+            if( classesFollowUp != null )
+                return TRAINEE_REGISTERED_BEFORE_STATUS_CODE;
+
             Program program = this.programRepository.findById(programID).orElse(null);
             if(program != null){
                 List<PClassDetails> programDetails = this.pClassDetailsRepository
