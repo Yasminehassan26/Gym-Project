@@ -9,7 +9,7 @@ export function sendCart(values,userName) {
       redirect: "follow",
     };
   
-    return fetch(`http://localhost:8082/api/trainee/sessions/${userName}`, requestOptions)
-      .then((response) => response.json())
+    return fetch(`http://localhost:8082/api/shop/confirmOrder/${userName}`, requestOptions)
+      .then((response) => response.text())
       .catch((error) => console.log("error", error));
   }

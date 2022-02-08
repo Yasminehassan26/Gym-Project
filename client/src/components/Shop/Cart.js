@@ -26,6 +26,8 @@ import AddIcon from "@mui/icons-material/Add";
 import NumberFormat from 'react-number-format';
 import SendCart from "../../api/ShopApi";
 import TextField from '@mui/material/TextField';
+import Alert from "@mui/material/Alert";
+
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
     padding: theme.spacing(2),
@@ -95,7 +97,8 @@ NumberFormatCustom.propTypes = {
 export default function Cart() {
   const [open, setOpen] = React.useState(false);
   const[data,setData]=React.useState([]);
-
+  const [error, setError] = React.useState(0);
+  const [errorMessage, setErrorMessage] = React.useState("");
   React.useEffect(() => {
     setData(ReactSession.get("user").cart);
   }, []);
@@ -114,6 +117,20 @@ export default function Cart() {
 
   };
   const handleSave = () => {
+    var values = {
+      userId: ReactSession.get("user").Id,
+      orderItems:ReactSession.get("user").cart,
+    };
+    // console.log(values);
+    SendCart(values, ReactSession.get("user").userName).then((data) => {
+        if(data==="Order confirmed successfully!"){
+            
+        }
+        else{
+        setError(1);
+        setErrorMessage(data)
+        }
+    })
     
 
   };
@@ -212,6 +229,9 @@ export default function Cart() {
               )
             )}
           </List>
+          {error === 1 && (
+                        <Alert severity="error">warning — {errorMessage}</Alert>
+                      )}
         </DialogContent>
         <DialogActions>
           <Button
