@@ -84,13 +84,13 @@ export default function ShopNavigator({ history }) {
           onChangeIndex={handleChangeIndex}
         >
           <TabPanel value={value} index={0} dir={theme.direction}>
-            <Cards Elements={Clothes} />
+            <Cards Elements={"Clothes"} />
           </TabPanel>
           <TabPanel value={value} index={1} dir={theme.direction}>
-            <Cards Elements={Equipments} />
+            <Cards Elements={"Equipments"} />
           </TabPanel>
           <TabPanel value={value} index={2} dir={theme.direction}>
-            <Cards Elements={Supplies} />
+            <Cards Elements={"Supplies"} />
           </TabPanel>
         </SwipeableViews>
       </Box>

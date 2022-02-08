@@ -10,7 +10,7 @@ import lombok.*;
 @AllArgsConstructor
 @EqualsAndHashCode
 public class ProductDTO {
-    private long id;
+    private long productId;
     private String name;
     private String description;
     private float price;

@@ -24,7 +24,7 @@ import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
 import NumberFormat from 'react-number-format';
-import SendCart from "../../api/ShopApi";
+import {sendCart} from "../../api/ShopApi";
 import TextField from '@mui/material/TextField';
 import Alert from "@mui/material/Alert";
 
@@ -122,9 +122,15 @@ export default function Cart() {
       orderItems:ReactSession.get("user").cart,
     };
     // console.log(values);
-    SendCart(values, ReactSession.get("user").userName).then((data) => {
+    sendCart(values, ReactSession.get("user").userName).then((data) => {
         if(data==="Order confirmed successfully!"){
-            
+          let temp = ReactSession.get("user");
+          temp.cart.length=0;
+          ReactSession.set("user", temp);
+          setData(ReactSession.get("user").cart);
+          setOpen(false);
+          setError(0);
+          setErrorMessage("")
         }
         else{
         setError(1);
@@ -144,7 +150,10 @@ export default function Cart() {
         let temp = ReactSession.get("user");
         temp.cart=data;
         ReactSession.set("user", temp);
-        setData(ReactSession.get("user").cart);}
+        setData(ReactSession.get("user").cart);
+        setError(0);
+        setErrorMessage("")
+      }
       }
     })
     console.log("entered add");
@@ -158,7 +167,10 @@ export default function Cart() {
         let temp = ReactSession.get("user");
         temp.cart=data;
         ReactSession.set("user", temp);
-        setData(ReactSession.get("user").cart);}
+        setData(ReactSession.get("user").cart);
+        setError(0);
+        setErrorMessage("")
+      }
       }
     })
     console.log("entered minus");
@@ -177,6 +189,8 @@ export default function Cart() {
     temp.cart.splice(ind, 1);
     ReactSession.set("user", temp);
     setData(ReactSession.get("user").cart);
+    setError(0);
+    setErrorMessage("")
   };
   
   return (

@@ -2,10 +2,16 @@ import ShopCard from "./ShopCard"
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import * as React from "react";
+import {getProduct} from "../../api/ShopApi";
 
 const Cards = ({Elements}) => {
-    const [elements, setElements] = React.useState(Elements);
-// load the list
+    const [elements, setElements] = React.useState([]);
+    React.useEffect(() => {
+      getProduct(Elements).then((product) => {
+        console.log(product);
+        setElements(product);
+      });
+    }, []);
   return (
 
 

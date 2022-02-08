@@ -20,7 +20,7 @@ export default function ShopCard({Element}) {
       for (var i = 0; i < ReactSession.get("user").cart.length; i++) {
     
 
-        if (ReactSession.get("user").cart[i].productId === Element.id) {
+        if (ReactSession.get("user").cart[i].productId === Element.productId) {
           ind = i;
           break;
         }
@@ -82,6 +82,7 @@ export default function ShopCard({Element}) {
           <Typography variant="body2" color="text.secondary">
            {Element.description}
           </Typography>
+          <p>Price: {Element.price}</p>
         </CardContent>
       </CardActionArea>
       <CardActions>

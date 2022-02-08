@@ -6,7 +6,7 @@ import com.example.gymserver.models.Product;
 public class ProductMapper {
 
     public static ProductDTO toProductDTO(Product product){
-        return ProductDTO.builder().id(product.getId())
+        return ProductDTO.builder().productId(product.getId())
                 .description(product.getDescription())
                 .name(product.getName())
                 .price(product.getPrice())
