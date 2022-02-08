@@ -2,8 +2,6 @@ package com.example.gymserver.services;
 
 import com.example.gymserver.models.User;
 import com.example.gymserver.repositories.UserRepository;
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
