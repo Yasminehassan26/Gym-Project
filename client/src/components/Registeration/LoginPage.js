@@ -19,7 +19,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import {ReactSession} from 'react-client-session';
+import { ReactSession } from 'react-client-session';
 import Navbar from "../Navbar";
 
 const theme = createTheme();
@@ -79,9 +79,33 @@ export default function SignInSide({ history }) {
             setType("warning");
             check = 1;
           } else {
-            var session = {userName:data.get("username"),Id:res.userId ,role:res.role};
-            ReactSession.set("user",session);
+            var session = {
+              userName: data.get("username"), Id: res.userId, role: res.role, cart: [
+                {
+                productId: 2,
+                category: 'Clothes',
+                name: 'clothes',
+                description: 'buy your favorite piece and join us now',
+                price: 10,
+                noInStock: 10,
+                noOfItems:1,
+                totalPrice: 10
+              },
+              {
+                productId: 1,
+                category: 'Clothes',
+                name: 'clothes',
+                description: 'buy your favorite piece and join us now',
+                price: 10,
+                noInStock: 10,
+                noOfItems: 1,
+                totalPrice: 10
+              },]
+            };
+            console.log(session);
+            ReactSession.set("user", session);
             history.push("/");
+            console.log(ReactSession.get("user"));
           }
         })
         .catch((error) => console.log("error", error));

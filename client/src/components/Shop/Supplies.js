@@ -1,101 +1,26 @@
 const Supplies = [
 
-    {
-      type: 'Supplies',
-      name:'Supplies',
-      description:'buy your favorite piece and join us now'
-
+  
+      
+  {
+    productId:7,
+    category: 'Clothes',
+    name:'sup',
+    description:'buy your favorite piece and join us now',
+    price :10,
+    noInStock:10,
+    noOfItems:1,
+    totalPrice:10
     },
-    {
-        type: 'Equipments',
-        name:'Equipments',
-        description:'buy your favorite piece and join us now'
-  
-      },
-      {
-        type: 'Equipments',
-        name:'Equipments',
-        description:'buy your favorite piece and join us now'
-  
-      },
-      {
-        type: 'Equipments',
-        name:'Equipments',
-        description:'buy your favorite piece and join us now'
-  
-      },
-      {
-        type: 'Equipments',
-        name:'Equipments',
-        description:'buy your favorite piece and join us now'
-  
-      },
-      {
-        type: 'Equipments',
-        name:'Equipments',
-        description:'buy your favorite piece and join us now'
-  
-      },
-      {
-        type: 'Equipments',
-        name:'Equipments',
-        description:'buy your favorite piece and join us now'
-  
-      },
-      {
-        type: 'Equipments',
-        name:'Equipments',
-        description:'buy your favorite piece and join us now'
-  
-      },
-      {
-        type: 'Equipments',
-        name:'Equipments',
-        description:'buy your favorite piece and join us now'
-  
-      },
-      {
-        type: 'Equipments',
-        name:'Equipments',
-        description:'buy your favorite piece and join us now'
-  
-      },
-      {
-        type: 'Equipments',
-        name:'Equipments',
-        description:'buy your favorite piece and join us now'
-  
-      },
-      {
-        type: 'Equipments',
-        name:'Equipments',
-        description:'buy your favorite piece and join us now'
-  
-      },
-      {
-        type: 'Equipments',
-        name:'Equipments',
-        description:'buy your favorite piece and join us now'
-  
-      },
-      {
-        type: 'Equipments',
-        name:'Equipments',
-        description:'buy your favorite piece and join us now'
-  
-      },
-      {
-        type: 'Equipments',
-        name:'Equipments',
-        description:'buy your favorite piece and join us now'
-  
-      },
-      {
-        type: 'Equipments',
-        name:'Equipments',
-        description:'buy your favorite piece and join us now'
-  
-      },
-  
+  {
+    productId:8,
+    category: 'Clothes',
+    name:'sup',
+    description:'buy your favorite piece and join us now',
+    price :10,
+    noInStock:10,
+    noOfItems:1,
+    totalPrice:10
+  },
 ];
 export default Supplies
