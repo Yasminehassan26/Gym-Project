@@ -112,6 +112,7 @@ public class TraineeService {
                                                     .programClass(classDetails.getProgramClass())
                                                     .endDate(LocalDate.parse("2022-05-22"))
                                                     .sessionsRemaining(classDetails.getNoOfClasses())
+                                                    .used(false)
                                                     .build();
                         this.pClassFollowUpRepository.save(followUp);
                     }
