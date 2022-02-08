@@ -78,19 +78,11 @@ export default function CartElement({Product}) {
         break;
       }
     }
-<<<<<<< HEAD
     //ReactSession.get("user").cart.splice(ind, 1);
      //let temp = ReactSession.get("user");
      //temp.cart.splice(ind,1);
      //ReactSession.set("user",temp);
     };
-=======
-    
-    React.useEffect(() => {
-    {console.log("2tnylt")}
-
-  }, []);
->>>>>>> 58eb9d6290f4d4288cf24f98d7f866dd3ccc8036
   return (
     <Box sx={{ flexGrow: 1, maxWidth: 752 }}>
 
