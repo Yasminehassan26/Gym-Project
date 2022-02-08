@@ -201,8 +201,22 @@ public class TraineeService {
                 List<PClassFollowUp> pClassFollowUp = this.pClassFollowUpRepository.
                         findFollowUpsByTraineeAndClass(userIdDTO.getUserId(), session.getProgramClass().getId()).orElse(null);
                 if(pClassFollowUp != null && pClassFollowUp.size() != 0){
-                    pClassFollowUp.get(0).unreserveSession();
-                    session.removeAttendee();
+                    for(int i = 0; i < pClassFollowUp.size(); i++){
+                        PClassFollowUp pClassFollowUpTemp = pClassFollowUp.get(i);
+                        PClassDetails pClassDetails = this.pClassDetailsRepository
+                                .findDetailsByProgramIdAndClassId(pClassFollowUpTemp.getProgram().getId(),
+                                        pClassFollowUpTemp.getProgramClass().getId()).orElse(null);
+                        if(pClassDetails != null){
+                            if(pClassFollowUpTemp.getSessionsRemaining() < pClassDetails.getNoOfClasses()){
+                                pClassFollowUpTemp.unreserveSession();
+                                session.removeAttendee();
+                                Trainee trainee = traineeRepository.getById(userIdDTO.getUserId());
+                                trainee.getSessions().remove(session);
+                                break;
+                            }
+                        }else
+                            statusCode = INVALID_ENTITY_STATUS_CODE;
+                    }
                 }else
                     statusCode = INVALID_ENTITY_STATUS_CODE;
             }
