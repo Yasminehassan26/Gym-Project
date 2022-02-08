@@ -7,6 +7,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import {ReactSession} from 'react-client-session';
 
+
 export default function ShopCard({Element}) {
     const [loading, setLoading] = React.useState(false);
     const [link, setLink] = React.useState(Element.imageURL);
@@ -24,7 +25,7 @@ export default function ShopCard({Element}) {
       if(ind===-1){
         let product={
           name:Element.name,
-          productId:Element.id,
+          productId:Element.productId,
           price:Element.price,
           noOfItems:1,
           noInStock:Element.noInStock,
@@ -39,7 +40,6 @@ export default function ShopCard({Element}) {
         temp.cart[i].totalPrice=temp.cart[i].noOfItems*temp.cart[i].price;
         ReactSession.set("user", temp);
       }
-      
     };
 
     const handleRemoveFromCart = (value) => {

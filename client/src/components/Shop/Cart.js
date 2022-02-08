@@ -96,7 +96,7 @@ export default function Cart() {
 
   React.useEffect(() => {
     setData(ReactSession.get("user").cart);
-  }, [ReactSession.get("user").cart]);
+  }, []);
 
   const handleClickOpen = () => {
     setOpen(true);
