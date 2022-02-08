@@ -3,7 +3,7 @@ const Supplies = [
   
       
   {
-    productId:7,
+    id:7,
     category: 'Clothes',
     name:'sup',
     description:'buy your favorite piece and join us now',
@@ -13,7 +13,7 @@ const Supplies = [
     totalPrice:10
     },
   {
-    productId:8,
+    id:8,
     category: 'Clothes',
     name:'sup',
     description:'buy your favorite piece and join us now',
