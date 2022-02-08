@@ -11,10 +11,12 @@ import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-
+import Data from './Data';
 import CartElement from './CartElement';
 import DeleteIcon from "@mui/icons-material/Delete";
 import SaveIcon from '@mui/icons-material/Save';
+import {ReactSession} from 'react-client-session';
+
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
     padding: theme.spacing(2),
@@ -26,7 +28,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 
 const BootstrapDialogTitle = (props) => {
   const { children, onClose, ...other } = props;
-
+ 
   return (
     <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
       {children}
@@ -55,6 +57,7 @@ BootstrapDialogTitle.propTypes = {
 
 export default function Cart() {
   const [open, setOpen] = React.useState(false);
+  const[data,setData]=React.useState( ReactSession.get("user").cart)
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -62,7 +65,11 @@ export default function Cart() {
   const handleClose = () => {
     setOpen(false);
   };
+  const handleClear = () => {
+    ReactSession.get("user").cart.length = 0;
 
+  };
+  
   return (
     <div>
       <IconButton style={{ color: "white" }}aria-label="add to shopping cart" onClick={handleClickOpen}>
@@ -77,12 +84,14 @@ export default function Cart() {
           My Cart
         </BootstrapDialogTitle>
         <DialogContent dividers>
-         <CartElement/>
+        {data.map((element) => {
+            <CartElement product={element} />   
+        })}
          
         </DialogContent>
         <DialogActions>
         <Button
-        onClick={handleClose}
+        onClick={handleClear}
           variant="outlined"
           startIcon={<DeleteIcon />}
         >

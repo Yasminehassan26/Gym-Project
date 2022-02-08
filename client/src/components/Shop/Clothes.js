@@ -1,125 +1,32 @@
 const Clothes = [
 
     {
-      type: 'Clothes',
+      id:1,
+      category: 'Clothes',
       name:'clothes',
-      description:'buy your favorite piece and join us now'
-
-    },
-     {
-      type: 'Clothes',
-      name:'clothes',
-      description:'buy your favorite piece and join us now'
-      
-    },
+      description:'buy your favorite piece and join us now',
+      price :10,
+      noInStock:10    },
     {
-        type: 'Clothes',
-        name:'clothes',
-        description:'buy your favorite piece and join us now'
-        
-      },
-      {
-        type: 'Clothes',
-        name:'clothes',
-        description:'buy your favorite piece and join us now'
-        
-      },
-      {
-        type: 'Clothes',
-        name:'clothes',
-        description:'buy your favorite piece and join us now'
-        
-      },
-      {
-        type: 'Clothes',
-        name:'clothes',
-        description:'buy your favorite piece and join us now'
-        
-      },
-      {
-        type: 'Clothes',
-        name:'clothes',
-        description:'buy your favorite piece and join us now'
-        
-      },
-      {
-        type: 'Clothes',
-        name:'clothes',
-        description:'buy your favorite piece and join us now'
-        
-      },
-      {
-        type: 'Clothes',
-        name:'clothes',
-        description:'buy your favorite piece and join us now'
-        
-      },
-      {
-        type: 'Clothes',
-        name:'clothes',
-        description:'buy your favorite piece and join us now'
-        
-      },
-      {
-        type: 'Clothes',
-        name:'clothes',
-        description:'buy your favorite piece and join us now'
-        
-      },
-      {
-        type: 'Clothes',
-        name:'clothes',
-        description:'buy your favorite piece and join us now'
-        
-      },
-      {
-        type: 'Clothes',
-        name:'clothes',
-        description:'buy your favorite piece and join us now'
-        
-      },
-      {
-        type: 'Clothes',
-        name:'clothes',
-        description:'buy your favorite piece and join us now'
-        
-      },
-      {
-        type: 'Clothes',
-        name:'clothes',
-        description:'buy your favorite piece and join us now'
-        
-      },
-      {
-        type: 'Clothes',
-        name:'clothes',
-        description:'buy your favorite piece and join us now'
-        
-      },
-      {
-        type: 'Clothes',
-        name:'clothes',
-        description:'buy your favorite piece and join us now'
-        
-      },
-      {
-        type: 'Clothes',
-        name:'clothes',
-        description:'buy your favorite piece and join us now'
-        
-      },
-      {
-        type: 'Clothes',
-        name:'clothes',
-        description:'buy your favorite piece and join us now'
-        
-      },
-      {
-        type: 'Clothes',
-        name:'clothes',
-        description:'buy your favorite piece and join us now'
-        
-      },
+      id:2,
+      category: 'Clothes',
+      name:'clothes',
+      description:'buy your favorite piece and join us now',
+      price :10,
+      noInStock:10    },
+    {
+      id:3,
+      category: 'Clothes',
+      name:'clothes',
+      description:'buy your favorite piece and join us now',
+      price :10,
+      noInStock:10    },{
+      id:4,
+      category: 'Clothes',
+      name:'clothes',
+      description:'buy your favorite piece and join us now',
+      price :10,
+      noInStock:10    },
   
 ];
 export default Clothes

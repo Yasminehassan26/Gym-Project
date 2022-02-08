@@ -1,101 +1,18 @@
 const Equipments = [
 
-    {
-      type: 'Equipments',
-      name:'Equipments',
-      description:'buy your favorite piece and join us now'
-
-    },
-    {
-        type: 'Equipments',
-        name:'Equipments',
-        description:'buy your favorite piece and join us now'
-  
-      },
-      {
-        type: 'Equipments',
-        name:'Equipments',
-        description:'buy your favorite piece and join us now'
-  
-      },
-      {
-        type: 'Equipments',
-        name:'Equipments',
-        description:'buy your favorite piece and join us now'
-  
-      },
-      {
-        type: 'Equipments',
-        name:'Equipments',
-        description:'buy your favorite piece and join us now'
-  
-      },
-      {
-        type: 'Equipments',
-        name:'Equipments',
-        description:'buy your favorite piece and join us now'
-  
-      },
-      {
-        type: 'Equipments',
-        name:'Equipments',
-        description:'buy your favorite piece and join us now'
-  
-      },
-      {
-        type: 'Equipments',
-        name:'Equipments',
-        description:'buy your favorite piece and join us now'
-  
-      },
-      {
-        type: 'Equipments',
-        name:'Equipments',
-        description:'buy your favorite piece and join us now'
-  
-      },
-      {
-        type: 'Equipments',
-        name:'Equipments',
-        description:'buy your favorite piece and join us now'
-  
-      },
-      {
-        type: 'Equipments',
-        name:'Equipments',
-        description:'buy your favorite piece and join us now'
-  
-      },
-      {
-        type: 'Equipments',
-        name:'Equipments',
-        description:'buy your favorite piece and join us now'
-  
-      },
-      {
-        type: 'Equipments',
-        name:'Equipments',
-        description:'buy your favorite piece and join us now'
-  
-      },
-      {
-        type: 'Equipments',
-        name:'Equipments',
-        description:'buy your favorite piece and join us now'
-  
-      },
-      {
-        type: 'Equipments',
-        name:'Equipments',
-        description:'buy your favorite piece and join us now'
-  
-      },
-      {
-        type: 'Equipments',
-        name:'Equipments',
-        description:'buy your favorite piece and join us now'
-  
-      },
-  
+  {
+    id:5,
+    category: 'Clothes',
+    name:'equi',
+    description:'buy your favorite piece and join us now',
+    price :10,
+    noInStock:10  },
+  {
+    id:6,
+    category: 'Clothes',
+    name:'equi',
+    description:'buy your favorite piece and join us now',
+    price :10,
+    noInStock:10  },
 ];
 export default Equipments
