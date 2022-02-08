@@ -79,7 +79,7 @@ export default function SignInSide({ history }) {
             setType("warning");
             check = 1;
           } else {
-            var session = {userName:data.get("username"),Id:res.userId ,role:res.role};
+            var session = {userName:data.get("username"),Id:res.userId ,role:res.role,cart:[]};
             ReactSession.set("user",session);
             history.push("/");
           }
