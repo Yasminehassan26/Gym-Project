@@ -37,7 +37,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 
 const BootstrapDialogTitle = (props) => {
   const { children, onClose, ...other } = props;
-
+ 
   return (
     <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
       {children}
@@ -93,6 +93,7 @@ NumberFormatCustom.propTypes = {
 
 export default function Cart() {
   const [open, setOpen] = React.useState(false);
+  const[data,setData]=React.useState( ReactSession.get("user").cart);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -145,6 +146,7 @@ export default function Cart() {
     ReactSession.set("user", temp);
   };
 
+  
   return (
     <div>
       <IconButton style={{ color: "white" }} aria-label="add to shopping cart" onClick={handleClickOpen}>
