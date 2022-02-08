@@ -14,6 +14,7 @@ export default function ShopCard({Element}) {
 
     function handleClick(value) {
     }
+
     const handleAddToCart = (value) => {
       setLoading(value);
       let product={
@@ -24,8 +25,11 @@ export default function ShopCard({Element}) {
         noOfItems:1,
         noInStock:Element.noInStock
       }
+      console.log(Element)
+      console.log(product)
+
       ReactSession.get("user").cart.push(product);
-     
+     console.log( ReactSession.get("user").cart)
     };
   return (
     <Card sx={{ maxWidth: 345 }}>

@@ -20,7 +20,8 @@ const Clothes = [
       name:'clothes',
       description:'buy your favorite piece and join us now',
       price :10,
-      noInStock:10    },{
+      noInStock:10    },
+      {
       id:4,
       category: 'Clothes',
       name:'clothes',

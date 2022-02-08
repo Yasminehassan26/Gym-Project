@@ -11,7 +11,6 @@ import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import Data from './Data';
 import CartElement from './CartElement';
 import DeleteIcon from "@mui/icons-material/Delete";
 import SaveIcon from '@mui/icons-material/Save';
@@ -84,9 +83,15 @@ export default function Cart() {
           My Cart
         </BootstrapDialogTitle>
         <DialogContent dividers>
-        {data.map((element) => {
-            <CartElement product={element} />   
-        })}
+        {
+          console.log(data),
+
+        data.map((element) => {
+          console.log(element);
+            <CartElement  />   
+        })
+        
+        }
          
         </DialogContent>
         <DialogActions>

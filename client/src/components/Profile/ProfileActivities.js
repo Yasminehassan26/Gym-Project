@@ -68,7 +68,6 @@ export default function ProfileActivities({programs, sessions}) {
         >
           <Tab label="Follow Up" {...a11yProps(0)} />
           <Tab label="Sessions" {...a11yProps(1)} />
-          <Tab label="Enrollements" {...a11yProps(2)} />
 
         </Tabs>
       </AppBar>
@@ -78,14 +77,13 @@ export default function ProfileActivities({programs, sessions}) {
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
+         {console.log(programs)}
           <UserPrograms Programs={programs} />
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
           <UserSessions Sessions={sessions} />
         </TabPanel>
-        <TabPanel value={value} index={2} dir={theme.direction}>
-          <UserSessions Sessions={sessions} />
-        </TabPanel>
+       
       </SwipeableViews>
     </Box>
   );

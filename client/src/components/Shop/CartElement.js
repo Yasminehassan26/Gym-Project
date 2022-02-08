@@ -12,7 +12,6 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
 import PropTypes from 'prop-types';
 import NumberFormat from 'react-number-format';
-import {ReactSession} from 'react-client-session';
 
 import TextField from '@mui/material/TextField';
 
@@ -44,48 +43,21 @@ const NumberFormatCustom = React.forwardRef(function NumberFormatCustom(props, r
   };
   
 
-export default function CartElement({product}) {
-    const [value, setValue] = React.useState(product.price);
-    const [number, setNumber] = React.useState(product.noOfItems);
-    const[data,setData]=React.useState( ReactSession.get("user").cart)
+export default function CartElement() {
+    const [value, setValue] = React.useState("0");
 
     const handleChange = (event) => {
       setValue(event.target.value)
   
     }
-    const handleAdd = () => {
-      data.map((element) => {
-          if(product.productId === element.productId){
-            element.noOfItems++;
-            setNumber(element.noOfItems)
-            setValue(element.noOfItems*element.price)       
-          }
-    })
-     
-    };
-    const handleMinus = () => {
-      data.map((element) => {
-          if(product.productId === element.productId){
-            element.noOfItems--;
-            setNumber(element.noOfItems)
-            setValue(element.noOfItems*element.price)
-          }
-    })
-     
-    };
-    const handleRemove = () => {
-      let ind=0;
-   
-    for (var i = 0; i < data.length; i++) {
-      if (data[i].productId===product.productId) {
-        ind=i;
-        break;
-      }
-      console.log(data.splice(ind, 1));
-     
-    };
+    
+    React.useEffect(() => {
+    {console.log("2tnylt")}
+
+  }, []);
   return (
     <Box sx={{ flexGrow: 1, maxWidth: 752 }}>
+
       <List>
         <ListItem>
           <ListItemAvatar>
@@ -93,12 +65,12 @@ export default function CartElement({product}) {
               <ShoppingBagIcon />
             </Avatar>
           </ListItemAvatar>
-          <ListItemText primary={product.name} />
-          <IconButton   onClick={handleAdd} color="secondary" aria-label="add an alarm">
+          <ListItemText primary="Single-line item" />
+          <IconButton color="secondary" aria-label="add an alarm">
             <AddIcon />
           </IconButton>
-          <p>{number}</p>
-          <IconButton onClick={handleMinus} color="secondary" aria-label="add an alarm">
+          <p>1</p>
+          <IconButton color="secondary" aria-label="add an alarm">
             <RemoveIcon />
           </IconButton>
           <TextField
@@ -113,7 +85,7 @@ export default function CartElement({product}) {
         }}
         variant="standard"
       />
-          <IconButton onClick={handleRemove} color="secondary" aria-label="add an alarm">
+          <IconButton color="secondary" aria-label="add an alarm">
             <DeleteIcon />
           </IconButton>
         </ListItem>
