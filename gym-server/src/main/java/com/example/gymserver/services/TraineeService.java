@@ -91,14 +91,16 @@ public class TraineeService {
             // Check if program reserved before
             List<PClassFollowUp> classesFollowUp = this.pClassFollowUpRepository
                     .findFollowUpsByTraineeAndProgram(userIdDTO.getUserId(), programID).orElse(null);
-            if( classesFollowUp != null )
+            System.out.println(programID + " PROGRAM ID !");
+            System.out.println(classesFollowUp.size());
+            if( classesFollowUp != null && classesFollowUp.size() > 0)
                 return TRAINEE_REGISTERED_BEFORE_STATUS_CODE;
 
             Program program = this.programRepository.findById(programID).orElse(null);
             if(program != null){
                 List<PClassDetails> programDetails = this.pClassDetailsRepository
                         .findDetailsByProgramId(programID).orElse(null);
-                if(programDetails != null){
+                if(programDetails != null && programDetails.size() != 0){
                     Trainee trainee = this.traineeRepository.findById(userIdDTO.getUserId()).orElse(null);
                     for(PClassDetails classDetails : programDetails){
                         PClassFollowUp followUp = PClassFollowUp.builder()
@@ -112,6 +114,7 @@ public class TraineeService {
                                                     .programClass(classDetails.getProgramClass())
                                                     .endDate(LocalDate.parse("2022-05-22"))
                                                     .sessionsRemaining(classDetails.getNoOfClasses())
+                                                    .used(false)
                                                     .build();
                         this.pClassFollowUpRepository.save(followUp);
                     }
@@ -172,7 +175,7 @@ public class TraineeService {
         else{
             List<PClassFollowUp> classFollowUps = pClassFollowUpRepository
                     .findFollowUpsByTraineeAndProgram(userIdDTO.getUserId(), programID).orElse(null);
-            if(classFollowUps != null){
+            if(classFollowUps != null && classFollowUps.size() != 0){
                 for(PClassFollowUp pClassFollowUp: classFollowUps){
                     if(pClassFollowUp.isUsed())
                         return INVALID_DELETE_STATUS_CODE;
@@ -197,7 +200,7 @@ public class TraineeService {
             if(session != null){
                 List<PClassFollowUp> pClassFollowUp = this.pClassFollowUpRepository.
                         findFollowUpsByTraineeAndClass(userIdDTO.getUserId(), session.getProgramClass().getId()).orElse(null);
-                if(pClassFollowUp != null){
+                if(pClassFollowUp != null && pClassFollowUp.size() != 0){
                     pClassFollowUp.get(0).unreserveSession();
                     session.removeAttendee();
                 }else
