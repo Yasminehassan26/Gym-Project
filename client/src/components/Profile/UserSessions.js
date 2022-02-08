@@ -17,7 +17,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 export default function UserSessions({Sessions}) {
   const [sessions, setSessions] = useState(Sessions);
   const handleRemove = (session) => {
-  
+ 
    
   };
   return (
@@ -38,3 +38,5 @@ export default function UserSessions({Sessions}) {
     </List>
   );
 }
+ 
+

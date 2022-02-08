@@ -29,7 +29,7 @@ const Cards = ({Elements}) => {
         {elements.map((element) => {
           return (
             <Grid item xs={2} sm={4} md={4}>
-              {console.log(element.id)}
+              {console.log(element.productId)}
               <ShopCard Element={element} />
             </Grid>
           );
