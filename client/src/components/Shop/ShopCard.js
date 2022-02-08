@@ -15,8 +15,11 @@ export default function ShopCard({Element}) {
       setLoading(value);
       let ind = -1;
       console.log(ReactSession.get("user").cart);
+
       for (var i = 0; i < ReactSession.get("user").cart.length; i++) {
-        if (ReactSession.get("user").cart[i].productId === Element.productId) {
+    
+
+        if (ReactSession.get("user").cart[i].productId === Element.id) {
           ind = i;
           break;
         }
@@ -35,9 +38,10 @@ export default function ShopCard({Element}) {
         ReactSession.set("user", temp);
       }else{
         let temp = ReactSession.get("user");
+        if(temp.cart[i].noOfItems<temp.cart[i].noInStock){
         temp.cart[i].noOfItems++;
         temp.cart[i].totalPrice=temp.cart[i].noOfItems*temp.cart[i].price;
-        ReactSession.set("user", temp);
+        ReactSession.set("user", temp);}
       }
       
     };
@@ -54,8 +58,12 @@ export default function ShopCard({Element}) {
       }
       //ReactSession.get("user").cart.splice(ind, 1);
       let temp = ReactSession.get("user");
+      if(temp.cart[i].noOfItems>1){
       temp.cart[i].noOfItems--;
-      temp.cart[i].totalPrice=temp.cart[i].noOfItems*temp.cart[i].price;
+      temp.cart[i].totalPrice=temp.cart[i].noOfItems*temp.cart[i].price;}
+      else{
+        temp.cart[i].splice(ind, 1);
+      }
       ReactSession.set("user", temp);
     };
   return (

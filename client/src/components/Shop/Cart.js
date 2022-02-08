@@ -24,6 +24,7 @@ import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
 import NumberFormat from 'react-number-format';
+import SendCart from "../../api/ShopApi";
 import TextField from '@mui/material/TextField';
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -89,32 +90,7 @@ NumberFormatCustom.propTypes = {
   onChange: PropTypes.func.isRequired,
 };
 
-const NumberFormatCustom = React.forwardRef(function NumberFormatCustom(props, ref) {
-  const { onChange, ...other } = props;
 
-  return (
-    <NumberFormat
-      {...other}
-      getInputRef={ref}
-      onValueChange={(values) => {
-        onChange({
-          target: {
-            name: props.name,
-            value: values.value,
-          },
-        });
-      }}
-      thousandSeparator
-      isNumericString
-      prefix="$"
-    />
-  );
-});
-
-NumberFormatCustom.propTypes = {
-  name: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
-};
 
 export default function Cart() {
   const [open, setOpen] = React.useState(false);
@@ -122,7 +98,7 @@ export default function Cart() {
 
   React.useEffect(() => {
     setData(ReactSession.get("user").cart);
-  }, [ReactSession.get("user").cart]);
+  }, []);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -137,19 +113,21 @@ export default function Cart() {
     setData(ReactSession.get("user").cart);
 
   };
+  const handleSave = () => {
+    
 
-  const [value, setValue] = React.useState(1);
-  const [number, setNumber] = React.useState(1);
+  };
   
   const handleAdd = (Product) => {
     data.map((element) => {
       if (Product.productId === element.productId) {
+        if(element.noOfItems<element.noInStock){
         element.noOfItems++;
         element.totalPrice=element.noOfItems*element.price;
         let temp = ReactSession.get("user");
         temp.cart=data;
         ReactSession.set("user", temp);
-        setData(ReactSession.get("user").cart);
+        setData(ReactSession.get("user").cart);}
       }
     })
     console.log("entered add");
@@ -157,12 +135,13 @@ export default function Cart() {
   const handleMinus = (Product) => {
     data.map((element) => {
       if (Product.productId === element.productId) {
+        if(element.noOfItems>1){
         element.noOfItems--;
         element.totalPrice=element.noOfItems*element.price;
         let temp = ReactSession.get("user");
         temp.cart=data;
         ReactSession.set("user", temp);
-        setData(ReactSession.get("user").cart);
+        setData(ReactSession.get("user").cart);}
       }
     })
     console.log("entered minus");
@@ -244,7 +223,7 @@ export default function Cart() {
           </Button>
 
           <Button
-            onClick={handleClose}
+            onClick={handleSave}
             variant="outlined"
             startIcon={<SaveIcon />}
           >
