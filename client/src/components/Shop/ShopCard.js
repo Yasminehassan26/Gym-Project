@@ -3,18 +3,34 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Button,Card, CardActionArea, CardActions } from '@mui/material';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import {ReactSession} from 'react-client-session';
 
 export default function ShopCard({Element}) {
     const [loading, setLoading] = React.useState(false);
-    const [link, setLink] = React.useState("https://images.unsplash.com/photo-1594737626072-90dc274bc2bd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1780&q=80");
+    const [link, setLink] = React.useState(Element.imageURL);
 
 
     function handleClick(value) {
-      setLoading(value);
     }
+
+    const handleAddToCart = (value) => {
+      setLoading(value);
+      let product={
+
+        name:Element.name,
+        productId:Element.id,
+        price:Element.price,
+        noOfItems:1,
+        noInStock:Element.noInStock
+      }
+      console.log(Element)
+      console.log(product)
+
+      ReactSession.get("user").cart.push(product);
+     console.log( ReactSession.get("user").cart)
+    };
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardActionArea>
@@ -45,7 +61,7 @@ export default function ShopCard({Element}) {
       )}
       {loading == false && (
         <Button
-          onClick={() => handleClick(!loading)}
+          onClick={() => handleAddToCart(!loading)}
           variant="contained"
           endIcon={<AddShoppingCartIcon />}
         >

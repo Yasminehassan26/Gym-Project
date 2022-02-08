@@ -111,7 +111,13 @@ export default function SignUp({ history }) {
                 userName: data.userName,
                 Id: res.userId,
                 role: res.role,
-                cart:[]
+                cart:[
+                  {
+                    type: 'Clothes',
+                    name:'clothes',
+                    description:'buy your favorite piece and join us now'
+                  },
+                ]
               };
               ReactSession.set("user", session);
               history.push("/");

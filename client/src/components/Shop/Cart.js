@@ -11,10 +11,21 @@ import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-
 import CartElement from './CartElement';
 import DeleteIcon from "@mui/icons-material/Delete";
 import SaveIcon from '@mui/icons-material/Save';
+import { ReactSession } from 'react-client-session';
+import Box from "@mui/material/Box";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import ListItemText from "@mui/material/ListItemText";
+import Avatar from "@mui/material/Avatar";
+import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
+import RemoveIcon from "@mui/icons-material/Remove";
+import AddIcon from "@mui/icons-material/Add";
+import NumberFormat from 'react-number-format';
+import TextField from '@mui/material/TextField';
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
     padding: theme.spacing(2),
@@ -53,6 +64,33 @@ BootstrapDialogTitle.propTypes = {
   onClose: PropTypes.func.isRequired,
 };
 
+const NumberFormatCustom = React.forwardRef(function NumberFormatCustom(props, ref) {
+  const { onChange, ...other } = props;
+
+  return (
+    <NumberFormat
+      {...other}
+      getInputRef={ref}
+      onValueChange={(values) => {
+        onChange({
+          target: {
+            name: props.name,
+            value: values.value,
+          },
+        });
+      }}
+      thousandSeparator
+      isNumericString
+      prefix="$"
+    />
+  );
+});
+
+NumberFormatCustom.propTypes = {
+  name: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
+
 export default function Cart() {
   const [open, setOpen] = React.useState(false);
 
@@ -62,10 +100,54 @@ export default function Cart() {
   const handleClose = () => {
     setOpen(false);
   };
+  const handleClear = () => {
+    ReactSession.get("user").cart.length = 0;
+
+  };
+
+  //const [value, setValue] = React.useState(Product.price);
+  //const [number, setNumber] = React.useState(Product.noOfItems);
+  const handleChange = (event) => {
+    //setValue(event.target.value)
+  };
+  const handleAdd = (Product) => {
+    ReactSession.get("user").cart.map((element) => {
+      if (Product.productId === element.productId) {
+        element.noOfItems++;
+        //setNumber(element.noOfItems)
+        //setValue(element.noOfItems * element.price)
+      }
+    })
+
+  };
+  const handleMinus = (Product) => {
+    ReactSession.get("user").cart.map((element) => {
+      if (Product.productId === element.productId) {
+        element.noOfItems--;
+        //setNumber(element.noOfItems)
+        //setValue(element.noOfItems * element.price)
+      }
+    })
+
+  };
+  const handleRemove = (Product) => {
+    let ind = 0;
+
+    for (var i = 0; i < ReactSession.get("user").cart.length; i++) {
+      if (ReactSession.get("user").cart[i].productId === Product.productId) {
+        ind = i;
+        break;
+      }
+    }
+    //ReactSession.get("user").cart.splice(ind, 1);
+    let temp = ReactSession.get("user");
+    temp.cart.splice(ind, 1);
+    ReactSession.set("user", temp);
+  };
 
   return (
     <div>
-      <IconButton style={{ color: "white" }}aria-label="add to shopping cart" onClick={handleClickOpen}>
+      <IconButton style={{ color: "white" }} aria-label="add to shopping cart" onClick={handleClickOpen}>
         <ShoppingCartIcon />
       </IconButton>
       <BootstrapDialog
@@ -77,25 +159,62 @@ export default function Cart() {
           My Cart
         </BootstrapDialogTitle>
         <DialogContent dividers>
-         <CartElement/>
-         
+          <List>
+            {
+              console.log(ReactSession.get("user").cart),
+            ReactSession.get("user").cart.map(
+              (Product) => (
+                console.log(Product),
+                <ListItem>
+                  <ListItemAvatar>
+                    <Avatar>
+                      <ShoppingBagIcon />
+                    </Avatar>
+                  </ListItemAvatar>
+                  <ListItemText primary={Product.name} />
+                  <IconButton color="secondary" aria-label="add an alarm" onClick={handleAdd(Product)}>
+                    <AddIcon />
+                  </IconButton>
+                  <p>{Product.noOfItems}</p>
+                  <IconButton color="secondary" aria-label="add an alarm" onClick={handleMinus(Product)}>
+                    <RemoveIcon />
+                  </IconButton>
+                  <TextField
+                    disabled
+                    label="price"
+                    value={Product.price}
+                    onChange={handleChange}
+                    name="numberformat"
+                    id="formatted-numberformat-input"
+                    InputProps={{
+                      inputComponent: NumberFormatCustom,
+                    }}
+                    variant="standard"
+                  />
+                  <IconButton color="secondary" aria-label="add an alarm" onClick={handleRemove(Product)}>
+                    <DeleteIcon />
+                  </IconButton>
+                </ListItem>
+              )
+            )}
+          </List>
         </DialogContent>
         <DialogActions>
-        <Button
-        onClick={handleClose}
-          variant="outlined"
-          startIcon={<DeleteIcon />}
-        >
-          clear cart
-        </Button>
-          
           <Button
-        onClick={handleClose}
-          variant="outlined"
-          startIcon={<SaveIcon />}
-        >
-           Save order
-        </Button>
+            onClick={handleClose}
+            variant="outlined"
+            startIcon={<DeleteIcon />}
+          >
+            clear cart
+          </Button>
+
+          <Button
+            onClick={handleClose}
+            variant="outlined"
+            startIcon={<SaveIcon />}
+          >
+            Save order
+          </Button>
         </DialogActions>
       </BootstrapDialog>
     </div>
