@@ -80,13 +80,26 @@ export default function SignInSide({ history }) {
             check = 1;
           } else {
             var session = {
-              userName: data.get("username"), Id: res.userId, role: res.role, cart: [{
-                id: 2,
+              userName: data.get("username"), Id: res.userId, role: res.role, cart: [
+                {
+                productId: 2,
                 category: 'Clothes',
                 name: 'clothes',
                 description: 'buy your favorite piece and join us now',
                 price: 10,
-                noInStock: 10
+                noInStock: 10,
+                noOfItems:1,
+                totalPrice: 10
+              },
+              {
+                productId: 1,
+                category: 'Clothes',
+                name: 'clothes',
+                description: 'buy your favorite piece and join us now',
+                price: 10,
+                noInStock: 10,
+                noOfItems: 1,
+                totalPrice: 10
               },]
             };
             console.log(session);

@@ -15,4 +15,5 @@ public class OrderItemDTO {
     private float price;
     private int noOfItems;
     private int noInStock;
+    private float totalPrice;
 }

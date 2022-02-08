@@ -11,7 +11,6 @@ import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import CartElement from './CartElement';
 import DeleteIcon from "@mui/icons-material/Delete";
 import SaveIcon from '@mui/icons-material/Save';
 import { ReactSession } from 'react-client-session';
@@ -93,7 +92,11 @@ NumberFormatCustom.propTypes = {
 
 export default function Cart() {
   const [open, setOpen] = React.useState(false);
-  const[data,setData]=React.useState( ReactSession.get("user").cart);
+  const[data,setData]=React.useState([]);
+
+  React.useEffect(() => {
+    setData(ReactSession.get("user").cart);
+  }, [ReactSession.get("user").cart]);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -102,34 +105,41 @@ export default function Cart() {
     setOpen(false);
   };
   const handleClear = () => {
-    ReactSession.get("user").cart.length = 0;
+    let temp = ReactSession.get("user");
+    temp.cart.length=0;
+    ReactSession.set("user", temp);
+    setData(ReactSession.get("user").cart);
 
   };
 
-  //const [value, setValue] = React.useState(Product.price);
-  //const [number, setNumber] = React.useState(Product.noOfItems);
-  const handleChange = (event) => {
-    //setValue(event.target.value)
-  };
+  const [value, setValue] = React.useState(1);
+  const [number, setNumber] = React.useState(1);
+  
   const handleAdd = (Product) => {
-    ReactSession.get("user").cart.map((element) => {
+    data.map((element) => {
       if (Product.productId === element.productId) {
         element.noOfItems++;
-        //setNumber(element.noOfItems)
-        //setValue(element.noOfItems * element.price)
+        element.totalPrice=element.noOfItems*element.price;
+        let temp = ReactSession.get("user");
+        temp.cart=data;
+        ReactSession.set("user", temp);
+        setData(ReactSession.get("user").cart);
       }
     })
-
+    console.log("entered add");
   };
   const handleMinus = (Product) => {
-    ReactSession.get("user").cart.map((element) => {
+    data.map((element) => {
       if (Product.productId === element.productId) {
         element.noOfItems--;
-        //setNumber(element.noOfItems)
-        //setValue(element.noOfItems * element.price)
+        element.totalPrice=element.noOfItems*element.price;
+        let temp = ReactSession.get("user");
+        temp.cart=data;
+        ReactSession.set("user", temp);
+        setData(ReactSession.get("user").cart);
       }
     })
-
+    console.log("entered minus");
   };
   const handleRemove = (Product) => {
     let ind = 0;
@@ -144,14 +154,15 @@ export default function Cart() {
     let temp = ReactSession.get("user");
     temp.cart.splice(ind, 1);
     ReactSession.set("user", temp);
+    setData(ReactSession.get("user").cart);
   };
-
   
   return (
     <div>
       <IconButton style={{ color: "white" }} aria-label="add to shopping cart" onClick={handleClickOpen}>
         <ShoppingCartIcon />
       </IconButton>
+
       <BootstrapDialog
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
@@ -162,11 +173,8 @@ export default function Cart() {
         </BootstrapDialogTitle>
         <DialogContent dividers>
           <List>
-            {
-              console.log(ReactSession.get("user").cart),
-            ReactSession.get("user").cart.map(
+            {data.map(
               (Product) => (
-                console.log(Product),
                 <ListItem>
                   <ListItemAvatar>
                     <Avatar>
@@ -174,18 +182,17 @@ export default function Cart() {
                     </Avatar>
                   </ListItemAvatar>
                   <ListItemText primary={Product.name} />
-                  <IconButton color="secondary" aria-label="add an alarm" onClick={handleAdd(Product)}>
+                  <IconButton color="secondary" aria-label="add an alarm" onClick={() => handleAdd(Product)}>
                     <AddIcon />
                   </IconButton>
                   <p>{Product.noOfItems}</p>
-                  <IconButton color="secondary" aria-label="add an alarm" onClick={handleMinus(Product)}>
+                  <IconButton color="secondary" aria-label="add an alarm" onClick={() => handleMinus(Product)}>
                     <RemoveIcon />
                   </IconButton>
                   <TextField
                     disabled
                     label="price"
-                    value={Product.price}
-                    onChange={handleChange}
+                    value={Product.totalPrice}
                     name="numberformat"
                     id="formatted-numberformat-input"
                     InputProps={{
@@ -193,7 +200,7 @@ export default function Cart() {
                     }}
                     variant="standard"
                   />
-                  <IconButton color="secondary" aria-label="add an alarm" onClick={handleRemove(Product)}>
+                  <IconButton color="secondary" aria-label="add an alarm" onClick={() => handleRemove(Product)}>
                     <DeleteIcon />
                   </IconButton>
                 </ListItem>
@@ -203,7 +210,7 @@ export default function Cart() {
         </DialogContent>
         <DialogActions>
           <Button
-            onClick={handleClose}
+            onClick={handleClear}
             variant="outlined"
             startIcon={<DeleteIcon />}
           >

@@ -11,25 +11,52 @@ export default function ShopCard({Element}) {
     const [loading, setLoading] = React.useState(false);
     const [link, setLink] = React.useState(Element.imageURL);
 
-
-    function handleClick(value) {
-    }
-
     const handleAddToCart = (value) => {
       setLoading(value);
-      let product={
-
-        name:Element.name,
-        productId:Element.id,
-        price:Element.price,
-        noOfItems:1,
-        noInStock:Element.noInStock
+      let ind = -1;
+      console.log(ReactSession.get("user").cart);
+      for (var i = 0; i < ReactSession.get("user").cart.length; i++) {
+        if (ReactSession.get("user").cart[i].productId === Element.productId) {
+          ind = i;
+          break;
+        }
       }
-      console.log(Element)
-      console.log(product)
+      if(ind===-1){
+        let product={
+          name:Element.name,
+          productId:Element.id,
+          price:Element.price,
+          noOfItems:1,
+          noInStock:Element.noInStock,
+          totalPrice: Element.price
+        }
+        let temp = ReactSession.get("user");
+        temp.cart.push(product);
+        ReactSession.set("user", temp);
+      }else{
+        let temp = ReactSession.get("user");
+        temp.cart[i].noOfItems++;
+        temp.cart[i].totalPrice=temp.cart[i].noOfItems*temp.cart[i].price;
+        ReactSession.set("user", temp);
+      }
+      
+    };
 
-      ReactSession.get("user").cart.push(product);
-     console.log( ReactSession.get("user").cart)
+    const handleRemoveFromCart = (value) => {
+      setLoading(value);
+      let ind = 0;
+  
+      for (var i = 0; i < ReactSession.get("user").cart.length; i++) {
+        if (ReactSession.get("user").cart[i].productId === Element.productId) {
+          ind = i;
+          break;
+        }
+      }
+      //ReactSession.get("user").cart.splice(ind, 1);
+      let temp = ReactSession.get("user");
+      temp.cart[i].noOfItems--;
+      temp.cart[i].totalPrice=temp.cart[i].noOfItems*temp.cart[i].price;
+      ReactSession.set("user", temp);
     };
   return (
     <Card sx={{ maxWidth: 345 }}>
@@ -52,7 +79,7 @@ export default function ShopCard({Element}) {
       <CardActions>
          {loading == true && (
         <Button
-          onClick={() => handleClick(!loading)}
+          onClick={() => handleRemoveFromCart(!loading)}
           variant="outlined"
           startIcon={<DeleteIcon />}
         >
