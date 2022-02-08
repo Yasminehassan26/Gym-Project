@@ -17,11 +17,22 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import {removeSessions,getSession} from "../../api/ProfileApi";
 import Alert from "@mui/material/Alert";
 
-export default function UserSessions({Sessions}) {
-  const [sessions, setSessions] = useState(Sessions);
+export default function UserSessions() {
+  const [sessions, setSessions] = useState([]);
   const [error, setError] = React.useState(0);
   const [errorMessage, setErrorMessage] = React.useState("");
-
+  React.useEffect(() => {
+    var values = {
+      userId: ReactSession.get("user").Id,
+      role: ReactSession.get("user").role,
+      statusCode: 0,
+    };
+    getSession(values, ReactSession.get("user").userName).then((session) => {
+      console.log(session);
+      setSessions(session);
+    });
+  }, []);
+  
   const handleRemove = (session) => {
     var values = {
       userId: ReactSession.get("user").Id,
@@ -29,11 +40,16 @@ export default function UserSessions({Sessions}) {
       statusCode: 0,
     };
     removeSessions(values,ReactSession.get("user").userName,session.sessionId).then((data) => {
-      
-    });
-    getSession(values, ReactSession.get("user").userName).then((session) => {
-      console.log(session);
-      setSessions(session);
+      let code = parseInt(data);
+      if(code===0){
+        getSession(values, ReactSession.get("user").userName).then((session) => {
+          console.log(session);
+          setSessions(session);
+        });
+      }else{
+        setError(1);
+        setErrorMessage("Can't delete chosen session.")
+      }
     });
   };
   return (
@@ -51,6 +67,9 @@ export default function UserSessions({Sessions}) {
           </IconButton>
         </ListItem>
       ))}
+      {error === 1 && (
+                        <Alert severity="error">warning — {errorMessage}</Alert>
+                      )}
     </List>
   );
 }

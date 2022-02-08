@@ -30,20 +30,20 @@ sports:[{sport:"kick boxing"},{sport:"fittness"},{sport:"yoga"}], achievements:[
 sports:[{sport:"kick boxing"},{sport:"fittness"},{sport:"yoga"}], achievements:[{achievement:"Africa championship" , date:"30/12/2021"},{achievement:"Egypt championship" , date:"12/1/2020"}] }]
  
  useEffect(() => {
-   setTrainers(data);
-  //   var myHeaders = new Headers();
-  //   myHeaders.append("Content-Type", "application/json");
-  //   var requestOptions = {
-  //     method: "GET",
-  //     headers: myHeaders,
-  //     redirect: "follow",
-  //   };
-  //   fetch("http://localhost:8082/api/booking/programs", requestOptions)
-  //     .then((response) => response.json())
-  //     .then((data)=>{
-  //       setPrograms(data);
-  //     })
-  //     .catch((error) => console.log("error", error));
+  //  setTrainers(data);
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    var requestOptions = {
+      method: "GET",
+      headers: myHeaders,
+      redirect: "follow",
+    };
+    fetch("http://localhost:8082/api/static/trainers", requestOptions)
+      .then((response) => response.json())
+      .then((data)=>{
+        setTrainers(data);
+      })
+      .catch((error) => console.log("error", error));
    },[]);
 
   return (

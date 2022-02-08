@@ -38,8 +38,7 @@ export default function ProgramCard({ program }) {
   };
 
   const handleBookProgram = () => {
-    if (alert === false) {
-      setAlert(true);
+    setAlert(false);
       console.log("book clicked");
       if (typeof ReactSession.get("user") === 'undefined') {
         setAlertData(-1);
@@ -63,9 +62,9 @@ export default function ProgramCard({ program }) {
           .then((data) => {
             console.log(data);
             setAlertData(parseInt(data));
+            setAlert(true);
           })
           .catch((error) => console.log("error", error));
-      }
     }
     //send to back end user id and show alert booked successfully any
     //should check first the user id if it is n't null as if it is don't send a request to the backend
@@ -115,6 +114,7 @@ export default function ProgramCard({ program }) {
         </Button>
         {alertData === 0 && alert && <Alert severity="success">Booked Successfully!!</Alert>}
         {alertData === -1 && alert && <Alert severity="error">Go Register First.</Alert>}
+        {alertData === -4 && alert && <Alert severity="error">You already have this program booked.</Alert>}
         <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}

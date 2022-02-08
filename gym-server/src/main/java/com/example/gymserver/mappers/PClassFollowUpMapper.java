@@ -11,6 +11,7 @@ public class PClassFollowUpMapper {
     public static ProgramFollowUpDTO toProgramFollowUpDTO(List<PClassFollowUp> followUps){
         ProgramFollowUpDTO programFollowUp = new ProgramFollowUpDTO();
         programFollowUp.setTitle(followUps.get(0).getProgram().getName());
+        programFollowUp.setProgramId(followUps.get(0).getProgram().getId());
         List<ClassFollowUpDTO> classFollowUpDTOS = new ArrayList<>();
         for(PClassFollowUp followUp : followUps){
             ClassFollowUpDTO classFollowUp = new ClassFollowUpDTO(followUp.getProgramClass().getClassType()

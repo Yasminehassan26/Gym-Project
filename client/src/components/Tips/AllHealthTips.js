@@ -1,11 +1,13 @@
 import TipCard from "./TipCard";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
+import { useState,useEffect } from "react";
 import Navbar from "../Navbar";
 
 const AllHealthTips = ({history}) => {
   //on opening the page this data should be fetched from the backend
-  const healthTips = [
+  const [healthTips, setHealthTips] = useState([]);
+  const healthTips1 = [
     {
       id: 12,
       title: "The 30 Calories diet",
@@ -61,6 +63,22 @@ const AllHealthTips = ({history}) => {
         "Emphasizes vegetables, fruits, whole grains, and fat-free or low-fat dairy products Includes lean meats, poultry, fish, beans, eggs, and nuts Limits saturated and trans fats, sodium, and added sugars Controls portion sizes",
     },
   ];
+  useEffect(() => {
+    //  setTrainers(data);
+      var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+      var requestOptions = {
+        method: "GET",
+        headers: myHeaders,
+        redirect: "follow",
+      };
+      fetch("http://localhost:8082/api/static/tips/health", requestOptions)
+        .then((response) => response.json())
+        .then((data)=>{
+          setHealthTips(data);
+        })
+        .catch((error) => console.log("error", error));
+     },[]);
   return (
    
 

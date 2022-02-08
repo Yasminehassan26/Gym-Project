@@ -15,5 +15,6 @@ import java.util.List;
 @EqualsAndHashCode
 public class ProgramFollowUpDTO {
     private String title;
+    private Long programId;
     private List<ClassFollowUpDTO> classesFollowUp;
 }

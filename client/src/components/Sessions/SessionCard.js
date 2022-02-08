@@ -39,9 +39,8 @@ export default function SessionCard({ session }) {
   };
 
   const handleBookSession = () => {
-    if (alert === false) {
+    setAlert(false);
       console.log(ReactSession.get("user"));
-      setAlert(true);
       console.log("book clicked");
       if (typeof ReactSession.get("user") === 'undefined') {
         setAlertState(-3);
@@ -64,14 +63,16 @@ export default function SessionCard({ session }) {
           .then((response) => response.text())
           .then((data) => {
             console.log(data);
+            if(data === '0'){
+              window.location.reload();
+            }
             setAlertState(parseInt(data));
+            setAlert(true);
           })
           .catch((error) => console.log("error", error));
       }
       //send to back end user id and show alert booked successfully any
       //should check first the user id if it is n't null as if it is don't send a request to the backend
-      
-    }
   };
 
   return (
@@ -150,6 +151,16 @@ export default function SessionCard({ session }) {
         {alert && alertState === -3 && (
           <Alert severity="error">
             Go Register First.
+          </Alert>
+        )}
+        {alert && alertState === -4 && (
+          <Alert severity="error">
+            You already bookeed this session before !!
+          </Alert>
+        )}
+        {alert && alertState === -5 && (
+          <Alert severity="error">
+            Session full !!
           </Alert>
         )}
         <ExpandMore

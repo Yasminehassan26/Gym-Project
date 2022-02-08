@@ -33,8 +33,6 @@ import { styled } from "@mui/material/styles";
 import { ReactSession } from "react-client-session";
 import {
   getProfileInfo,
-  getPrograms,
-  getSession,
   updateUser,
 } from "../../api/ProfileApi";
 
@@ -68,8 +66,6 @@ export default function Profile() {
   const [error, setError] = useState(0);
   const [errorMessage, setErrorMessage] = useState("");
   const [type, setType] = useState("");
-  const [programs, setPrograms] = useState([]);
-  const [sessions, setSessions] = useState([]);
 
   const handleClose = (event) => {
     setOpen(false);
@@ -154,14 +150,6 @@ export default function Profile() {
           answer: data.answer,
         };
         setState(addData);
-      });
-      getPrograms(values, ReactSession.get("user").userName).then((program) => {
-        console.log(program);
-        setPrograms(program);
-      });
-      getSession(values, ReactSession.get("user").userName).then((session) => {
-        console.log(session);
-        setSessions(session);
       });
     }
   }, []);
@@ -409,7 +397,7 @@ export default function Profile() {
               </Grid>
             </Grid>
             <Grid item xs={4}>
-              <ProfileActivities programs={programs} sessions={sessions} />
+              <ProfileActivities />
             </Grid>
           </Grid>
         </Box>
