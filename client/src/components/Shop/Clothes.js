@@ -1,7 +1,7 @@
 const Clothes = [
 
   {
-    productId:1,
+    id:1,
     category: 'Clothes',
     name:'clothes',
     description:'buy your favorite piece and join us now',
@@ -10,7 +10,7 @@ const Clothes = [
     noOfItems:1,
     totalPrice:10    },
   {
-    productId:2,
+    id:2,
     category: 'Clothes',
     name:'clothes',
     description:'buy your favorite piece and join us now',
@@ -19,7 +19,7 @@ const Clothes = [
     noOfItems:1,
     totalPrice:10    },
   {
-    productId:3,
+    id:3,
     category: 'Clothes',
     name:'clothes',
     description:'buy your favorite piece and join us now',
@@ -28,7 +28,7 @@ const Clothes = [
     noOfItems:1,
     totalPrice:10    },
     {
-      productId:4,
+      id:4,
     category: 'Clothes',
     name:'clothes',
     description:'buy your favorite piece and join us now',

@@ -1,7 +1,7 @@
 const Equipments = [
 
   {
-    productId:5,
+    id:5,
     category: 'Clothes',
     name:'equi',
     description:'buy your favorite piece and join us now',
@@ -10,7 +10,7 @@ const Equipments = [
     noOfItems:1,
     totalPrice:10  },
   {
-    productId:6,
+    id:6,
     category: 'Clothes',
     name:'equi',
     description:'buy your favorite piece and join us now',
