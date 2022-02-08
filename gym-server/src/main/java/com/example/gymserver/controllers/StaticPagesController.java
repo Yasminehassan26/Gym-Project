@@ -13,7 +13,7 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/api/Tips")
+@RequestMapping("/api/static")
 public class StaticPagesController {
 
     private final StaticPagesService staticPagesService;
@@ -24,12 +24,12 @@ public class StaticPagesController {
     }
 
 
-    @GetMapping("/health")
+    @GetMapping("/tips/health")
     public List<Tip> getHealthTips(){
         return staticPagesService.getHealthTips();
     }
 
-    @GetMapping("/work-out")
+    @GetMapping("/tips/work-out")
     public List<Tip> getWorkOutTips(){
         return staticPagesService.getWorkOutTips();
     }

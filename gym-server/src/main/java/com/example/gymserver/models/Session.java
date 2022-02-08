@@ -3,6 +3,7 @@ package com.example.gymserver.models;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -68,6 +69,7 @@ public class Session {
             )
     )
     private Class programClass;
+
 
     public void addAttendee() {
         noOfAttendees++;
