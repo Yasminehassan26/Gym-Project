@@ -49,7 +49,7 @@ export default function TrainerCard({ trainer }) {
             {trainer.id}
           </Avatar>
         }
-        title={trainer.name}
+        title={trainer.firstName +" "+ trainer.lastName}
         subheader={
           <Typography style={{ color: "white", fontSize: 14 }}>
             {"Bio: "}

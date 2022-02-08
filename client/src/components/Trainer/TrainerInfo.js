@@ -75,7 +75,7 @@ export default function TrainerInfo({sports,achievements}) {
            <List sx={{ width: "100%", maxWidth: 360, color: "white", backgroundColor:"rgba(219, 138, 138, 0.3)" }}>
              <ListItem>
                <ListItemText
-                 primary={"Sport: " + classItem.sport}
+                 primary={"Sport: " + classItem.name}
            
                />
              </ListItem>
@@ -88,7 +88,7 @@ export default function TrainerInfo({sports,achievements}) {
            <List sx={{ width: "100%", maxWidth: 360, color: "white",backgroundColor:"rgba(219, 138, 138, 0.3)" }}>
              <ListItem>
                <ListItemText
-                 primary={"Achievement: " + classItem.achievement}
+                 primary={"Achievement: " + classItem.description}
                  secondary={
                    <div>
                      <Typography style={{ color: "white", fontSize: 14 }}>

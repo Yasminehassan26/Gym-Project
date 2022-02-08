@@ -47,7 +47,7 @@ export default function TipCard({ tip }) {
       />
       <CardContent>
         <Typography variant="body2" color="white">
-          {tip.description}
+          {tip.header}
         </Typography>
       </CardContent>
 

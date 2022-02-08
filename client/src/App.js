@@ -24,6 +24,8 @@ function App() {
   return (
     <div style={{ backgroundColor: "black" }}>
 
+      {/* <AllPrograms/> */}
+
       <Switch>
         <Route exact path="/">
           <HomePage history={history} />
