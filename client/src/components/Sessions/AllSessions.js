@@ -2,8 +2,9 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import SessionCard from "./SessionCard";
 import { useState, useEffect } from "react";
+import Navbar from "../Navbar";
 
-const AllSessions = () => {
+const AllSessions = ({history}) => {
   //on opening the page this data should be fetched from the backend
   const [sessions, setSessions] = useState([]);
   useEffect(() => {
@@ -23,6 +24,9 @@ const AllSessions = () => {
       .catch((error) => console.log("error", error));
   },[]);
   return (
+    <div>
+    <Navbar history={history} />
+
     <Box
       sx={{
         height: "100%",
@@ -49,6 +53,7 @@ const AllSessions = () => {
         })}
       </Grid>
     </Box>
+    </div>
   );
 };
 

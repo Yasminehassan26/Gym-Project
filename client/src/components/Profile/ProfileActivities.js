@@ -68,6 +68,8 @@ export default function ProfileActivities({programs, sessions}) {
         >
           <Tab label="Follow Up" {...a11yProps(0)} />
           <Tab label="Sessions" {...a11yProps(1)} />
+          <Tab label="Enrollements" {...a11yProps(2)} />
+
         </Tabs>
       </AppBar>
       <SwipeableViews
@@ -79,6 +81,9 @@ export default function ProfileActivities({programs, sessions}) {
           <UserPrograms Programs={programs} />
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
+          <UserSessions Sessions={sessions} />
+        </TabPanel>
+        <TabPanel value={value} index={2} dir={theme.direction}>
           <UserSessions Sessions={sessions} />
         </TabPanel>
       </SwipeableViews>

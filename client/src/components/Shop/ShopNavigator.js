@@ -8,9 +8,12 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import AllWorkOutTips from "./AllWorkOutTips";
-import AllHealthTips from "./AllHealthTips";
+
 import Navbar from "../Navbar";
+import Cards from "./Cards";
+import Clothes from "./Clothes";
+import Supplies from "./Supplies";
+import Equipments from "./Equipments";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -45,7 +48,7 @@ function a11yProps(index) {
   };
 }
 
-export default function TipNavigator({ history }) {
+export default function ShopNavigator({ history }) {
   const theme = useTheme();
   const [value, setValue] = useState(0);
 
@@ -59,36 +62,38 @@ export default function TipNavigator({ history }) {
 
   return (
     <div>
-                <Navbar history={history} />
-
-
-    <Box sx={{ bgcolor: "background.paper" }}>
-      <AppBar position="static" sx={{ backgroundColor: "#cc1b85" }}>
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          indicatorColor="secondary"
-          textColor="inherit"
-          variant="fullWidth"
-          aria-label="full width tabs example"
+      <Navbar history={history} />
+      <Box sx={{ bgcolor: "background.paper" }}>
+        <AppBar position="static" sx={{ backgroundColor: "#cc1b85" }}>
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            indicatorColor="secondary"
+            textColor="inherit"
+            variant="fullWidth"
+            aria-label="full width tabs example"
+          >
+            <Tab label="Clothes" {...a11yProps(0)} />
+            <Tab label="Equipments" {...a11yProps(1)} />
+            <Tab label="Supplies" {...a11yProps(2)} />
+          </Tabs>
+        </AppBar>
+        <SwipeableViews
+          axis={theme.direction === "rtl" ? "x-reverse" : "x"}
+          index={value}
+          onChangeIndex={handleChangeIndex}
         >
-          <Tab label="Health Tips" {...a11yProps(0)} />
-          <Tab label="WorkOut Tips " {...a11yProps(1)} />
-        </Tabs>
-      </AppBar>
-      <SwipeableViews
-        axis={theme.direction === "rtl" ? "x-reverse" : "x"}
-        index={value}
-        onChangeIndex={handleChangeIndex}
-      >
-        <TabPanel value={value} index={0} dir={theme.direction}>
-          <AllHealthTips />
-        </TabPanel>
-        <TabPanel value={value} index={1} dir={theme.direction}>
-          <AllWorkOutTips />
-        </TabPanel>
-      </SwipeableViews>
-    </Box>
+          <TabPanel value={value} index={0} dir={theme.direction}>
+            <Cards Elements={Clothes} />
+          </TabPanel>
+          <TabPanel value={value} index={1} dir={theme.direction}>
+            <Cards Elements={Equipments} />
+          </TabPanel>
+          <TabPanel value={value} index={2} dir={theme.direction}>
+            <Cards Elements={Supplies} />
+          </TabPanel>
+        </SwipeableViews>
+      </Box>
     </div>
   );
 }

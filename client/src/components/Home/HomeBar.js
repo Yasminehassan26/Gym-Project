@@ -14,12 +14,12 @@ const HomeBar = ({ history }) => {
     } else if (text === "Tips") {
       history.push("/AllTips");
     }
-    // else  if (text === "Trainers") {
-    //   history.push("/Trainers");
-    // }
-    // else  if (text === "Shop") {
-    //   history.push("/Shop");
-    // }
+    else  if (text === "Trainers") {
+      history.push("/Trainers");
+    }
+    else  if (text === "Shop") {
+      history.push("/Shop");
+    }
   };
   return (
     <div style={{ position: "static" }}>

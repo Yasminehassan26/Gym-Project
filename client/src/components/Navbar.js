@@ -6,10 +6,12 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Button from "@mui/material/Button";
 import Profile from "./Profile/Profile";
-
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import  Cart  from "./Shop/Cart";
 import AssignmentIndSharpIcon from "@mui/icons-material/AssignmentIndSharp";
 import TopMenu from "./TopMenu";
 import {ReactSession} from 'react-client-session';
+import IconButton from '@mui/material/IconButton';
 
 const ColorButton = styled(Button)(({ theme }) => ({
   color: "#cc1b85",
@@ -49,10 +51,13 @@ export default function Navbar({ history }) {
                   startIcon={<AssignmentIndSharpIcon />}
                   onClick={() => handleRoute("Registration")}
                 >
-                  {" "}
+              
                   Registration
                 </ColorButton>
           }
+             {typeof ReactSession.get("user") !== "undefined" && <Cart />}
+
+             {typeof ReactSession.get("user") !== "undefined" && <Profile />}
           </Box>
         </Toolbar>
       </AppBar>

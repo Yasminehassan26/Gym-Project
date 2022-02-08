@@ -57,8 +57,10 @@ public class TraineeController {
      * @return status code
      *
      * SUCCESS_STATUS_CODE = 0
+     * TRAINEE_REGISTERED_BEFORE_STATUS_CODE = -4
      * UNAUTHENTICATED_USER_STATUS_CODE = -100
      * INVALID_ENTITY_STATUS_CODE = -10
+     *
      */
     @PostMapping("book-program/{userName}/{programId}")
     public int bookProgram(
@@ -94,4 +96,25 @@ public class TraineeController {
         Long sessionID = Long.parseLong(sessionId);
         return this.traineeService.bookSession(userName, sessionID, userIdDTO);
     }
+
+    @PostMapping("delete-program/{userName}/{programId}")
+    public int deleteProgram(
+            @PathVariable("userName") String userName,
+            @PathVariable("programId") String programId,
+            @RequestBody UserIdDTO userIdDTO
+    ){
+        Long programID = Long.parseLong(programId);
+        return this.traineeService.deleteProgram(userName, programID, userIdDTO);
+    }
+
+    @PostMapping("delete-session/{userName}/{sessionId}")
+    public int deleteSession(
+            @PathVariable("userName") String userName,
+            @PathVariable("sessionId") String sessionId,
+            @RequestBody UserIdDTO userIdDTO
+    ){
+        Long sessionID = Long.parseLong(sessionId);
+        return this.traineeService.deleteSession(userName, sessionID, userIdDTO);
+    }
+
 }

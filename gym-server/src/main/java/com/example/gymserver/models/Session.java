@@ -73,6 +73,8 @@ public class Session {
         noOfAttendees++;
     }
 
+    public void removeAttendee(){ noOfAttendees--;}
+
     public boolean isFull() {
         return this.noOfAttendees == this.maxNoOfAttendees;
     }
