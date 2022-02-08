@@ -30,6 +30,8 @@ public class TraineeService {
     public static final int TRAINEE_REGISTERED_BEFORE_STATUS_CODE = -4;
     public static final int FULL_SESSION_STATUS_CODE = -5;
     public static final int INVALID_ENTITY_STATUS_CODE = -10;
+    public static final int INVALID_DELETE_STATUS_CODE = -1;
+    public static final int SUCCESS_STATUS_CODE = 0;
 
 
 
@@ -86,6 +88,12 @@ public class TraineeService {
         if(!this.authenticationService.authenticateUser(userIdDTO.getUserId(), userName))
             statusCode = AuthenticationService.UNAUTHENTICATED_USER_STATUS_CODE;
         else{
+            // Check if program reserved before
+            List<PClassFollowUp> classesFollowUp = this.pClassFollowUpRepository
+                    .findFollowUpsByTraineeAndProgram(userIdDTO.getUserId(), programID).orElse(null);
+            if( classesFollowUp != null )
+                return TRAINEE_REGISTERED_BEFORE_STATUS_CODE;
+
             Program program = this.programRepository.findById(programID).orElse(null);
             if(program != null){
                 List<PClassDetails> programDetails = this.pClassDetailsRepository
@@ -131,11 +139,11 @@ public class TraineeService {
                         boolean noRemainingSessions = true;
                         for(PClassFollowUp classFollowUp : classFollowUps){
                             if( classFollowUp.getSessionsRemaining() != 0 ){
-                                classFollowUp.reserveSession();
-                                noRemainingSessions = false;
                                 if( !session.isFull() ){
                                     session.addAttendee();
                                     trainee.getSessions().add(session);
+                                    classFollowUp.reserveSession();
+                                    noRemainingSessions = false;
                                 }
                                 else
                                     statusCode = FULL_SESSION_STATUS_CODE;
@@ -152,6 +160,51 @@ public class TraineeService {
                     statusCode = INVALID_ENTITY_STATUS_CODE;
             }
             else statusCode = TRAINEE_REGISTERED_BEFORE_STATUS_CODE;
+        }
+        return statusCode;
+    }
+
+    @Transactional
+    public int deleteProgram(String userName, Long programID, UserIdDTO userIdDTO) {
+        int statusCode = 0;
+        if(!this.authenticationService.authenticateUser(userIdDTO.getUserId(), userName))
+            statusCode = AuthenticationService.UNAUTHENTICATED_USER_STATUS_CODE;
+        else{
+            List<PClassFollowUp> classFollowUps = pClassFollowUpRepository
+                    .findFollowUpsByTraineeAndProgram(userIdDTO.getUserId(), programID).orElse(null);
+            if(classFollowUps != null){
+                for(PClassFollowUp pClassFollowUp: classFollowUps){
+                    if(pClassFollowUp.isUsed())
+                        return INVALID_DELETE_STATUS_CODE;
+                }
+
+                pClassFollowUpRepository.deleteProgram(programID);
+                statusCode = SUCCESS_STATUS_CODE;
+            }else
+                statusCode = INVALID_ENTITY_STATUS_CODE;
+        }
+        return statusCode;
+    }
+
+
+    @Transactional
+    public int deleteSession(String userName, Long sessionID, UserIdDTO userIdDTO) {
+        int statusCode = 0;
+        if(!this.authenticationService.authenticateUser(userIdDTO.getUserId(), userName))
+            statusCode = AuthenticationService.UNAUTHENTICATED_USER_STATUS_CODE;
+        else{
+            Session session = this.sessionRepository.findById(sessionID).orElse(null);
+            if(session != null){
+                List<PClassFollowUp> pClassFollowUp = this.pClassFollowUpRepository.
+                        findFollowUpsByTraineeAndClass(userIdDTO.getUserId(), session.getProgramClass().getId()).orElse(null);
+                if(pClassFollowUp != null){
+                    pClassFollowUp.get(0).unreserveSession();
+                    session.removeAttendee();
+                }else
+                    statusCode = INVALID_ENTITY_STATUS_CODE;
+            }
+            else
+                statusCode = INVALID_ENTITY_STATUS_CODE;
         }
         return statusCode;
     }

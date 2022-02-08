@@ -40,8 +40,16 @@ public class PClassFollowUp {
     @Column(name= "EndDate")
     private LocalDate endDate;
 
+    @Column(name= "used")
+    private boolean used;
+
 
     public void reserveSession() {
         this.sessionsRemaining--;
+        this.used = true;
+    }
+
+    public void unreserveSession(){
+        this.sessionsRemaining++;
     }
 }

@@ -4,6 +4,7 @@ import com.example.gymserver.models.Class;
 import com.example.gymserver.models.PClassDetails;
 import com.example.gymserver.models.PClassFollowUp;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
@@ -21,4 +22,8 @@ public interface PClassFollowUpRepository extends JpaRepository<PClassFollowUp, 
 
     @Query("SELECT p FROM PClassFollowUp p WHERE p.id.traineeId = ?1 AND p.id.classId = ?2")
     Optional<List<PClassFollowUp>> findFollowUpsByTraineeAndClass(Long traineeId, Long classId);
+
+    @Modifying
+    @Query("delete from PClassFollowUp p where p.id.programId = ?1")
+    void deleteProgram(Long programId);
 }

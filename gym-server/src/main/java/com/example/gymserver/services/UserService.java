@@ -68,21 +68,5 @@ public class UserService {
             updatedUser.setAnswer(user.getAnswer());
 
         return 0;
-
-    }
-    /*
-    * @param userId
-    * @return array of ProgramFollowUpDTO
-    */
-    public ProgramFollowUpDTO[] getTraineeFollowup(Long userId){
-        return null;
-    }
-
-    /*
-    * @param userId
-    * @return array of SessionDTO
-    */
-    public SessionDTO[] getTraineeUpcomingSessions(Long userId){
-        return null;
     }
 }
