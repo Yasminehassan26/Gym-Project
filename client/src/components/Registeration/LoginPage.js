@@ -112,8 +112,7 @@ export default function SignInSide({ history }) {
   };
   const handleForgetPassword = (event) => {
     console.log(values.username);
-    const data = new FormData(event.currentTarget);
-    if(data.get("username") === "") {
+    if(values.username === "") {
       setError(1);
       setErrorMessage("Please enter username!");
       setType("warning");
@@ -141,8 +140,8 @@ export default function SignInSide({ history }) {
   };
   const handleAnswer = (event) => {
     //send the answer to the back end and show the result
-    const data = new FormData(event.currentTarget);
-    if(data.get("username") === "") {
+  
+    if(values.username === "") {
       setError(1);
       setErrorMessage("Please enter username!");
       setType("warning");
@@ -178,7 +177,7 @@ export default function SignInSide({ history }) {
           
         } else {
           var session = {
-            userName: data.get("username"), Id: data.userId, role: data.role, cart: []
+            userName: values.username, Id: data.userId, role: data.role, cart: []
           };
           console.log(session);
           ReactSession.set("user", session);
