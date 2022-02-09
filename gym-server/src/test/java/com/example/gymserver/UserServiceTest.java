@@ -33,9 +33,6 @@ public class UserServiceTest {
     @Autowired
     private SignUpController signUpController;
 
-    @PersistenceContext
-    private EntityManager entityManager;
-
     private static UserDTO registeredUser;
 
     private  UserIdDTO signUpUser(String userName, String password){

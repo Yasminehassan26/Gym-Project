@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 @ActiveProfiles("test")
-public class SignUpTest {
+public class SignUpServiceTest {
 
     @Autowired
     private SignUpController signUpController ;

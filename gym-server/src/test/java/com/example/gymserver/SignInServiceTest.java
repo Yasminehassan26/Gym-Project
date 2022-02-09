@@ -10,8 +10,6 @@ import com.example.gymserver.models.User;
 import com.example.gymserver.repositories.UserRepository;
 import com.example.gymserver.services.UserService;
 
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 @ActiveProfiles("test")
-public class SignInTest {
+public class SignInServiceTest {
 
     @Autowired
     private SignUpController signUpController ;
