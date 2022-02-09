@@ -66,10 +66,17 @@ public class BookingServiceTest {
     }
 
     @Test
-    public void bookProgram(){
+    public void bookValidProgram(){
+        UserIdDTO userIdDTO = signInController.signIn(new SignInDTO("mariam" , "12345"));
+        int actual = traineeController.bookProgram("mariam", "2", userIdDTO);
+        assertEquals(0, actual);
+    }
+
+    @Test
+    public void bookBookedProgram(){
         UserIdDTO userIdDTO = signInController.signIn(new SignInDTO("mariam" , "12345"));
         int actual = traineeController.bookProgram("mariam", "1", userIdDTO);
-        assertEquals(0, actual);
+        assertEquals(-4, actual);
     }
 
     @Test
@@ -122,21 +129,21 @@ public class BookingServiceTest {
     @Test
     public void bookSessionNoRemainingSession(){
         UserIdDTO userIdDTO = signInController.signIn(new SignInDTO("mariam" , "12345"));
-        int actual = traineeController.bookSession("mariam", "3", userIdDTO);
-        assertEquals(TraineeService.FULL_SESSION_STATUS_CODE, actual);
+        int actual = traineeController.bookSession("mariam", "7", userIdDTO);
+        assertEquals(TraineeService.NO_REMAINING_SESSIONS_STATUS_CODE, actual);
     }
 
     @Test
     public void bookBookedSession(){
         UserIdDTO userIdDTO = signInController.signIn(new SignInDTO("mariam" , "12345"));
-        int actual = traineeController.bookSession("mariam", "1", userIdDTO);
+        int actual = traineeController.bookSession("mariam", "9", userIdDTO);
         assertEquals(TraineeService.TRAINEE_REGISTERED_BEFORE_STATUS_CODE, actual);
     }
 
     @Test
     public void bookSessionFull(){
         UserIdDTO userIdDTO = signInController.signIn(new SignInDTO("mariam" , "12345"));
-        int actual = traineeController.bookSession("mariam", "3", userIdDTO);
+        int actual = traineeController.bookSession("mariam", "10", userIdDTO);
         assertEquals(TraineeService.FULL_SESSION_STATUS_CODE, actual);
     }
 

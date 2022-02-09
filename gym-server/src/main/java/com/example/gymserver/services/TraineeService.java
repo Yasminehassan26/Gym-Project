@@ -161,11 +161,11 @@ public class TraineeService {
                         boolean noRemainingSessions = true;
                         for(PClassFollowUp classFollowUp : classFollowUps){
                             if( classFollowUp.getSessionsRemaining() != 0 ){
+                                noRemainingSessions = false;
                                 if( !session.isFull() ){
                                     session.addAttendee();
                                     trainee.getSessions().add(session);
                                     classFollowUp.reserveSession();
-                                    noRemainingSessions = false;
                                 }
                                 else
                                     statusCode = FULL_SESSION_STATUS_CODE;

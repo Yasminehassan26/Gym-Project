@@ -5,6 +5,8 @@ import com.example.gymserver.controllers.SignUpController;
 import com.example.gymserver.dto.SignInDTO;
 import com.example.gymserver.dto.UserDTO;
 import com.example.gymserver.dto.UserIdDTO;
+import com.example.gymserver.mappers.UserMapper;
+import com.example.gymserver.models.User;
 import com.example.gymserver.repositories.UserRepository;
 import com.example.gymserver.services.UserService;
 
@@ -37,10 +39,11 @@ public class SignInTest {
 
     @BeforeEach
     public void setUp() {
-        if( !setUpDone ){
-            signUpUser("mariam","12345");
-            setUpDone = true;
-        }
+        User user = userRepository
+                .findUserByUserName("mariam")
+                .orElse(null);
+
+        registeredUser = UserMapper.toUserDto(user);
     }
 
     private  UserIdDTO signUpUser(String userName, String password){
@@ -51,7 +54,7 @@ public class SignInTest {
         registeredUser.setFirstName("Mariam");
         registeredUser.setLastName("Ahmed");
         registeredUser.setPassword(password);
-        registeredUser.setPhoneNumber("0128777878");
+        registeredUser.setPhoneNumber("01273322997");
         registeredUser.setQuestion("What is your favorite color?");
         registeredUser.setAnswer("green");
         registeredUser.setRole("Trainee");
