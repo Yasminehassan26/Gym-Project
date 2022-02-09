@@ -58,11 +58,11 @@ export default function ShopCard({Element}) {
       }
       //ReactSession.get("user").cart.splice(ind, 1);
       let temp = ReactSession.get("user");
-      if(temp.cart[i].noOfItems>1){
-      temp.cart[i].noOfItems--;
-      temp.cart[i].totalPrice=temp.cart[i].noOfItems*temp.cart[i].price;}
+      if(temp.cart[ind].noOfItems>1){
+        temp.cart[ind].noOfItems--;
+        temp.cart[ind].totalPrice=temp.cart[i].noOfItems*temp.cart[i].price;}
       else{
-        temp.cart[i].splice(ind, 1);
+        temp.cart.splice(ind, 1);
       }
       ReactSession.set("user", temp);
     };
