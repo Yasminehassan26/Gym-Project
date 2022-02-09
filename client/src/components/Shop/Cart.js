@@ -28,6 +28,8 @@ import {sendCart} from "../../api/ShopApi";
 import TextField from '@mui/material/TextField';
 import Alert from "@mui/material/Alert";
 
+
+
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
     padding: theme.spacing(2),
@@ -105,6 +107,7 @@ export default function Cart() {
 
   const handleClickOpen = () => {
     setOpen(true);
+    setData(ReactSession.get("user").cart);
   };
   const handleClose = () => {
     setOpen(false);
