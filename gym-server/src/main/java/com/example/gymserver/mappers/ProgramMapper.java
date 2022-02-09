@@ -11,7 +11,7 @@ public class ProgramMapper {
                 .price(String.valueOf(program.getPrice()))
                 .classesDetails(PClassDetailsMapper.toPClassDetailsDTO(program.getPClassDetails()))
                 .description(program.getDescription())
-                .duration(String.valueOf(program.getDuration()))
+                .duration(program.getDuration() + " Month(s)")
                 .build();
         return programDTO;
     }

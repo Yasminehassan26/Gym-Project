@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,12 +51,14 @@ public class TraineeService {
         this.sessionRepository = sessionRepository;
     }
 
+    @Transactional
     public List<SessionDTO> getSessions(String userName, UserIdDTO userIdDTO) {
         if(!this.authenticationService.authenticateUser(userIdDTO.getUserId(), userName))
             return null;
         else{
             List<SessionDTO> sessionDTOS = new ArrayList<>();
             Trainee trainee = this.traineeRepository.getById(userIdDTO.getUserId());
+            deletePastSessions(trainee);
             for(Session session : trainee.getSessions()){
                 sessionDTOS.add(SessionMapper.toSessionDTO(session));
             }
@@ -63,6 +66,12 @@ public class TraineeService {
         }
     }
 
+
+    public void deletePastSessions(Trainee trainee){
+        trainee.getSessions().removeIf(session -> session.getEndTime().isBefore(LocalDateTime.now()));
+    }
+
+    @Transactional
     public List<ProgramFollowUpDTO> getFollowUps(String userName, UserIdDTO userIdDTO) {
         if(!this.authenticationService.authenticateUser(userIdDTO.getUserId(), userName))
             return null;
@@ -70,17 +79,27 @@ public class TraineeService {
             List<ProgramFollowUpDTO> traineeFollowUp = new ArrayList<>();
             List<Long> programsId = this.pClassFollowUpRepository
                     .findProgramsIdByTraineeId(userIdDTO.getUserId()).orElse(null);
-            if(programsId != null){
+            if(programsId != null && programsId.size() > 0){
                 for(Long id : programsId){
                     List<PClassFollowUp> classesFollowUp = this.pClassFollowUpRepository
                             .findFollowUpsByTraineeAndProgram(userIdDTO.getUserId(), id).orElse(null);
-                    if(classesFollowUp != null){
-                        traineeFollowUp.add(PClassFollowUpMapper.toProgramFollowUpDTO(classesFollowUp));
+                    if(classesFollowUp != null && classesFollowUp.size() > 0){
+                        if( ! deleteProgramIfExpired(id,classesFollowUp.get(0).getEndDate()))
+                            traineeFollowUp.add(PClassFollowUpMapper.toProgramFollowUpDTO(classesFollowUp));
                     }else System.out.println(id + " is NULL!!!!");
                 }
             }else System.out.println("ERROR IN GETTING PROGRAM IDS");
             return traineeFollowUp;
         }
+    }
+
+
+    public boolean deleteProgramIfExpired(long programID, LocalDate endDate){
+        if( endDate.isBefore(LocalDate.now())){
+            pClassFollowUpRepository.deleteProgram(programID);
+            return true;
+        }
+        return false;
     }
 
     public int bookProgram(String userName, Long programID, UserIdDTO userIdDTO) {
@@ -112,7 +131,7 @@ public class TraineeService {
                                                     .program(program)
                                                     .trainee(trainee)
                                                     .programClass(classDetails.getProgramClass())
-                                                    .endDate(LocalDate.parse("2022-05-22"))
+                                                    .endDate(LocalDate.now().plusMonths(program.getDuration()))
                                                     .sessionsRemaining(classDetails.getNoOfClasses())
                                                     .used(false)
                                                     .build();

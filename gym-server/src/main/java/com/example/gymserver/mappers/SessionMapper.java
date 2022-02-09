@@ -10,8 +10,8 @@ public class SessionMapper {
         SessionDTO sessionDTO = SessionDTO.builder()
                                 .sessionId(session.getId())
                                 .name(session.getProgramClass().getClassType())
-                                .date(session.getStartTime().toString())
-                                .endTime(session.getEndTime().toString())
+                                .date(session.getDate())
+                                .time(session.getTime())
                                 .trainerName("Mohamed")
                                 .attendee(session.getNoOfAttendees() + "/" + session.getMaxNoOfAttendees())
                                 .build();

@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Set;
 
 @Entity
@@ -79,5 +80,23 @@ public class Session {
 
     public boolean isFull() {
         return this.noOfAttendees == this.maxNoOfAttendees;
+    }
+
+    public String getDate(){
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        String date = startTime.format(dateFormatter) + ", " + startTime.getDayOfWeek();
+        return date;
+    }
+
+    public String getTime(){
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm a");
+        String time = startTime.format(timeFormatter) + " - " + endTime.format(timeFormatter);
+        return time;
+    }
+
+    public void update(int weeks){
+        startTime = startTime.plusWeeks(weeks);
+        endTime = endTime.plusWeeks(weeks);
+        noOfAttendees = 0;
     }
 }
