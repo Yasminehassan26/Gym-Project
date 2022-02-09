@@ -123,6 +123,7 @@ export default function Profile() {
         };
         console.log(values);
         updateUser(values, ReactSession.get("user").userName);
+        setOpen(false);
       }
     }
   };
