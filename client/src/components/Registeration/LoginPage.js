@@ -145,11 +145,35 @@ export default function SignInSide({ history }) {
     )
       .then((response) => response.text())
       .then((data) => {
+        
         console.log(data);
-        // setQuestion(data);
-        // setAnswer(event.target.value);
+        if (data.statusCode === -1) {
+          //wrong username
+          setError(1);
+          setErrorMessage("User Not Registered!!");
+          setType("warning");
+          check = 1;
+        } else if (data.statusCode === -2) {
+          //wrong password
+          setError(1);
+          setErrorMessage("Wrong password!!");
+          setType("warning");
+          check = 1;
+        } else {
+          var session = {
+            userName: data.get("username"), Id: data.userId, role: data.role, cart: []
+          };
+          console.log(session);
+          ReactSession.set("user", session);
+          history.push("/");
+          console.log(ReactSession.get("user"));
+        }
       })
       .catch((error) => console.log("error", error));
+  };
+
+  const handleChangeAnswer =  (event) => {
+    setAnswer( event.target.value );
   };
 
   return (
@@ -266,6 +290,7 @@ export default function SignInSide({ history }) {
                   name="answer"
                   autoComplete="username"
                   defaultValue={answer}
+                  onChange={handleChangeAnswer}
                 />
               )}
               {forgetPassword && <Button onClick={handleAnswer}>OK</Button>}

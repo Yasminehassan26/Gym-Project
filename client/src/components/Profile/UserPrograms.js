@@ -27,6 +27,7 @@ export default function UserPrograms() {
       statusCode: 0,
     };
     getPrograms(values, ReactSession.get("user").userName).then((program) => {
+      console.log(program);
       setPrograms(program);
     });  
   }, []);
