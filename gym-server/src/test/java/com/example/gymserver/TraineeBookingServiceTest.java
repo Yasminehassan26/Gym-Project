@@ -7,6 +7,8 @@ import com.example.gymserver.dto.*;
 
 import com.example.gymserver.mappers.UserMapper;
 import com.example.gymserver.models.User;
+import com.example.gymserver.repositories.SessionRepository;
+import com.example.gymserver.repositories.TraineeRepository;
 import com.example.gymserver.repositories.UserRepository;
 import com.example.gymserver.services.TraineeService;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 @ActiveProfiles("test")
-public class BookingServiceTest {
+public class TraineeBookingServiceTest {
 
     @Autowired
     private TraineeController traineeController;
@@ -33,6 +35,7 @@ public class BookingServiceTest {
     private SignUpController signUpController;
     @Autowired
     private UserRepository userRepository ;
+
 
     private static UserDTO registeredUser;
 
@@ -147,4 +150,18 @@ public class BookingServiceTest {
         assertEquals(TraineeService.FULL_SESSION_STATUS_CODE, actual);
     }
 
+    @Test
+    public void cancelSession(){
+
+    }
+
+    @Test
+    public void cancelProgram(){
+
+    }
+
+    @Test
+    public void invalidCancelProgram(){
+
+    }
 }
