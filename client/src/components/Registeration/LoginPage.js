@@ -70,13 +70,13 @@ export default function SignInSide({ history }) {
             //wrong username
             setError(1);
             setErrorMessage("User Not Registered!!");
-            setType("warning");
+            setType("error");
             check = 1;
           } else if (res.statusCode === -2) {
             //wrong password
             setError(1);
             setErrorMessage("Wrong password!!");
-            setType("warning");
+            setType("error");
             check = 1;
           } else {
             var session = {
@@ -174,6 +174,12 @@ export default function SignInSide({ history }) {
           setError(1);
           setErrorMessage("Wrong password!!");
           setType("warning");
+          
+        }else if (data.statusCode === -3) {
+          //wrong password
+          setError(1);
+          setErrorMessage("Wrong Answer!!");
+          setType("error");
           
         } else {
           var session = {

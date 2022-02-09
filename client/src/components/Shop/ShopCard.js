@@ -95,6 +95,15 @@ export default function ShopCard({Element}) {
           Remove from cart
         </Button>
       )} */}
+        {loading == true && (
+        <Button
+          onClick={() => handleRemoveFromCart(!loading)}
+          variant="outlined"
+          startIcon={<DeleteIcon />}
+        >
+          Remove from cart
+        </Button>
+      )}
       {loading == false && (
         <Button
           onClick={() => handleAddToCart(!loading)}

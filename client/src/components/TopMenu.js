@@ -38,6 +38,7 @@ export default function TopMenu({ history }) {
     else if (text === "Sign out") {
       sessionStorage.clear();
       history.push("/");
+      window.location.reload(false);
     }
     else  if (text === "Trainers") {
       history.push("/Trainers");
