@@ -51,8 +51,8 @@ public class ShopServiceTest {
 
     @Test
     public void validConfirmOrder(){
-        int inStockProd1Before = this.shopRepository.getById(25L).getNoInStock();
-//        int inStockProd2Before = this.shopRepository.getById(9L).getNoInStock();
+        int inStockProd1Before = this.shopRepository.findById(25L).orElse(null).getNoInStock();
+        int inStockProd2Before = this.shopRepository.findById(2L).orElse(null).getNoInStock();
         OrderItemDTO orderItemDTO1 = new OrderItemDTO("True Stones Protein Powder", 25, 300,1,30,300);
         OrderItemDTO orderItemDTO2 = new OrderItemDTO("Leggings medium", 2, 300,1,100,300);
         List<OrderItemDTO> orderItems = new LinkedList<>();
@@ -61,12 +61,12 @@ public class ShopServiceTest {
         CartDTO cart = new CartDTO(0, orderItems);
         String actual = this.shopController.confirmOrder("mariam", cart);
         // making sure it decremented the in stock quantity
-//        int inStockProd1After = this.shopRepository.getById(25L).getNoInStock();
-//        int inStockProd2After = this.shopRepository.getById(9L).getNoInStock();
+        int inStockProd1After = this.shopRepository.findById(25L).orElse(null).getNoInStock();
+        int inStockProd2After = this.shopRepository.findById(2L).orElse(null).getNoInStock();
 
         assertEquals("Order confirmed successfully!", actual);
-//        assertEquals(inStockProd1Before - 1, inStockProd1After);
-//        assertEquals(inStockProd2Before - 1, inStockProd2After);
+        assertEquals(inStockProd1Before - 1, inStockProd1After);
+        assertEquals(inStockProd2Before - 1, inStockProd2After);
     }
 
     @Test
