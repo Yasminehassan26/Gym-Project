@@ -159,7 +159,7 @@ export default function SignInSide({ history }) {
       `http://localhost:8082/api/auth/validate-answer/${values.username}`,
       requestOptions
     )
-      .then((response) => response.text())
+      .then((response) => response.json())
       .then((data) => {
         
         console.log(data);
@@ -310,7 +310,7 @@ export default function SignInSide({ history }) {
                   onChange={handleChangeAnswer}
                 />
               )}
-              {forgetPassword && <Button onClick={handleAnswer}>OK</Button>}
+              {forgetPassword && <Button type="submit" onClick={handleAnswer}>OK</Button>}
               <Button
                 type="submit"
                 fullWidth
