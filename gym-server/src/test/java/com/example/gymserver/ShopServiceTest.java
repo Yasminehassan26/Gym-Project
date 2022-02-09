@@ -71,19 +71,37 @@ public class ShopServiceTest {
 
     @Test
     public void invalidConfirmOrderOutOfStock(){
+        int inStockProdBefore = this.shopRepository.findById(3L).orElse(null).getNoInStock();
+        OrderItemDTO orderItemDTO1 = new OrderItemDTO("Pink Hoddie large", 3, 400,1,200,400);
+        List<OrderItemDTO> orderItems = new LinkedList<>();
+        orderItems.add(orderItemDTO1);
+        CartDTO cart = new CartDTO(0, orderItems);
+        String actual = this.shopController.confirmOrder("mariam", cart);
+        // making sure it decremented the in stock quantity
+        int inStockProdAfter = this.shopRepository.findById(3L).orElse(null).getNoInStock();
 
+        assertEquals( "Item Pink Hoddie large is out of stock.", actual);
+        assertEquals(inStockProdBefore , inStockProdAfter);
     }
 
     @Test
     public void invalidConfirmOrderQuantityNotEnough(){
-//        OrderItemDTO orderItemDTO1 = new OrderItemDTO("True Stones Protein Powder", 25, 300,50,30,50*300);
-//        OrderItemDTO orderItemDTO2 = new OrderItemDTO("Leggings medium", 2, 300,1,100,300);
-//        List<OrderItemDTO> orderItems = new LinkedList<>();
-//        orderItems.add(orderItemDTO1);
-//        orderItems.add(orderItemDTO2);
-//        CartDTO cart = new CartDTO(0, orderItems);
-//        String actual = this.shopController.confirmOrder("mariam", cart);
-//        assertEquals("");
+        int inStockProd1Before = this.shopRepository.findById(17L).orElse(null).getNoInStock();
+        int inStockProd2Before = this.shopRepository.findById(4L).orElse(null).getNoInStock();
+        OrderItemDTO orderItemDTO1 = new OrderItemDTO("Rose Water Bottle", 17, 200,50,30,200);
+        OrderItemDTO orderItemDTO2 = new OrderItemDTO("Pink Hoddie xlarge", 4, 400,1,200,400);
+        List<OrderItemDTO> orderItems = new LinkedList<>();
+        orderItems.add(orderItemDTO1);
+        orderItems.add(orderItemDTO2);
+        CartDTO cart = new CartDTO(0, orderItems);
+        String actual = this.shopController.confirmOrder("mariam", cart);
+        // making sure it decremented the in stock quantity
+        int inStockProd1After = this.shopRepository.findById(17L).orElse(null).getNoInStock();
+        int inStockProd2After = this.shopRepository.findById(4L).orElse(null).getNoInStock();
+
+        assertEquals( "Item Rose Water Bottle has only 30 in stock.", actual);
+        assertEquals(inStockProd1Before , inStockProd1After);
+        assertEquals(inStockProd2Before , inStockProd2After);
     }
 
     @Test
