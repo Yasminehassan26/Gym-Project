@@ -6,10 +6,12 @@ import com.example.gymserver.controllers.TraineeController;
 import com.example.gymserver.dto.*;
 
 import com.example.gymserver.mappers.UserMapper;
+import com.example.gymserver.models.Session;
 import com.example.gymserver.models.User;
 import com.example.gymserver.repositories.SessionRepository;
 import com.example.gymserver.repositories.TraineeRepository;
 import com.example.gymserver.repositories.UserRepository;
+import com.example.gymserver.services.AuthenticationService;
 import com.example.gymserver.services.TraineeService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -34,7 +36,9 @@ public class TraineeBookingServiceTest {
     @Autowired
     private SignUpController signUpController;
     @Autowired
-    private UserRepository userRepository ;
+    private UserRepository userRepository;
+    @Autowired
+    private SessionRepository sessionRepository;
 
 
     private static UserDTO registeredUser;
@@ -78,7 +82,9 @@ public class TraineeBookingServiceTest {
     @Test
     public void bookBookedProgram(){
         UserIdDTO userIdDTO = signInController.signIn(new SignInDTO("mariam" , "12345"));
-        int actual = traineeController.bookProgram("mariam", "1", userIdDTO);
+        traineeController.bookProgram("mariam", "9", userIdDTO);
+
+        int actual = traineeController.bookProgram("mariam", "9", userIdDTO);
         assertEquals(-4, actual);
     }
 
@@ -139,6 +145,8 @@ public class TraineeBookingServiceTest {
     @Test
     public void bookBookedSession(){
         UserIdDTO userIdDTO = signInController.signIn(new SignInDTO("mariam" , "12345"));
+        traineeController.bookSession("mariam", "9", userIdDTO);
+
         int actual = traineeController.bookSession("mariam", "9", userIdDTO);
         assertEquals(TraineeService.TRAINEE_REGISTERED_BEFORE_STATUS_CODE, actual);
     }
@@ -152,16 +160,99 @@ public class TraineeBookingServiceTest {
 
     @Test
     public void cancelSession(){
+        UserIdDTO userIdDTO = signInController.signIn(new SignInDTO("mariam" , "12345"));
+        traineeController.bookSession("mariam","9",userIdDTO);
+
+        int noOfAttendeesBefore = sessionRepository.findSessionByID(9l).orElse(null).getNoOfAttendees();
+        int userSessionsBefore = traineeController.getSessions("mariam",userIdDTO).size();
+
+        int actualCode = traineeController.deleteSession("mariam","9",userIdDTO);
+
+        int noOfAttendeesAfter = sessionRepository.findSessionByID(9l).orElse(null).getNoOfAttendees();
+        int userSessionsAfter = traineeController.getSessions("mariam",userIdDTO).size();
+
+        int expectedCode = 0;
+        assertEquals(expectedCode, actualCode);
+        assertEquals(noOfAttendeesBefore - 1,noOfAttendeesAfter);
+        assertEquals(userSessionsBefore - 1, userSessionsAfter);
+    }
+
+    @Test
+    public void cancelSessionUnauthenticatedUser(){
+        UserIdDTO userIdDTO = signInController.signIn(new SignInDTO("mariam" , "12345"));
+        UserIdDTO wrongUserIdDTO = signInController.signIn(new SignInDTO("mariam" , "12345"));
+        wrongUserIdDTO.setUserId(100);
+
+        int noOfAttendeesBefore = sessionRepository.findSessionByID(9l).orElse(null).getNoOfAttendees();
+        int userSessionsBefore = traineeController.getSessions("mariam",userIdDTO).size();
+
+        int actualCode = traineeController.deleteSession("mariam","9",wrongUserIdDTO);
+
+        int noOfAttendeesAfter = sessionRepository.findSessionByID(9l).orElse(null).getNoOfAttendees();
+        int userSessionsAfter = traineeController.getSessions("mariam",userIdDTO).size();
+
+        int expectedCode = AuthenticationService.UNAUTHENTICATED_USER_STATUS_CODE;
+        assertEquals(expectedCode, actualCode);
+        assertEquals(noOfAttendeesBefore,noOfAttendeesAfter);
+        assertEquals(userSessionsBefore, userSessionsAfter);
+    }
+
+
+
+    @Test
+    public void validCancelProgram(){
+        UserIdDTO userIdDTO = signInController.signIn(new SignInDTO("mariam" , "12345"));
+        traineeController.bookProgram("mariam","3",userIdDTO);
+
+
+        int userProgramsBefore = traineeController.getFollowUps("mariam",userIdDTO).size();
+        int actualCode = traineeController.deleteProgram("mariam","3",userIdDTO);
+
+
+        int userProgramsAfter = traineeController.getFollowUps("mariam",userIdDTO).size();
+
+        int expectedCode = 0;
+        assertEquals(expectedCode, actualCode);
+        assertEquals(userProgramsBefore - 1, userProgramsAfter);
 
     }
 
     @Test
-    public void cancelProgram(){
+    public void invalidCancelProgramUnauthenticatedUser(){
+        UserIdDTO userIdDTO = signInController.signIn(new SignInDTO("mariam" , "12345"));
+        UserIdDTO wrongUserIdDTO = signInController.signIn(new SignInDTO("mariam" , "12345"));
+        wrongUserIdDTO.setUserId(100);
+
+        traineeController.bookProgram("mariam","4",userIdDTO);
+
+
+        int userProgramsBefore = traineeController.getFollowUps("mariam",userIdDTO).size();
+        int actualCode = traineeController.deleteProgram("mariam","4",wrongUserIdDTO);
+
+
+        int userProgramsAfter = traineeController.getFollowUps("mariam",userIdDTO).size();
+
+        int expectedCode = AuthenticationService.UNAUTHENTICATED_USER_STATUS_CODE;
+        assertEquals(expectedCode, actualCode);
+        assertEquals(userProgramsBefore, userProgramsAfter);
 
     }
 
     @Test
-    public void invalidCancelProgram(){
+    public void invalidCancelProgramUsedProgram(){
+        UserIdDTO userIdDTO = signInController.signIn(new SignInDTO("mariam" , "12345"));
+
+        traineeController.bookSession("mariam","8",userIdDTO);
+
+        int userProgramsBefore = traineeController.getFollowUps("mariam",userIdDTO).size();
+        int actualCode = traineeController.deleteProgram("mariam","1",userIdDTO);
+
+
+        int userProgramsAfter = traineeController.getFollowUps("mariam",userIdDTO).size();
+
+        int expectedCode = TraineeService.INVALID_DELETE_STATUS_CODE;
+        assertEquals(expectedCode, actualCode);
+        assertEquals(userProgramsBefore, userProgramsAfter);
 
     }
 }

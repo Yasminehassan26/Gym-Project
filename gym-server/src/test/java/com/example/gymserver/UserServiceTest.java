@@ -8,15 +8,11 @@ import com.example.gymserver.mappers.UserMapper;
 import com.example.gymserver.models.User;
 import com.example.gymserver.repositories.UserRepository;
 import com.example.gymserver.services.AuthenticationService;
-import com.example.gymserver.services.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 import java.time.LocalDate;
 
@@ -51,7 +47,6 @@ public class UserServiceTest {
     }
 
 
-    private static boolean setUpDone = false;
     @BeforeEach
     public void setUp() {
         User user = userRepository

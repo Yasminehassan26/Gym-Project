@@ -104,7 +104,7 @@ INSERT INTO TRAINER_SPORTS VALUES (7, "Boxing");
 INSERT INTO TRAINER_SPORTS VALUES (8, "Boxing");
 INSERT INTO TRAINER_SPORTS VALUES (9, "Boxing");
 
--- adding trainer achievements 
+-- adding trainer achievements
 INSERT INTO TRAINER_ACHIEVEMEnTS VALUES (1, "2020-10-15","Boxing Egyption Champion",1);
 INSERT INTO TRAINER_ACHIEVEMENTS VALUES (2, "2021-12-13","Boxing Egyption Champion",2);
 INSERT INTO TRAINER_ACHIEVEMENTS VALUES (3, "2022-05-05","Boxing Egyption Champion",3);
@@ -187,13 +187,17 @@ INSERT INTO PCLASS_FOLLOW_UP VALUES (6,1,0,"2023-02-10",36,false);
 INSERT INTO PCLASS_FOLLOW_UP VALUES (8,1,0,"2023-02-10",36,false);
 
 -- yoga session
-INSERT INTO SESSION_RESERVATION VALUES (0,9);
+-- INSERT INTO SESSION_RESERVATION VALUES (0,9);
+-- UPDATE PCLASS_FOLLOW_UP SET remaining_sessions = 35 WHERE trainee_id = 0 && class_id = 2 && program_id = 1;
+-- UPDATE session SET no_of_attendees = 1 WHERE session_id = 9;
 
 -- adding full session
 UPDATE session SET no_of_attendees = 20 WHERE session_id = 10;
 
+
 -- making full session in program
 UPDATE PCLASS_FOLLOW_UP  SET sessions_remaining = 0 WHERE program_id = 1 && trainee_id = 0 && class_id = 8;
+
 
 -- making product out of stock
 UPDATE PRODUCT SET no_instock = 0 WHERE product_id = 3;

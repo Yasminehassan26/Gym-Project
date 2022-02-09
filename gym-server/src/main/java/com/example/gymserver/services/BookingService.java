@@ -57,6 +57,4 @@ public class BookingService{
             System.out.println(session.getDate());
         }
     }
-
-
 }
