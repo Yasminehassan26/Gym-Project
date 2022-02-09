@@ -110,8 +110,16 @@ export default function SignInSide({ history }) {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
-  const handleForgetPassword = () => {
+  const handleForgetPassword = (event) => {
     console.log(values.username);
+    const data = new FormData(event.currentTarget);
+    if(data.get("username") === "") {
+      setError(1);
+      setErrorMessage("Please enter username!");
+      setType("warning");
+     
+    }
+    else{
     setForgetPassword(true);
     //call to the back end to get the question  and set them
     var requestOptions = {
@@ -129,9 +137,18 @@ export default function SignInSide({ history }) {
         setQuestion(data);
       })
       .catch((error) => console.log("error", error));
+    }
   };
   const handleAnswer = (event) => {
     //send the answer to the back end and show the result
+    const data = new FormData(event.currentTarget);
+    if(data.get("username") === "") {
+      setError(1);
+      setErrorMessage("Please enter username!");
+      setType("warning");
+     
+    }
+    else{
     var requestOptions = {
       method: "POST",
       body: answer,
@@ -152,13 +169,13 @@ export default function SignInSide({ history }) {
           setError(1);
           setErrorMessage("User Not Registered!!");
           setType("warning");
-          check = 1;
+        
         } else if (data.statusCode === -2) {
           //wrong password
           setError(1);
           setErrorMessage("Wrong password!!");
           setType("warning");
-          check = 1;
+          
         } else {
           var session = {
             userName: data.get("username"), Id: data.userId, role: data.role, cart: []
@@ -170,6 +187,7 @@ export default function SignInSide({ history }) {
         }
       })
       .catch((error) => console.log("error", error));
+    }
   };
 
   const handleChangeAnswer =  (event) => {
