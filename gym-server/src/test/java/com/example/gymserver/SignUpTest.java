@@ -28,7 +28,7 @@ public class SignUpTest {
     @Test
     public void correctSignup(){
         UserDTO user = new UserDTO();
-        user.setUserName("mariam");
+        user.setUserName("mariam1");
         user.setAge(17);
         user.setFirstName("Mariam");
         user.setLastName("Youssry");

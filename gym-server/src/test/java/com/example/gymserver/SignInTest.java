@@ -1,47 +1,72 @@
 package com.example.gymserver;
 
 import com.example.gymserver.controllers.SignInController;
+import com.example.gymserver.controllers.SignUpController;
 import com.example.gymserver.dto.SignInDTO;
+import com.example.gymserver.dto.UserDTO;
 import com.example.gymserver.dto.UserIdDTO;
-import com.example.gymserver.models.User;
 import com.example.gymserver.repositories.UserRepository;
 import com.example.gymserver.services.UserService;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+
+import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 @ActiveProfiles("test")
 public class SignInTest {
-    private static boolean setUpIsDone = false;
-
-    @BeforeClass
-    public void setUp() {
-        if (setUpIsDone) {
-            return;
-        }
-        // do the setup
-        setUpIsDone = true;
-        System.out.println("hi");
-    }
 
     @Autowired
-    private SignInController signInController ;
+    private SignUpController signUpController ;
     @Autowired
     private UserRepository userRepository ;
+    @Autowired
+    private SignInController signInController ;
+
+    private static UserDTO registeredUser;
+
+    private static boolean setUpDone = false;
+
+    @BeforeEach
+    public void setUp() {
+        if( !setUpDone ){
+            signUpUser("mariam","12345");
+            setUpDone = true;
+        }
+    }
+
+    private  UserIdDTO signUpUser(String userName, String password){
+        registeredUser = new UserDTO();
+        registeredUser.setUserName(userName);
+        registeredUser.setAge(17);
+        registeredUser.setBirth_date(String.valueOf(LocalDate.parse("2000-07-18")));
+        registeredUser.setFirstName("Mariam");
+        registeredUser.setLastName("Ahmed");
+        registeredUser.setPassword(password);
+        registeredUser.setPhoneNumber("0128777878");
+        registeredUser.setQuestion("What is your favorite color?");
+        registeredUser.setAnswer("green");
+        registeredUser.setRole("Trainee");
+        return signUpController.signUp(registeredUser);
+    }
+
+
+
 
     @Test
     public void correctSignInTest(){
-        System.out.println(setUpIsDone);
+      //  setUp();
         SignInDTO signInDTO = new SignInDTO();
-        signInDTO.setUserName("mariam");
-        signInDTO.setPassword("12345");
+        signInDTO.setUserName(registeredUser.getUserName());
+        signInDTO.setPassword(registeredUser.getPassword());
         long expectedId = userRepository
                                 .findUserByUserName(signInDTO.getUserName())
                                 .orElse(null)
@@ -53,8 +78,9 @@ public class SignInTest {
 
     @Test
     public void wrongPassSignInTest(){
+      //  setUp();
         SignInDTO signInDTO = new SignInDTO();
-        signInDTO.setUserName("mariam");
+        signInDTO.setUserName(registeredUser.getUserName());
         signInDTO.setPassword("1234567");
         UserIdDTO userIdDTO= signInController.signIn(signInDTO);
         assertEquals(UserService.WRONG_PASSWORD_STATUS_CODE, userIdDTO.getStatusCode());
@@ -62,6 +88,7 @@ public class SignInTest {
 
     @Test
     public void wrongUserNameSignInTest(){
+      //  setUp();
         SignInDTO signInDTO = new SignInDTO();
         signInDTO.setUserName("maryam");
         signInDTO.setPassword("1234567");
@@ -79,26 +106,29 @@ public class SignInTest {
 
     @Test
     public void existingUserQuestion(){
+       // setUp();
         String expected = "What is your favorite color?";
-        String actual = signInController.getUserQuestion("mariam");
+        String actual = signInController.getUserQuestion(registeredUser.getUserName());
         assertEquals(expected, actual);
     }
 
     @Test
     public void correctAnswerTest(){
+       // setUp();
         long correctId = userRepository
-                            .findUserByUserName("mariam")
+                            .findUserByUserName(registeredUser.getUserName())
                             .orElse(null)
                             .getId();
-        UserIdDTO userIdDTO = signInController.validateAnswer("mariam", "green");
+        UserIdDTO userIdDTO = signInController.validateAnswer(registeredUser.getUserName(), "green");
         assertEquals(correctId, userIdDTO.getUserId());
         assertEquals(0, userIdDTO.getStatusCode());
     }
 
     @Test
     public void wrongAnswerTest(){
+     //   setUp();
         int expected = UserService.WRONG_ANSWER_STATUS_CODE;
-        long actual = signInController.validateAnswer("mariam", "red").getStatusCode();
+        long actual = signInController.validateAnswer(registeredUser.getUserName(), "red").getStatusCode();
         assertEquals(expected, actual);
     }
 
