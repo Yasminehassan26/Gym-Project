@@ -31,6 +31,6 @@ public class PClassDetails {
     private Class programClass;
 
 
-    int noOfClasses;
+    Integer noOfClasses;
 
 }

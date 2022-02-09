@@ -34,9 +34,9 @@ public class Product {
     @Column(name = "Category")
     private String category;
     @Column(name = "Price")
-    private float price;
+    private Float price;
     @Column(name = "No_Instock")
-    private int noInStock;
+    private Integer noInStock;
     @Column(name = "ImageURL")
     private String imageURL;
 }
