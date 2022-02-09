@@ -5,14 +5,16 @@ import com.example.gymserver.controllers.SignUpController;
 import com.example.gymserver.controllers.TraineeController;
 import com.example.gymserver.dto.*;
 
+import com.example.gymserver.mappers.UserMapper;
+import com.example.gymserver.models.User;
 import com.example.gymserver.repositories.UserRepository;
 import com.example.gymserver.services.TraineeService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +22,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
+@ActiveProfiles("test")
 public class BookingServiceTest {
 
     @Autowired
@@ -28,8 +31,39 @@ public class BookingServiceTest {
     private SignInController signInController;
     @Autowired
     private SignUpController signUpController;
+    @Autowired
+    private UserRepository userRepository ;
+
+    private static UserDTO registeredUser;
+
+    private  UserIdDTO signUpUser(String userName, String password){
+        registeredUser = new UserDTO();
+        registeredUser.setUserName(userName);
+        registeredUser.setAge(17);
+        registeredUser.setBirth_date(String.valueOf(LocalDate.parse("2000-07-18")));
+        registeredUser.setFirstName("Mariam");
+        registeredUser.setLastName("Ahmed");
+        registeredUser.setPassword(password);
+        registeredUser.setPhoneNumber("0128777878");
+        registeredUser.setQuestion("What is your favorite color?");
+        registeredUser.setAnswer("green");
+        registeredUser.setRole("Trainee");
+        return signUpController.signUp(registeredUser);
+    }
 
 
+    private static boolean setUpDone = false;
+    @BeforeEach
+    public void setUp() {
+        User user = userRepository
+                .findUserByUserName("mariam")
+                .orElse(null);
+
+        if( user == null )
+            signUpUser("mariam","12345");
+        else
+            registeredUser = UserMapper.toUserDto(user);
+    }
 
     @Test
     public void bookProgram(){
@@ -50,7 +84,7 @@ public class BookingServiceTest {
         classFollowUpDTOS.add(new ClassFollowUpDTO("Air Yoga", "36"));
         classFollowUpDTOS.add(new ClassFollowUpDTO("Lean", "36"));
         classFollowUpDTOS.add(new ClassFollowUpDTO("CrossFit", "36"));
-        ProgramFollowUpDTO programFollowUpDTO = new ProgramFollowUpDTO("gold", 1l, classFollowUpDTOS);
+        ProgramFollowUpDTO programFollowUpDTO = new ProgramFollowUpDTO("gold",1l, classFollowUpDTOS);
         List<ProgramFollowUpDTO> followUpDTOsExpected = new ArrayList<>();
         followUpDTOsExpected.add(programFollowUpDTO);
         assertEquals(followUpDTOsActual, followUpDTOsActual);
