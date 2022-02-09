@@ -44,5 +44,4 @@ public class Trainee implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "sessionId"))
     List<Session> sessions;
 
-
 }

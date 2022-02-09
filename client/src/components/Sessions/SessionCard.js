@@ -64,6 +64,7 @@ export default function SessionCard({ session }) {
           .then((data) => {
             console.log(data);
             if(data === '0'){
+              console.log("hihihihi");
               window.location.reload();
             }
             setAlertState(parseInt(data));
@@ -94,7 +95,7 @@ export default function SessionCard({ session }) {
         title={session.name}
         subheader={
           <Typography style={{ color: "white", fontSize: 14 }}>
-            {session.date.substr(0,session.date.indexOf('T'))}
+            {session.date}
           </Typography>
         }
       />
@@ -193,7 +194,7 @@ export default function SessionCard({ session }) {
                 primary="Start Time:"
                 secondary={
                   <Typography style={{ color: "white", fontSize: 14 }}>
-                    {session.date.substr(session.date.indexOf('T')+1,session.date.length)}
+                    {session.time.substr(0,session.time.indexOf('-'))}
                   </Typography>
                 }
               />
@@ -204,7 +205,7 @@ export default function SessionCard({ session }) {
                 primary="End Time:"
                 secondary={
                   <Typography style={{ color: "white", fontSize: 14 }}>
-                    {session.endTime.substr(session.date.indexOf('T')+1,session.endTime.length)}
+                    {session.time.substr(session.time.indexOf('-')+1,session.time.length)}
                   </Typography>
                 }
               />

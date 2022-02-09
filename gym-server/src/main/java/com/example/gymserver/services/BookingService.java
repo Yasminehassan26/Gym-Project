@@ -12,8 +12,12 @@ import com.example.gymserver.repositories.SessionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.time.temporal.ChronoUnit.DAYS;
 
 @Service
 public class BookingService{
@@ -34,11 +38,25 @@ public class BookingService{
         return programDTOS;
     }
 
+    @Transactional
     public List<SessionDTO> getAllSessions() {
         List<SessionDTO> sessionDTOS = new ArrayList<>();
         for(Session session : this.sessionRepository.findAll()) {
+            updateIfPast(session);
             sessionDTOS.add(SessionMapper.toSessionDTO(session));
         }
         return sessionDTOS;
     }
+
+    public void updateIfPast(Session session){
+        if(session.getEndTime().isBefore(LocalDateTime.now())){
+            int weeks =(int) Math.ceil(Math.abs(DAYS.between(LocalDateTime.now(), session.getStartTime()))/7.0);
+            if( weeks == 0 ) weeks = 1;
+            System.out.println(weeks);
+            session.update(weeks);
+            System.out.println(session.getDate());
+        }
+    }
+
+
 }
