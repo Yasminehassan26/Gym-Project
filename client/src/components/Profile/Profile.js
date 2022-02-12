@@ -105,7 +105,7 @@ export default function Profile() {
         })
       ) {
         setError(1);
-        setErrorMessage("Please enter a strong password");
+        setErrorMessage("Please enter a strong password! (Capital1234*/#) atleast 7 letters");
         setType("warning");
       } else {
         var values = {

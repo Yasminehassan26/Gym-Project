@@ -70,13 +70,13 @@ export default function SignInSide({ history }) {
             //wrong username
             setError(1);
             setErrorMessage("User Not Registered!!");
-            setType("warning");
+            setType("error");
             check = 1;
           } else if (res.statusCode === -2) {
             //wrong password
             setError(1);
             setErrorMessage("Wrong password!!");
-            setType("warning");
+            setType("error");
             check = 1;
           } else {
             var session = {
@@ -112,8 +112,7 @@ export default function SignInSide({ history }) {
   };
   const handleForgetPassword = (event) => {
     console.log(values.username);
-    const data = new FormData(event.currentTarget);
-    if(data.get("username") === "") {
+    if(values.username === "") {
       setError(1);
       setErrorMessage("Please enter username!");
       setType("warning");
@@ -141,8 +140,8 @@ export default function SignInSide({ history }) {
   };
   const handleAnswer = (event) => {
     //send the answer to the back end and show the result
-    const data = new FormData(event.currentTarget);
-    if(data.get("username") === "") {
+  
+    if(values.username === "") {
       setError(1);
       setErrorMessage("Please enter username!");
       setType("warning");
@@ -160,7 +159,7 @@ export default function SignInSide({ history }) {
       `http://localhost:8082/api/auth/validate-answer/${values.username}`,
       requestOptions
     )
-      .then((response) => response.text())
+      .then((response) => response.json())
       .then((data) => {
         
         console.log(data);
@@ -176,9 +175,15 @@ export default function SignInSide({ history }) {
           setErrorMessage("Wrong password!!");
           setType("warning");
           
+        }else if (data.statusCode === -3) {
+          //wrong password
+          setError(1);
+          setErrorMessage("Wrong Answer!!");
+          setType("error");
+          
         } else {
           var session = {
-            userName: data.get("username"), Id: data.userId, role: data.role, cart: []
+            userName: values.username, Id: data.userId, role: data.role, cart: []
           };
           console.log(session);
           ReactSession.set("user", session);
@@ -311,7 +316,7 @@ export default function SignInSide({ history }) {
                   onChange={handleChangeAnswer}
                 />
               )}
-              {forgetPassword && <Button onClick={handleAnswer}>OK</Button>}
+              {forgetPassword && <Button type="submit" onClick={handleAnswer}>OK</Button>}
               <Button
                 type="submit"
                 fullWidth

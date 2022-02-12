@@ -108,7 +108,7 @@ export default function SignUp({ history }) {
               setType("error");
             } else {
               var session = {
-                userName: data.userName,
+                userName: data.get("username"),
                 Id: res.userId,
                 role: res.role,
                 cart: []

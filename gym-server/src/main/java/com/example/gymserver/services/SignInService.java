@@ -59,11 +59,12 @@ public class SignInService {
     public UserIdDTO validateAnswer(String userName, String answer){
         User user = userRepository.findUserByUserName(userName).orElse(null);
         UserIdDTO userIdDTO = new UserIdDTO();
+        userIdDTO.setRole(user.getRole());
         if( user == null )
             userIdDTO.setStatusCode(UserService.WRONG_USERNAME_STATUS_CODE);
         if(answer.equalsIgnoreCase(user.getAnswer())){
             userIdDTO.setUserId(user.getId());
-            userIdDTO.setRole(user.getRole());
+            System.out.println("helloo");
         }
         else
             userIdDTO.setStatusCode(UserService.WRONG_ANSWER_STATUS_CODE);
