@@ -86,7 +86,7 @@ export default function ShopCard({Element}) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-         {/* {loading == true && (
+         {loading == true && (
         <Button
           onClick={() => handleRemoveFromCart(!loading)}
           variant="outlined"
@@ -94,7 +94,7 @@ export default function ShopCard({Element}) {
         >
           Remove from cart
         </Button>
-      )} */}
+      )}
       {loading == false && (
         <Button
           onClick={() => handleAddToCart(!loading)}
